@@ -1537,7 +1537,8 @@ kbd {
 }
 
 .schedule-time {
-  min-width: 78px;
+  flex: 0 0 5ch;
+  white-space: nowrap;
   color: var(--accent);
   font-size: calc(19px * var(--font-scale));
   font-variant-numeric: tabular-nums;
@@ -2174,7 +2175,6 @@ dialog::backdrop {
   }
   .schedule-time {
     font-size: calc(16px * var(--font-scale));
-    min-width: 66px;
   }
 }
 
