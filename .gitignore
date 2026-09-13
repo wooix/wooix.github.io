@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.env
+.env.*
+!.env.example
+artifacts/
+session_report_temp.md
+*.log
+.omc/
+.editorial/

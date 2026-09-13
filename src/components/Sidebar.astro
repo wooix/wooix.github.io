@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { topics } from '../data/topics';
+import { getPosts, noteUrl } from '../lib/posts';
+interface Props { activeTopic?: string; }
+const { activeTopic } = Astro.props;
+const posts = await getPosts();
+const path = Astro.url.pathname;
+---
+<div class="sidebar-inner">
+  <div class="sidebar-title"><Icon name="book" size={17} /><span>연구 노트</span><span class="version">v1.0</span></div>
+  <nav aria-label="주제별 탐색">
+    <a class:list={['nav-overview', { active: path === '/' }]} href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="grid" size={16} />전체 둘러보기</a>
+    <p class="nav-section-label">RESEARCH TOPICS</p>
+    <ul class="topic-navigation">
+      {topics.map((topic) => {
+        const entries = posts.filter((post) => post.data.topic === topic.id);
+        return <li>
+          <a href={`/topics/${topic.id}/`} class:list={['topic-nav-link', { active: activeTopic === topic.id }]} aria-current={path === `/topics/${topic.id}/` ? 'page' : undefined}>
+            <span>{topic.label}</span><span class="nav-count">{entries.length.toString().padStart(2, '0')}</span>
+          </a>
+          {activeTopic === topic.id && entries.length > 0 && <ul class="nav-children">{entries.slice(0, 3).map((post) => <li><a href={noteUrl(post)} class:list={{ current: path === noteUrl(post) }} aria-current={path === noteUrl(post) ? 'page' : undefined}>{post.data.title}</a></li>)}</ul>}
+        </li>;
+      })}
+    </ul>
+    <p class="nav-section-label library-label">LIBRARY</p>
+    <a class:list={['nav-library', { active: path === '/daily/' }]} href="/daily/" aria-current={path === '/daily/' ? 'page' : undefined}><Icon name="clock" size={16} />데일리 안내</a>
+    <a class:list={['nav-library', { active: path === '/archive/' }]} href="/archive/" aria-current={path === '/archive/' ? 'page' : undefined}><Icon name="list" size={16} />전체 아카이브<span class="nav-count">{posts.length.toString().padStart(2, '0')}</span></a>
+    <a class="nav-library" href="/archive/?kind=milestone"><Icon name="spark" size={16} />Milestone 논문</a>
+    <a class:list={['nav-library', { active: path === '/about/' }]} href="/about/" aria-current={path === '/about/' ? 'page' : undefined}><Icon name="info" size={16} />이 노트에 대하여</a>
+  </nav>
+  <div class="sidebar-bottom"><span class="small-label">READ. CONNECT. UNDERSTAND.</span><p>매일의 발견을,<br/>오래 남을 이해로.</p><a href="/rss.xml"><Icon name="rss" size={14} />RSS 구독<Icon name="external" size={12} /></a></div>
+</div>

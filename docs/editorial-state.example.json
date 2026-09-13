@@ -1,0 +1,20 @@
+{
+  "exampleOnly": true,
+  "localDate": "YYYY-MM-DD",
+  "timezone": "Asia/Seoul",
+  "status": "pending",
+  "digestId": null,
+  "digestDeliveredAt": null,
+  "lastResponseCheckAt": null,
+  "responseLookupStatus": "not-configured",
+  "hasAnyUserResponse": null,
+  "selectedItemId": null,
+  "selectionSource": null,
+  "publicationKey": "YYYY-MM-DD:publication",
+  "lock": null,
+  "articleSlug": null,
+  "gitRevision": null,
+  "publishedUrl": null,
+  "publishedAt": null,
+  "lastError": null
+}

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostRow from '../../components/PostRow.astro';
+import Icon from '../../components/Icon.astro';
+import { topics } from '../../data/topics';
+import { getPosts } from '../../lib/posts';
+export function getStaticPaths() { return topics.map((topic) => ({ params: { slug: topic.id }, props: { topic } })); }
+const { topic } = Astro.props;
+const posts = (await getPosts()).filter((post) => post.data.topic === topic.id);
+const headings = [{ depth: 2, slug: 'research-scope', text: '함께 살펴볼 질문' }, { depth: 2, slug: 'topic-notes', text: '이 분야의 노트' }, { depth: 2, slug: 'explore-next', text: '다른 분야 둘러보기' }];
+---
+<BaseLayout title={topic.label} description={topic.description} activeTopic={topic.id} headings={headings}>
+  <nav class="breadcrumb" aria-label="현재 위치"><a href="/">연구 노트</a><span>/</span><span>{topic.label}</span></nav>
+  <header class="page-heading"><p class="eyebrow"><span></span>{topic.english.toUpperCase()}</p><h1>{topic.label}</h1><p>{topic.description}</p></header>
+  {topic.status && <span class="status-badge">{topic.status}</span>}
+  <div class="topic-question">{topic.question}</div>
+  <section id="research-scope"><div class="section-heading"><h2>함께 살펴볼 질문</h2><span class="small-label">RESEARCH SCOPE</span></div><ul class="scope-list">{topic.scopes.map((scope, i) => <li><span>0{i + 1}</span>{scope}</li>)}</ul></section>
+  <section id="topic-notes" class="home-section"><div class="section-heading"><h2>이 분야의 노트 <span class="section-count">{posts.length.toString().padStart(2, '0')}</span></h2></div>{posts.length ? <div class="post-list">{posts.map((post) => <PostRow post={post} />)}</div> : <div class="empty-notes"><h3>첫 노트를 준비하는 중입니다.</h3><p>위 질문을 출발점으로 원문을 검토하고, 읽을 만한 연구를 연결하겠습니다. 지금은 다른 분야의 기초 논문부터 함께 읽어보세요.</p><a href="/archive/">기록된 노트 둘러보기<Icon name="arrow" size={15} /></a></div>}</section>
+  <section id="explore-next" class="home-section"><div class="section-heading"><h2>다른 분야 둘러보기</h2></div><div class="topic-grid">{topics.filter((entry) => entry.id !== topic.id).map((entry) => <a href={`/topics/${entry.id}/`} class="topic-tile"><div><h3>{entry.label}</h3><p>{entry.english}</p></div><Icon name="arrow" size={15} /></a>)}</div></section>
+</BaseLayout>

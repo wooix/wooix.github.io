@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "status": "planned",
+  "description": "편집 운영 계획입니다. 이 파일만으로 예약 조사, 응답 조회 또는 자동 발행이 실행되지 않습니다.",
+  "timezone": "Asia/Seoul",
+  "schedule": {
+    "digestAt": "07:00",
+    "fallbackAt": "12:00"
+  },
+  "delivery": {
+    "status": "pending",
+    "channel": null,
+    "selectionChannel": "current-conversation-or-future-configured-channel",
+    "executionEnvironment": null,
+    "responseLookupConfigured": false
+  },
+  "digest": {
+    "minItems": 5,
+    "maxItems": 7,
+    "primarySourcesRequired": true,
+    "sourceKinds": ["paper", "official-research-blog", "official-technical-report", "author-repository"],
+    "separateOriginalPublicationDateFromRevision": true,
+    "deduplicateByCanonicalSource": true,
+    "onInsufficientVerifiedSources": "report-shortfall-without-fabricating-items",
+    "requiredItemFields": ["id", "title", "topic", "canonicalUrl", "sourcePublishedAt", "checkedAt", "summary", "whyItMatters", "evidenceLimitations", "rankScore", "rankReason"]
+  },
+  "ranking": {
+    "relevanceMax": 40,
+    "evidenceMax": 30,
+    "impactMax": 20,
+    "recencyMax": 10,
+    "tieBreak": ["evidence", "sourcePublishedAt-desc", "canonicalUrl-asc"],
+    "note": "이슈 우선순위는 검증된 근거·관심사 관련성·영향·시의성의 편집 판단이며 객관적인 전 세계 인기 순위가 아닙니다."
+  },
+  "publication": {
+    "selectedTopic": "write-after-user-selection",
+    "fallbackRequiresNoUserResponseAtAll": true,
+    "fallbackMaxPostsPerLocalDate": 1,
+    "fallbackCandidate": "highest-ranked-verified-unpublished-item",
+    "recheckResponseImmediatelyBeforePublish": true,
+    "onUnknownResponseState": "defer-and-record-error",
+    "onAnyAmbiguousResponse": "hold-fallback-and-resolve-selection",
+    "requireSuccessfulCheckAndBuild": true,
+    "idempotencyKey": "localDate:publication",
+    "stateDirectory": ".editorial/state",
+    "digestDirectory": ".editorial/digests",
+    "privateStateMustNotBeCommitted": true
+  },
+  "language": {
+    "primary": "ko",
+    "terminologyOrder": "English(한국어)",
+    "repeatImportantTerms": true,
+    "expandAbbreviationsOnFirstUse": true,
+    "preserveOriginalPaperTitles": true
+  },
+  "topics": [
+    { "id": "llm-trends", "label": "LLM 동향", "keywords": ["LLM development", "model releases", "research trends"] },
+    { "id": "llm-tech", "label": "LLM 기술", "keywords": ["architecture", "training", "inference", "retrieval", "evaluation"] },
+    { "id": "finject", "label": "FInject 후속", "keywords": ["financial numerical reasoning", "unanswerability", "evidence grounding", "robustness"] },
+    { "id": "alignment", "label": "Alignment", "keywords": ["preference optimization", "RLHF", "DPO", "alignment evaluation"] },
+    { "id": "steering", "label": "Steering", "keywords": ["activation steering", "representation engineering", "behavior control"] },
+    { "id": "slm-hardware", "label": "SLM 하드웨어", "keywords": ["on-device inference", "quantization", "memory bandwidth", "CPU", "GPU", "NPU"] },
+    { "id": "slm-performance", "label": "SLM 성능", "keywords": ["knowledge distillation", "data quality", "post-training", "efficient reasoning"] }
+  ],
+  "finject": {
+    "title": "FInject: Expanding Finance Reasoning Problems through Injection of Unanswerability",
+    "publicRepository": "https://github.com/pnu-clink/finject",
+    "publicDataset": "https://huggingface.co/datasets/pnu-clink/finject",
+    "sourceStatus": "public-manuscript-and-dataset",
+    "venuePublicationVerified": false,
+    "privateResearchPlansAllowed": false
+  }
+}

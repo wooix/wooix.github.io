@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Toc, { type Heading } from '../components/Toc.astro';
+interface Props { title: string; description?: string; headings?: Heading[]; activeTopic?: string; article?: boolean; noindex?: boolean; }
+const { title, description = 'LLM의 발전, Alignment(정렬), Steering(조향), SLM(소형 언어 모델)을 함께 읽고 연결하는 개인 연구 노트.', headings = [], activeTopic, article = false, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = title === '연구 노트' ? 'Wooix AI Notes — AI의 흐름을 읽는 연구 노트' : `${title} | Wooix AI Notes`;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title><meta name="description" content={description} />
+    <meta name="author" content="wooix" /><link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content={article ? 'article' : 'website'} /><meta property="og:title" content={pageTitle} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:locale" content="ko_KR" /><meta property="og:site_name" content="Wooix AI Notes" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" /><link rel="alternate" type="application/rss+xml" title="Wooix AI Notes" href="/rss.xml" />
+    <meta name="theme-color" content="#fcfcfb" />
+    <script is:inline>try { const stored = localStorage.getItem('wooix-theme'); document.documentElement.dataset.theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }</script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+    <header class="site-header" data-pagefind-ignore>
+      <div class="header-brand"><button class="icon-button mobile-menu-button" aria-label="탐색 메뉴 열기" data-open-dialog="nav-dialog"><Icon name="menu" /></button><a href="/" class="brand" aria-label="Wooix AI Notes 홈"><span class="brand-symbol"><i></i><i></i><i></i></span><span>Wooix <strong>AI Notes</strong></span></a></div>
+      <nav class="top-navigation" aria-label="주 메뉴"><a href="/" class:list={{ selected: path === '/' || path.startsWith('/notes') || path.startsWith('/topics') }}>연구 노트</a><a href="/daily/" class:list={{ selected: path === '/daily/' }}>데일리</a><a href="/archive/" class:list={{ selected: path === '/archive/' }}>아카이브</a><a href="/about/" class:list={{ selected: path === '/about/' }}>소개</a></nav>
+      <div class="header-actions"><button class="search-trigger" data-open-dialog="search-dialog" aria-label="연구 노트 검색"><Icon name="search" size={17} /><span>노트와 키워드 검색</span><kbd>⌘ K</kbd></button><span class="header-divider"></span><button class="icon-button theme-toggle" aria-label="어두운 테마로 전환" title="테마 전환"><Icon name="sun" class="theme-sun" /><Icon name="moon" class="theme-moon" /></button><a class="icon-button header-rss" href="/rss.xml" aria-label="RSS 구독"><Icon name="rss" size={17} /></a></div>
+    </header>
+    <aside class="desktop-sidebar" data-pagefind-ignore><Sidebar activeTopic={activeTopic} /></aside>
+    <div class="page-shell">
+      <main id="main-content" tabindex="-1" class:list={['main-column', { 'article-column': article }]}><div class="content-width"><slot /><footer class="page-footer" data-pagefind-ignore><span>© {new Date().getFullYear()} wooix</span><span>작은 기록, 깊어지는 이해.</span><a href="/about/">읽기와 기록의 원칙<Icon name="arrow" size={13} /></a></footer></div></main>
+      <aside class="desktop-toc" data-pagefind-ignore><div class="toc-sticky"><Toc headings={headings} /><div class="toc-note"><span class="small-label">A NOTE ON READING</span><p>원문의 언어를 살리고,<br/>이해의 맥락을 더합니다.</p><span class="term-example">Alignment<span>(정렬)</span></span></div><a class="toc-feed" href="/rss.xml"><Icon name="rss" size={14} />새 노트 받아보기<Icon name="external" size={12} /></a><a class="back-to-top" href="#main-content">맨 위로 ↑</a></div></aside>
+    </div>
+    {headings.length > 0 && <button class="mobile-toc-button" data-open-dialog="toc-dialog"><Icon name="list" size={16} />목차</button>}
+    <dialog id="nav-dialog" class="drawer-dialog nav-dialog" aria-label="탐색 메뉴"><button class="dialog-close icon-button" data-close-dialog aria-label="메뉴 닫기"><Icon name="close" /></button><Sidebar activeTopic={activeTopic} /></dialog>
+    <dialog id="toc-dialog" class="drawer-dialog toc-dialog" aria-label="페이지 목차"><button class="dialog-close icon-button" data-close-dialog aria-label="목차 닫기"><Icon name="close" /></button><Toc headings={headings} /></dialog>
+    <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title"><div class="search-dialog-top"><h2 id="search-title">연구 노트 검색</h2><button class="icon-button" data-close-dialog aria-label="검색 닫기"><Icon name="close" /></button></div><div class="search-input-wrap"><Icon name="search" size={21} /><input id="search-input" type="search" placeholder="DPO, 정렬, 양자화…" aria-label="검색어" autocomplete="off" autofocus /></div><div class="search-results" id="search-results" aria-live="polite"><p class="search-message">궁금한 개념이나 논문 이름으로 찾아보세요.<br/><span>영어와 한국어 모두 검색할 수 있습니다.</span></p></div><div class="search-dialog-bottom"><span><kbd>Tab</kbd> 결과 이동 <kbd>Enter</kbd> 열기</span><span><kbd>Esc</kbd> 닫기 · Pagefind</span></div></dialog>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

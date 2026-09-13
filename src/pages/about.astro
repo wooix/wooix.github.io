@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const headings = [{ depth: 2, slug: 'why-notes', text: '이 노트를 쓰는 이유' }, { depth: 2, slug: 'language-policy', text: '용어를 읽는 방식' }, { depth: 2, slug: 'editorial-policy', text: '기록의 원칙' }, { depth: 2, slug: 'reading-flow', text: '논문을 읽는 순서' }, { depth: 2, slug: 'daily-plan', text: '매일의 읽기' }];
+---
+<BaseLayout title="이 노트에 대하여" headings={headings}>
+  <div class="breadcrumb"><a href="/">연구 노트</a><span>/</span><span>소개</span></div>
+  <header class="page-heading"><p class="eyebrow"><span></span>ABOUT THIS NOTEBOOK</p><h1>읽은 것을,<br/>이해한 것으로 남기기.</h1><p>빠르게 변하는 AI 연구를 천천히, 깊게 이해하기 위한 공간입니다.</p><div class="about-signature"><span class="author-avatar">w</span><div><strong>wooix</strong><span>AI를 읽고 연구하며 기록합니다.</span></div></div></header>
+  <div class="prose about-prose">
+    <h2 id="why-notes">이 노트를 쓰는 이유</h2><p>책에 밑줄을 그을 때는 이해한 듯하지만, 책을 덮고 설명하려면 말문이 막히곤 합니다. 논문도 그렇습니다. 이곳은 읽은 연구를 자신의 말로 다시 설명하고, 다음 질문과 연결하는 개인 연구 노트입니다.</p><p>LLM(Large Language Model, 대규모 언어 모델)의 변화, Alignment(정렬)와 Steering(조향), SLM(Small Language Model, 소형 언어 모델)의 성능과 하드웨어 실행을 중심으로 읽습니다. FInject 후속 연구에 도움이 되는 금융 추론과 답변 가능성 관련 문헌도 함께 기록합니다.</p>
+    <h2 id="language-policy">용어를 읽는 방식</h2><p><strong>중요한 용어는 영어(한글)로 반복해서 표기합니다.</strong> 한국어 설명을 통해 개념을 이해하면서 원문의 영어 표현도 자연스럽게 익히기 위해서입니다.</p><blockquote><p>Alignment(정렬)는 모델의 행동을 사람의 의도에 맞추는 과정입니다. Alignment(정렬)의 목표와 Steering(조향)의 개입 위치를 구분해서 읽어봅시다.</p></blockquote><p>약어는 처음에 전체 이름과 뜻을 적습니다. 예를 들어 DPO(Direct Preference Optimization, 직접 선호 최적화)처럼 풀어 쓴 뒤, 뒤에서도 DPO(직접 선호 최적화)로 의미를 덧붙입니다. 논문 제목, 고유명사와 코드 식별자는 원문을 보존합니다.</p>
+    <h2 id="editorial-policy">기록의 원칙</h2><ul><li><strong>원문에서 시작합니다.</strong> 논문, 저자의 연구 블로그, 공식 코드와 모델 문서를 우선 확인하고 글 아래 출처를 연결합니다.</li><li><strong>주장과 해석을 구분합니다.</strong> 연구팀이 보고한 결과, 글쓴이의 해석, 아직 확인되지 않은 추정을 섞지 않습니다.</li><li><strong>수치에는 조건을 붙입니다.</strong> Benchmark(평가 기준), Baseline(비교 기준), 모델 크기와 실행 조건을 함께 읽습니다.</li><li><strong>한계도 같은 무게로 다룹니다.</strong> 잘 작동한 조건뿐 아니라 일반화가 어려운 지점과 재현에 필요한 조건을 기록합니다.</li><li><strong>연구 단계와 날짜를 정확하게 적습니다.</strong> Preprint(사전 공개 논문)와 학회 출판을 구분하고, 원논문 발표일과 이 노트 작성일을 혼동하지 않습니다.</li><li><strong>이해가 바뀌면 수정합니다.</strong> 근거가 추가되거나 오류를 발견하면 본문과 수정일을 갱신합니다. AI 도구가 작성 보조에 사용될 수 있으며, 출처와 해석의 정확성을 검토하는 원칙은 같습니다.</li></ul>
+    <h2 id="reading-flow">논문을 읽는 순서</h2><ol><li><strong>핵심 질문과 결론.</strong> 어떤 문제를 풀었고, 우리가 기억할 한 문장은 무엇인지 먼저 정리합니다.</li><li><strong>작동 원리.</strong> 비유와 간단한 예시를 통해 Mechanism(작동 기제)을 따라갑니다.</li><li><strong>근거와 한계.</strong> 실험 결과를 읽고, 그 결과가 성립하는 조건을 확인합니다.</li><li><strong>다음 연구와 연결.</strong> 기존 Milestone(이정표 논문), 관련 분야, 새로 생긴 질문으로 넘어갑니다.</li></ol>
+    <h2 id="daily-plan">매일의 읽기</h2><p>매일 07:00에 후보 연구의 요약을 받고, 선택한 주제를 글로 발전시키는 읽기 흐름을 준비합니다. 12:00까지 응답이 없으면 그날의 주요 주제 한 편을 고르는 운영을 계획하고 있습니다.</p><p>현재는 <strong>예약 운영 준비 중</strong>입니다. 수신 채널과 자동화 실행 환경이 연결된 뒤 시작하며, 실제 운영 상태는 <a href="/daily/">데일리 안내</a>에서 확인할 수 있습니다.</p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { topics } from '../data/topics';
+import Icon from '../components/Icon.astro';
+const headings = [{ depth: 2, slug: 'daily-flow', text: '하루의 읽기 흐름' }, { depth: 2, slug: 'selection-policy', text: '연구를 고르는 기준' }, { depth: 2, slug: 'daily-topics', text: '관심 분야' }];
+---
+<BaseLayout title="데일리" headings={headings}>
+  <div class="breadcrumb"><a href="/">연구 노트</a><span>/</span><span>데일리</span></div>
+  <header class="page-heading"><p class="eyebrow"><span></span>DAILY RESEARCH BRIEF</p><h1>아침에는 넓게 읽고,<br/>한 편은 깊게 남깁니다.</h1><p>관심 분야의 논문과 연구 블로그를 살피고,<br/>더 읽고 싶은 주제를 골라 연구 노트로 연결합니다.</p></header>
+  <span class="status-badge">예약 운영 준비 중</span><p class="list-footnote">수신 채널과 자동화 실행 환경을 연결한 뒤 시작합니다. 아래 시간은 한국 표준시(KST) 기준입니다.</p>
+  <section class="home-section" id="daily-flow"><div class="section-heading"><h2>하루의 읽기 흐름</h2><span class="small-label">THE DAILY RHYTHM</span></div><div class="schedule-step"><span class="schedule-time">07:00</span><div><h3>새로운 연구를 짧게 만납니다.</h3><p>관심 분야에 맞는 최신 논문, Milestone(이정표 논문), 연구그룹 블로그를 살펴봅니다. 무엇이 달라졌는지, 왜 읽을 만한지, 원문은 어디인지 요약합니다.</p></div></div><div class="schedule-step"><span class="schedule-time">선택</span><div><h3>더 알고 싶은 주제를 고릅니다.</h3><p>요약을 읽고 관심 있는 항목과 궁금한 관점을 요청하면, 해당 연구를 읽기 쉬운 블로그 글로 발전시킵니다.</p></div></div><div class="schedule-step"><span class="schedule-time">12:00</span><div><h3>응답이 없으면 한 편을 고릅니다.</h3><p>응답이 없는 날에는 그날 후보 중 주목도와 연구 관련성이 가장 높은 주제 하나를 선정해 글로 등록하는 운영을 계획합니다. 질문이나 보류 응답이 있으면 자동 선택하지 않으며, 응답 조회 실패도 무응답으로 처리하지 않습니다. 출처가 충분하지 않은 후보는 발행하지 않습니다.</p></div></div></section>
+  <section class="prose" id="selection-policy"><h2>연구를 고르는 기준</h2><p>새로움만으로 고르지 않습니다. 연구 주제와의 관련성, 원문과 결과의 확인 가능성, 기존 연구와의 차이, 실제 이해에 도움이 되는지를 함께 봅니다. 출처의 발표일과 내용을 확인하고 반복되는 주제는 기존 노트의 맥락과 연결합니다.</p><p>현재 블로그의 기초 논문 노트는 최초 버전의 읽기 출발점입니다. 실제 수집·선정이 시작되기 전의 글을 오늘의 연구 동향으로 표시하지 않습니다.</p></section>
+  <section class="home-section" id="daily-topics"><div class="section-heading"><h2>관심 분야</h2></div><div class="topic-grid">{topics.map((topic) => <a class="topic-tile" href={`/topics/${topic.id}/`}><div><h3>{topic.label}</h3><p>{topic.english}</p></div><Icon name="arrow" size={15} /></a>)}</div></section>
+</BaseLayout>
