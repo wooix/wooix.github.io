@@ -1,4 +1,18 @@
 const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
+document.querySelectorAll<HTMLButtonElement>('[data-nav-disclosure]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const targetId = button.getAttribute('aria-controls');
+    const branch = targetId ? document.getElementById(targetId) : null;
+    if (!branch) return;
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    button.setAttribute('aria-label', `${button.dataset.navLabel} 하위 항목 ${expanded ? '접기' : '펼치기'}`);
+    if (!expanded && branch.contains(document.activeElement)) button.focus();
+    branch.hidden = !expanded;
+    const sign = button.querySelector('[data-nav-sign]');
+    if (sign) sign.textContent = expanded ? '−' : '+';
+  });
+});
 function updateThemeLabel() { themeButton?.setAttribute('aria-label', document.documentElement.dataset.theme === 'dark' ? '밝은 테마로 전환' : '어두운 테마로 전환'); }
 updateThemeLabel();
 themeButton?.addEventListener('click', () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('wooix-theme', theme); } catch {} updateThemeLabel(); });

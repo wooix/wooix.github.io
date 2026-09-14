@@ -1,10 +1,16 @@
 ---
 import Icon from './Icon.astro';
+import NavigationNode from './NavigationNode.astro';
+import { getCollection } from 'astro:content';
 import { topics } from '../data/topics';
-import { getPosts, noteUrl } from '../lib/posts';
-interface Props { activeTopic?: string; }
-const { activeTopic } = Astro.props;
+import { navigation } from '../data/navigation';
+import { resolveNavigation } from '../lib/navigation';
+import { getPosts } from '../lib/posts';
+interface Props { activeTopic?: string; idPrefix: string; }
+const { activeTopic, idPrefix } = Astro.props;
 const posts = await getPosts();
+const allPosts = await getCollection('posts');
+const navigationRoots = resolveNavigation({ topics, configuration: navigation, allPosts: allPosts.map((post) => ({ id: post.id, title: post.data.title, topic: post.data.topic })), publicPosts: posts });
 const path = Astro.url.pathname;
 ---
 <div class="sidebar-inner">
@@ -13,15 +19,7 @@ const path = Astro.url.pathname;
     <a class:list={['nav-overview', { active: path === '/' }]} href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="grid" size={16} />전체 둘러보기</a>
     <p class="nav-section-label">RESEARCH TOPICS</p>
     <ul class="topic-navigation">
-      {topics.map((topic) => {
-        const entries = posts.filter((post) => post.data.topic === topic.id);
-        return <li>
-          <a href={`/topics/${topic.id}/`} class:list={['topic-nav-link', { active: activeTopic === topic.id }]} aria-current={path === `/topics/${topic.id}/` ? 'page' : undefined}>
-            <span>{topic.label}</span><span class="nav-count">{entries.length.toString().padStart(2, '0')}</span>
-          </a>
-          {activeTopic === topic.id && entries.length > 0 && <ul class="nav-children">{entries.slice(0, 3).map((post) => <li><a href={noteUrl(post)} class:list={{ current: path === noteUrl(post) }} aria-current={path === noteUrl(post) ? 'page' : undefined}>{post.data.title}</a></li>)}</ul>}
-        </li>;
-      })}
+      {navigationRoots.map((node) => <NavigationNode node={node} idPrefix={idPrefix} activeTopic={activeTopic} />)}
     </ul>
     <p class="nav-section-label library-label">LIBRARY</p>
     <a class:list={['nav-library', { active: path === '/daily/' }]} href="/daily/" aria-current={path === '/daily/' ? 'page' : undefined}><Icon name="clock" size={16} />데일리 안내</a>
