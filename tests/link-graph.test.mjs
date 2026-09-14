@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeNoteLink, currentGraphPostId, getBacklinks } from '../src/lib/link-graph.ts';
 import { buildLinkGraph, extractBodyLinks } from '../src/lib/link-graph-source.ts';
-import { layoutGraph } from '../src/lib/link-graph-layout.ts';
+import { quartzVisualLinks, quartzNodeRadius, quartzNeighbours } from '../src/lib/quartz-graph-model.ts';
 
 const post = (id, html = '', topic = 'llm-tech') => ({ id, title: `${id} title`, topic, html });
 const link = (id) => `<a href="/notes/${id}/">${id}</a>`;
@@ -69,13 +69,27 @@ test('non-note pages and absent current notes have an honest empty backlink view
   assert.deepEqual(getBacklinks(graph, 'missing'), { nodes: [], edges: [] });
 });
 
-test('layout preserves isolated notes, produces deterministic finite positions, and handles empty/single data', () => {
-  const layout = layoutGraph(graph, 300, 220);
-  assert.deepEqual(layoutGraph(graph, 300, 220), layout);
-  assert.deepEqual(layout.map((node) => node.id).sort(), graph.nodes.map((node) => node.id).sort());
-  for (const node of layout) assert.ok(Number.isFinite(node.x) && Number.isFinite(node.y) && node.x >= 0 && node.x <= 300 && node.y >= 0 && node.y <= 220);
-  assert.deepEqual(layoutGraph({ nodes: [], edges: [] }), []);
-  assert.deepEqual(layoutGraph(buildLinkGraph([post('single')]), 300, 220), [{ id: 'single', x: 150, y: 110 }]);
-  const large = buildLinkGraph(Array.from({ length: 200 }, (_, i) => post(`note-${i}`)));
-  assert.equal(layoutGraph(large, NaN, Infinity).filter((node) => Number.isFinite(node.x) && Number.isFinite(node.y)).length, 200);
+test('Quartz visual lines merge reciprocal directions without changing public directed edges', () => {
+  const input = buildLinkGraph([post('a', link('b')), post('b', link('a')), post('isolated')]);
+  const snapshot = structuredClone(input);
+  const visual = quartzVisualLinks(input);
+  assert.equal(visual.length, 1);
+  assert.equal(visual[0].directions.length, 2);
+  assert.deepEqual(input, snapshot);
+  assert.equal(input.nodes.length, 3);
+});
+
+test('Quartz node radius uses incoming degree, preserving zero-degree isolated notes', () => {
+  assert.ok(quartzNodeRadius(graph, 'b') > quartzNodeRadius(graph, 'd'));
+  assert.ok(quartzNodeRadius(graph, 'd') > quartzNodeRadius(graph, 'isolated'));
+  assert.equal(quartzNodeRadius(graph, 'isolated'), 2);
+  assert.equal(quartzNodeRadius(graph, 'b', 2), quartzNodeRadius(graph, 'b') * 2);
+});
+
+test('Quartz hover highlights exactly one hop without altering backlink direction', () => {
+  assert.deepEqual([...quartzNeighbours(graph, 'b')].sort(), ['a', 'b', 'c', 'd']);
+  assert.deepEqual([...quartzNeighbours(graph, 'isolated')], ['isolated']);
+  assert.equal(quartzNeighbours(graph, null).size, 0);
+  assert.deepEqual(getBacklinks(graph, 'b').edges, [{ source: 'a', target: 'b' }, { source: 'c', target: 'b' }]);
+  assert.deepEqual(quartzVisualLinks({ nodes: [], edges: [] }), []);
 });

@@ -1,23 +1,38 @@
 ---
 import { graphTopics } from '../data/graph-topics';
-interface Props { prefix: string; }
-const { prefix } = Astro.props;
+interface Props { prefix: string; initialMode: 'global' | 'backlinks'; }
+const { prefix, initialMode } = Astro.props;
 ---
 <div class="graph-view" data-graph-view data-graph-prefix={prefix}>
   <div class="graph-tabs" role="tablist" aria-label="글 연결 보기">
-    <button type="button" id={`${prefix}-global`} role="tab" aria-selected="true" aria-controls={`${prefix}-content`} data-graph-mode="global">전체 그래프</button>
-    <button type="button" id={`${prefix}-backlinks`} role="tab" aria-selected="false" aria-controls={`${prefix}-content`} tabindex="-1" data-graph-mode="backlinks">Backlinks<span>(역방향 링크)</span></button>
+    <button type="button" id={`${prefix}-backlinks`} role="tab" aria-selected={initialMode === 'backlinks'} aria-controls={`${prefix}-content`} tabindex={initialMode === 'backlinks' ? 0 : -1} data-graph-mode="backlinks">Backlinks<span>(역방향 링크)</span></button>
+    <button type="button" id={`${prefix}-global`} role="tab" aria-selected={initialMode === 'global'} aria-controls={`${prefix}-content`} tabindex={initialMode === 'global' ? 0 : -1} data-graph-mode="global">전체 그래프</button>
   </div>
-  <div class="graph-content" id={`${prefix}-content`} role="tabpanel" aria-labelledby={`${prefix}-global`}>
-    <p class="graph-status" data-graph-status aria-live="polite">글의 연결을 준비하고 있습니다.</p>
+  <div class="graph-content" id={`${prefix}-content`} role="tabpanel" aria-labelledby={`${prefix}-${initialMode}`}>
     <div class="graph-stage" data-graph-stage>
-      <svg class="graph-canvas" data-graph-canvas aria-label="글의 연결 그래프"></svg>
+      <div class="graph-renderer" data-graph-renderer></div>
       <p class="graph-empty" data-graph-empty hidden></p>
+      <p class="graph-node-detail" data-graph-detail aria-live="polite" hidden></p>
     </div>
-    <div class="graph-tools" aria-label="그래프 보기 조절"><button type="button" data-graph-zoom="in" aria-label="그래프 확대">+</button><button type="button" data-graph-zoom="out" aria-label="그래프 축소">−</button><button type="button" data-graph-reset>원위치</button><output data-graph-scale aria-label="확대 비율">100%</output></div>
-    <p class="graph-node-detail" data-graph-detail>노드에 마우스를 올리거나 키보드로 선택하면 전체 제목을 볼 수 있습니다.</p>
-    <ul class="graph-legend" aria-label="연구 분야 색상">{graphTopics.map((topic) => <li style={`--topic-color: ${topic.color}; --topic-color-dark: ${topic.darkColor}`}><span class="graph-topic-dot" aria-hidden="true"></span>{topic.label}</li>)}</ul>
-    <p class="graph-direction-note">화살표: 링크를 건 글 → 연결된 글 · 빈 공간을 드래그해 이동</p>
-    <details class="graph-list" data-graph-list><summary>글 목록 <span data-graph-list-count></span></summary><ul data-graph-node-list></ul></details>
+    <div class="graph-tools" aria-label="그래프 보기 조절">
+      <span class="graph-status" data-graph-status aria-live="polite">글 연결</span>
+      <button type="button" data-graph-zoom="in" aria-label="그래프 확대">+</button><button type="button" data-graph-zoom="out" aria-label="그래프 축소">−</button><button type="button" data-graph-reset aria-label="그래프 원위치">↺</button>
+      <button type="button" class="graph-settings-toggle" data-graph-settings-toggle aria-expanded="false" aria-controls={`${prefix}-settings`}>설정</button>
+    </div>
+    <div class="graph-settings" id={`${prefix}-settings`} data-graph-settings hidden>
+      <div class="graph-settings-heading"><strong>보기 설정</strong><output data-graph-scale aria-label="확대 비율">100%</output></div>
+      <div class="graph-display-options"><label><input type="checkbox" data-setting="arrows" /> 방향 화살표</label><label><input type="checkbox" data-setting="fade" checked /> 확대할 때 제목 표시</label></div>
+      <label class="graph-slider">노드 크기<input type="range" min="0.75" max="2" step="0.25" value="1.25" data-setting="nodeSize" /></label>
+      <label class="graph-slider">선 굵기<input type="range" min="0.5" max="2" step="0.1" value="0.8" data-setting="linkWidth" /></label>
+      <details class="graph-forces"><summary>Forces(힘 조절)</summary>
+        <label class="graph-slider">중심으로 모으기<input type="range" min="0" max="1" step="0.05" value="0.2" data-setting="center" /></label>
+        <label class="graph-slider">밀어내기<input type="range" min="0.1" max="2" step="0.1" value="0.75" data-setting="repel" /></label>
+        <label class="graph-slider">연결 거리<input type="range" min="20" max="140" step="5" value="70" data-setting="distance" /></label>
+      </details>
+      <ul class="graph-legend" aria-label="연구 분야 색상">{graphTopics.map((topic) => <li style={`--topic-color: ${topic.color}; --topic-color-dark: ${topic.darkColor}`}><span class="graph-topic-dot" aria-hidden="true"></span>{topic.label}</li>)}</ul>
+      <p class="graph-direction-note">드래그로 노드 이동 · 빈 공간으로 화면 이동 · 휠이나 두 손가락으로 확대</p>
+      <details class="graph-list" data-graph-list><summary>글 목록 <span data-graph-list-count></span></summary><ul data-graph-node-list></ul></details>
+      <p class="graph-credit"><a href="https://github.com/quartz-community/graph/tree/411971434ab698c495dfc42870eb02d3bc539b3a" target="_blank" rel="noreferrer">Quartz Graph</a> · <a href="/licenses/quartz-graph-MIT.txt" target="_blank" rel="noreferrer">MIT</a></p>
+    </div>
   </div>
 </div>

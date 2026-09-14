@@ -12,11 +12,11 @@ const payload = JSON.stringify({ graph, currentId, topics: graphTopics }).replac
   <button type="button" class="graph-launcher" id="graph-launcher" aria-expanded="false" aria-controls="graph-panel"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m7 7 10 3M7 7l4 11m6-8-6 8"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="10" r="3"/><circle cx="11" cy="19" r="3"/></svg><span>글 연결</span></button>
   <aside id="graph-panel" class="graph-panel" aria-labelledby="graph-panel-title" hidden>
     <div class="graph-header"><h2 id="graph-panel-title">글의 연결</h2><div><button type="button" class="graph-expand" data-open-dialog="graph-fullscreen" id="graph-expand">크게 보기 ↗</button><button type="button" class="graph-close" id="graph-panel-close" aria-label="글 연결 패널 닫기">×</button></div></div>
-    <GraphView prefix="panel" />
+    <GraphView prefix="panel" initialMode={currentId ? 'backlinks' : 'global'} />
   </aside>
   <dialog class="graph-fullscreen" id="graph-fullscreen" aria-labelledby="graph-fullscreen-title">
     <div class="graph-header"><h2 id="graph-fullscreen-title">글의 연결 <span>GRAPH VIEW</span></h2><button type="button" class="graph-close" data-close-dialog aria-label="전체 화면 그래프 닫기">×</button></div>
-    <GraphView prefix="fullscreen" />
+    <GraphView prefix="fullscreen" initialMode={currentId ? 'backlinks' : 'global'} />
   </dialog>
   <script is:inline id="link-graph-data" type="application/json" set:html={payload}></script>
 </div>
