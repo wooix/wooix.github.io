@@ -11,31 +11,33 @@ draft: false
 navLabel: '1강 · 역사와 학습 신호'
 sourceLinks:
   - title: 'Long et al. — On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation: A Survey (ACL Findings 2024)'
-    url: 'https://aclanthology.org/2024.findings-acl.658/'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/long-2024/'
     kind: '기본 서베이'
   - title: 'Nadaș et al. — Synthetic Data Generation Using Large Language Models: Advances in Text and Code (2025)'
-    url: 'https://doi.org/10.1109/ACCESS.2025.3589503'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/nadas-2025/'
     kind: '기본 서베이'
   - title: 'Zhang et al. — A Survey on Evaluating Quality and Trustworthiness in LLM-Generated Data (v3, 2026)'
-    url: 'https://arxiv.org/abs/2601.17717v3'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/zhang-2026/'
     kind: '후속 강의 서베이'
   - title: 'Wang et al. — Self-Instruct: Aligning Language Models with Self-Generated Instructions (ACL 2023)'
-    url: 'https://arxiv.org/html/2212.10560v2'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/wang-2023/'
     kind: '대표 논문'
   - title: 'Sennrich et al. — Improving Neural Machine Translation Models with Monolingual Data (ACL 2016)'
-    url: 'https://aclanthology.org/P16-1009/'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/sennrich-2016/'
     kind: '역사적 연결'
   - title: 'Wei and Zou — EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks (2019)'
-    url: 'https://aclanthology.org/D19-1670/'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/wei-2019/'
     kind: '역사적 연결'
   - title: 'Hinton et al. — Distilling the Knowledge in a Neural Network (2015)'
-    url: 'https://arxiv.org/abs/1503.02531'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/hinton-2015/'
     kind: '개념 비교'
   - title: 'Chawla et al. — SMOTE: Synthetic Minority Over-sampling Technique (JAIR 2002)'
-    url: 'https://doi.org/10.1613/jair.953'
+    url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/chawla-2002/'
     kind: '역사적 연결'
 takeaway: 'Synthetic Data(합성 데이터)는 모델에 필요한 학습 경험을 설계하는 수단입니다. 생성량보다 무엇을 새로 만들었는지, 어떤 근거로 검증했는지, 실제 과제에서 도움이 되는지를 먼저 확인합니다.'
 ---
+
+[← 0. Introduction: 전체 1–6강 계획과 핵심 서베이 4편](/notes/synthetic-data-study/00-introduction/)
 
 ## Required Reading(필수 읽기 자료)
 
@@ -43,9 +45,9 @@ takeaway: 'Synthetic Data(합성 데이터)는 모델에 필요한 학습 경험
 
 | 자료 | 필수 읽기 범위 | 예상 시간 |
 | --- | --- | --- |
-| **[서베이 A — On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation (2024)](https://aclanthology.org/2024.findings-acl.658.pdf)** | §1–2와 Figure 2: 문제 정의·요구 조건·전체 과정 | 25~35분 |
-| **[서베이 B — Synthetic Data Generation Using Large Language Models: Advances in Text and Code (2025)](https://www.researchgate.net/publication/393726695_Synthetic_Data_Generation_Using_Large_Language_Models_Advances_in_Text_and_Code)** | §IV, Background and Motivation: 배경과 기존 증강 방법 | 20~30분 |
-| **[대표 논문 — Self-Instruct: Aligning Language Models with Self-Generated Instructions (ACL 2023, v2)](https://arxiv.org/html/2212.10560v2)** | §2와 Figure 2, §3–4의 데이터 통계·대표 평가: 생성·선별·학습·평가 | 40~60분 |
+| **[서베이 A — On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation (2024)](/notes/synthetic-data-study/01-foundations/papers/long-2024/)** | §1–2와 Figure 2: 문제 정의·요구 조건·전체 과정 | 25~35분 |
+| **[서베이 B — Synthetic Data Generation Using Large Language Models: Advances in Text and Code (2025)](/notes/synthetic-data-study/01-foundations/papers/nadas-2025/)** | §IV, Background and Motivation: 배경과 기존 증강 방법 | 20~30분 |
+| **[대표 논문 — Self-Instruct: Aligning Language Models with Self-Generated Instructions (ACL 2023, v2)](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)** | §2와 Figure 2, §3–4의 데이터 통계·대표 평가: 생성·선별·학습·평가 | 40~60분 |
 
 > 서베이 B는 서론의 구성 안내보다 실제 본문의 **§IV Background and Motivation** 제목을 기준으로 찾으세요. 선택 읽기와 원문을 읽으며 남길 질문은 아래 Reading Guide(읽기 안내)에 정리했습니다.
 
@@ -112,7 +114,7 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 <strong>“인공적으로 생성했다”는 말과 “현실을 정확히 복제했다”는 말은 다릅니다.</strong> 안내 문서에서 드물지만 중요한 예외 질문을 더 많이 만들 수도 있습니다. 목표는 실제 빈도를 그대로 복제하는 것일 수도, 부족한 능력을 집중적으로 학습시키는 것일 수도 있습니다. 어느 쪽인지는 실험 전에 정해야 합니다.
 
-2024년 기본 서베이는 원천 예제나 입력을 활용해 생성하는 문제를 정의하고, 자동 주석도 특별한 형태의 생성으로 다룹니다. 그러므로 파일 전체에 “합성”이라는 이름만 붙이기보다, 어떤 필드가 실제 자료이고 어떤 필드가 모델 산출물인지 기록하는 것이 유용합니다. [서베이 A, §2.1](https://aclanthology.org/2024.findings-acl.658.pdf)
+2024년 기본 서베이는 원천 예제나 입력을 활용해 생성하는 문제를 정의하고, 자동 주석도 특별한 형태의 생성으로 다룹니다. 그러므로 파일 전체에 “합성”이라는 이름만 붙이기보다, 어떤 필드가 실제 자료이고 어떤 필드가 모델 산출물인지 기록하는 것이 유용합니다. [서베이 A, §2.1](/notes/synthetic-data-study/01-foundations/papers/long-2024/)
 
 | 접근 | 주로 바꾸는 것 | 도서관 사례에 적용하면 |
 | --- | --- | --- |
@@ -123,7 +125,7 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 이 표는 배타적인 분류표가 아닙니다. LLM이 질문을 바꿔 쓰는 작업은 Data Augmentation(데이터 증강)이면서 Synthetic Generation(합성 생성)입니다. 교사 모델이 만든 답으로 학생을 학습하면 Knowledge Distillation(지식 증류)과 합성 데이터 활용이 겹칩니다.
 
-반대로 Knowledge Distillation(지식 증류)은 기존 입력에서 교사가 내놓은 확률 분포만 전달할 수도 있으므로, 반드시 새 입력을 만드는 것은 아닙니다. 2015년 대표 논문은 Soft Targets(부드러운 목표 분포)를 통한 전달을 다룹니다. 오늘날 생성된 풀이 문장을 배우는 방식과 전달 신호를 구분해야 합니다. [Hinton et al., 2015](https://arxiv.org/abs/1503.02531)
+반대로 Knowledge Distillation(지식 증류)은 기존 입력에서 교사가 내놓은 확률 분포만 전달할 수도 있으므로, 반드시 새 입력을 만드는 것은 아닙니다. 2015년 대표 논문은 Soft Targets(부드러운 목표 분포)를 통한 전달을 다룹니다. 오늘날 생성된 풀이 문장을 배우는 방식과 전달 신호를 구분해야 합니다. [Hinton et al., 2015](/notes/synthetic-data-study/01-foundations/papers/hinton-2015/)
 
 <strong>외부 문서를 검색해서 응답에 활용하기만 했다면, 그것만으로 학습용 합성 데이터셋을 구축한 것은 아닙니다.</strong> 검색한 문서에서 문답을 생성·저장하고 학습에 사용하면, 검색은 합성 데이터 파이프라인의 근거 공급 단계가 됩니다.
 
@@ -139,19 +141,19 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 규칙으로 덧셈 문제를 만들면 출제자가 숫자 범위를 정하고 정답을 직접 계산할 수 있습니다. 가상 환경에서 물체 위치를 정하고 관측을 만들면, 환경의 내부 상태를 정답의 근거로 사용할 수 있습니다. 이는 생성 과정에 정답을 판정할 구조를 함께 넣는 방식입니다. 다만 가상 조건에서의 성공이 실제 환경의 성공을 보장하지는 않습니다.
 
-데이터의 특정 부분이 부족한 문제도 오래전부터 있었습니다. <strong>SMOTE(Synthetic Minority Over-sampling Technique, 합성 소수 클래스 과표집 기법)</strong>는 소수 클래스의 예제를 합성하는 대표적인 2002년 연구입니다. 이 연구가 겨냥한 문제는 클래스 불균형이며, 자연어 지시문을 따르는 범용 생성기가 아닙니다. [SMOTE, JAIR 2002](https://doi.org/10.1613/jair.953)
+데이터의 특정 부분이 부족한 문제도 오래전부터 있었습니다. <strong>SMOTE(Synthetic Minority Over-sampling Technique, 합성 소수 클래스 과표집 기법)</strong>는 소수 클래스의 예제를 합성하는 대표적인 2002년 연구입니다. 이 연구가 겨냥한 문제는 클래스 불균형이며, 자연어 지시문을 따르는 범용 생성기가 아닙니다. [SMOTE, JAIR 2002](/notes/synthetic-data-study/01-foundations/papers/chawla-2002/)
 
 이 사례에서 얻을 질문은 “원래 분포를 복사했는가?”보다 “어떤 부족을 보완했는가?”입니다. 도서관 질문의 대부분이 단순 대출 기간 문의여도, 조건부 연장 질문을 별도로 늘리는 학습 설계가 가능하다는 뜻입니다. 이 연결은 강의의 해석이며 SMOTE가 자연어 문답 생성을 검증했다는 의미는 아닙니다.
 
 ### Generative Models(생성 모델): 생성 규칙도 데이터에서 배우기
 
-수작업 규칙으로 복잡한 문장이나 이미지를 모두 만들기는 어렵습니다. Generative Model(생성 모델)은 관찰한 자료에서 생성에 필요한 패턴을 학습합니다. 2014년 GAN(Generative Adversarial Network, 생성적 적대 신경망)은 생성기와 판별기의 경쟁을 통해 분포를 학습하는 대표적인 이정표입니다. [Goodfellow et al., 2014](https://arxiv.org/abs/1406.2661)
+수작업 규칙으로 복잡한 문장이나 이미지를 모두 만들기는 어렵습니다. Generative Model(생성 모델)은 관찰한 자료에서 생성에 필요한 패턴을 학습합니다. 2014년 GAN(Generative Adversarial Network, 생성적 적대 신경망)은 생성기와 판별기의 경쟁을 통해 분포를 학습하는 대표적인 이정표입니다. [Goodfellow et al., 2014](/notes/synthetic-data-study/01-foundations/papers/goodfellow-2014/)
 
 출제자가 모든 규칙을 직접 적는 대신, 기존 문제집을 보고 새 문제의 패턴을 익히는 쪽으로 비유할 수 있습니다. 그러나 그럴듯한 결과물을 만들 수 있다는 사실과, 그 결과물을 다른 모델의 학습에 쓰면 도움이 된다는 사실은 별개입니다. 생성 모델의 샘플 품질과 학습 데이터의 효용은 서로 다른 질문입니다.
 
 ### Back-translation(역번역): 실제 정답 쪽을 남기고 입력을 만들기
 
-<strong>Back-translation(역번역)</strong>은 목표 언어의 실제 문장을 출발점으로 반대 방향 번역 모델을 사용해 합성 입력을 만드는 접근입니다. Sennrich 등의 연구는 이 방식으로 단일언어 자료를 번역 학습에 활용했습니다. 논문은 2015년 선공개 후 ACL 2016에 발표되었습니다. [원 논문](https://aclanthology.org/P16-1009/)
+<strong>Back-translation(역번역)</strong>은 목표 언어의 실제 문장을 출발점으로 반대 방향 번역 모델을 사용해 합성 입력을 만드는 접근입니다. Sennrich 등의 연구는 이 방식으로 단일언어 자료를 번역 학습에 활용했습니다. 논문은 2015년 선공개 후 ACL 2016에 발표되었습니다. [논문 요약](/notes/synthetic-data-study/01-foundations/papers/sennrich-2016/)
 
 영어에서 한국어로 번역하는 모델을 학습한다고 합시다. 다음은 논문의 구조를 설명하기 위해 만든 예시입니다.
 
@@ -167,7 +169,7 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 ### EDA(쉬운 데이터 증강): 작은 변형에도 가정이 있다
 
-<strong>EDA(Easy Data Augmentation, 쉬운 데이터 증강)</strong>는 동의어 치환, 무작위 삽입·교환·삭제로 텍스트 분류 학습 자료를 늘리는 2019년 접근입니다. [Wei and Zou, 2019](https://aclanthology.org/D19-1670/)
+<strong>EDA(Easy Data Augmentation, 쉬운 데이터 증강)</strong>는 동의어 치환, 무작위 삽입·교환·삭제로 텍스트 분류 학습 자료를 늘리는 2019년 접근입니다. [Wei and Zou, 2019](/notes/synthetic-data-study/01-foundations/papers/wei-2019/)
 
 “예약자가 없으면 연장 가능”에서 “없으면”을 삭제하면 문장의 의미와 정답 조건이 달라집니다. 이 문장은 강의의 반례 예시입니다. 가벼운 편집도 Label Preservation(라벨 보존)을 전제하며, 그 전제가 깨지면 잘못된 연습문제가 됩니다.
 
@@ -177,7 +179,7 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 앞선 방식은 주어진 문제의 입력을 보충하거나 바꾸는 데 집중했습니다. Instruction Data(지시문 데이터)는 무엇을 수행해야 하는지 나타내는 지시까지 학습 예제에 포함합니다. 분류·요약·추출·작성처럼 과제의 종류도 데이터 설계 대상이 됩니다.
 
-<strong>Self-Instruct</strong>는 적은 수의 사람이 쓴 시드 과제에서 출발해 지시문과 수행 예제를 생성하고, 선별한 결과로 모델을 미세조정하는 대표 사례입니다. 2022년 12월 최초 공개되었고 ACL 2023에 발표되었습니다. [Self-Instruct, v2](https://arxiv.org/html/2212.10560v2)
+<strong>Self-Instruct</strong>는 적은 수의 사람이 쓴 시드 과제에서 출발해 지시문과 수행 예제를 생성하고, 선별한 결과로 모델을 미세조정하는 대표 사례입니다. 2022년 12월 최초 공개되었고 ACL 2023에 발표되었습니다. [Self-Instruct, v2](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)
 
 | 연결점 | 데이터 부족의 종류 | 1강에서 기억할 질문 |
 | --- | --- | --- |
@@ -198,7 +200,7 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 #### Method(방법): 출제·선별·학습의 연결
 
-원 논문은 사람이 작성한 175개 시드 과제로 시작합니다. 기존 과제를 예시로 제시해 새 지시문을 만들고, 분류 과제인지 판별한 다음 입력·출력 예제를 생성합니다. 부적절하거나 유사한 결과를 걸러 과제 풀에 추가하고, 모은 데이터로 GPT-3를 미세조정합니다. 분류 과제와 다른 과제에 서로 다른 예제 생성 순서를 사용한다는 점에도 주목합니다. [Self-Instruct, §2](https://arxiv.org/html/2212.10560v2#S2)
+원 논문은 사람이 작성한 175개 시드 과제로 시작합니다. 기존 과제를 예시로 제시해 새 지시문을 만들고, 분류 과제인지 판별한 다음 입력·출력 예제를 생성합니다. 부적절하거나 유사한 결과를 걸러 과제 풀에 추가하고, 모은 데이터로 GPT-3를 미세조정합니다. 분류 과제와 다른 과제에 서로 다른 예제 생성 순서를 사용한다는 점에도 주목합니다. [Self-Instruct, §2](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)
 
 ```text
 사람의 시드 과제 → 새 지시문 → 과제 유형 판별 → 입력·출력 생성
@@ -212,7 +214,7 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 #### Evidence(근거): 무엇을 확인했고 무엇이 남았는가
 
-논문은 약 5만 2천 개 지시문과 8만 2천 개 입력·출력 예제를 보고하고, Super-NaturalInstructions 및 별도의 사용자 지향 과제로 지시 수행 능력을 평가합니다. 지시문 수와 수행 예제 수는 다른 단위입니다. 시드와 선별 규칙이 있으므로 “사람의 설계가 전혀 없다”는 해석도 맞지 않습니다. [Self-Instruct, §3–4](https://arxiv.org/html/2212.10560v2#S3)
+논문은 약 5만 2천 개 지시문과 8만 2천 개 입력·출력 예제를 보고하고, Super-NaturalInstructions 및 별도의 사용자 지향 과제로 지시 수행 능력을 평가합니다. 지시문 수와 수행 예제 수는 다른 단위입니다. 시드와 선별 규칙이 있으므로 “사람의 설계가 전혀 없다”는 해석도 맞지 않습니다. [Self-Instruct, §3–4](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)
 
 #### Critical Reading(비판적 읽기): 네 질문을 원문에 표시하기
 
@@ -244,7 +246,7 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 ### Pipeline(전체 과정): 생성 결과가 학습 데이터가 되기까지
 
-2024년 서베이의 Generation(생성)–Curation(큐레이션)–Evaluation(평가) 구조를 우리 사례에 적용하면 다음과 같습니다. 학습과 평가셋의 분리는 이 강의에서 실험 설계를 위해 덧붙인 표현입니다. [서베이 A, Figure 2 및 §3](https://aclanthology.org/2024.findings-acl.658.pdf)
+2024년 서베이의 Generation(생성)–Curation(큐레이션)–Evaluation(평가) 구조를 우리 사례에 적용하면 다음과 같습니다. 학습과 평가셋의 분리는 이 강의에서 실험 설계를 위해 덧붙인 표현입니다. [서베이 A, Figure 2 및 §3](/notes/synthetic-data-study/01-foundations/papers/long-2024/)
 
 ```text
 원천 문서와 시드 예제
@@ -276,9 +278,9 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 | 2025: 추론과 학습 신호 | 생성된 풀이를 어떻게 선별하고 증류하는가 | 4~5강 |
 | 2026: 행동 궤적과 평가 범위 | 상호작용을 어떻게 합성하고 신뢰성을 점검하는가 | 5~6강 |
 
-2024년 Persona Hub는 페르소나를 통한 생성 조건 확장의 사례이고, 2025년 DeepSeek-R1은 추론 학습과 증류를 연결해 읽을 사례입니다. 2026년에는 LLM이 API 응답을 모사해 행동 궤적을 만드는 연구도 등장합니다. 각각을 해당 강의에서 살펴봅니다. [Persona Hub](https://arxiv.org/abs/2406.20094), [DeepSeek-R1](https://arxiv.org/abs/2501.12948), [API-Calling Agents, 2026](https://arxiv.org/abs/2607.16900)
+2024년 Persona Hub는 페르소나를 통한 생성 조건 확장의 사례이고, 2025년 DeepSeek-R1은 추론 학습과 증류를 연결해 읽을 사례입니다. 2026년에는 LLM이 API 응답을 모사해 행동 궤적을 만드는 연구도 등장합니다. 각각을 해당 강의에서 살펴봅니다. [Persona Hub](/notes/synthetic-data-study/01-foundations/papers/ge-2024/), [DeepSeek-R1](/notes/synthetic-data-study/01-foundations/papers/deepseek-2025/), [API-Calling Agents, 2026](/notes/synthetic-data-study/01-foundations/papers/lee-2026/)
 
-2026년 서베이 C는 여러 데이터 유형의 품질·신뢰성 평가를 정리합니다. 1강에서는 목차만 확인하고, 텍스트·추론에 해당하는 부분을 진도에 맞춰 읽겠습니다. [서베이 C, v3](https://arxiv.org/html/2601.17717v3)
+2026년 서베이 C는 여러 데이터 유형의 품질·신뢰성 평가를 정리합니다. 1강에서는 목차만 확인하고, 텍스트·추론에 해당하는 부분을 진도에 맞춰 읽겠습니다. [서베이 C, v3](/notes/synthetic-data-study/01-foundations/papers/zhang-2026/)
 
 ### Reading Guide(읽기 안내): 이번 주에 읽을 범위
 
@@ -292,7 +294,7 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 | 선택 · 20~30분 | 역번역 논문의 방법 부분 | 학습 쌍에서 실제인 쪽과 합성인 쪽 |
 | 미리보기 · 5분 | 서베이 C 목차 | 텍스트와 추론 데이터의 평가 항목 |
 
-서베이 B는 [제공된 전문](https://www.researchgate.net/publication/393726695_Synthetic_Data_Generation_Using_Large_Language_Models_Advances_in_Text_and_Code)의 실제 본문 제목을 기준으로 읽습니다. 서론의 구성 안내와 본문 절 번호가 일치하지 않는 부분이 있어, <strong>§IV Background and Motivation</strong>이라는 제목을 함께 확인하세요. 서베이 C는 2026년 6월 개정판인 v3로 통일합니다.
+서베이 B는 [서베이 B 요약](/notes/synthetic-data-study/01-foundations/papers/nadas-2025/)의 실제 본문 제목을 기준으로 읽습니다. 서론의 구성 안내와 본문 절 번호가 일치하지 않는 부분이 있어, <strong>§IV Background and Motivation</strong>이라는 제목을 함께 확인하세요. 서베이 C는 2026년 6월 개정판인 v3로 통일합니다.
 
 ### Discussion(토론): 출제자의 결정을 설명해 보기
 

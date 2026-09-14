@@ -1,3 +1,4 @@
+@import 'katex/dist/katex.min.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700;750&family=Noto+Sans+KR:wght@400;450;500;550;600;650;700;750&display=swap');
 
 :root {
@@ -2396,3 +2397,8 @@ dialog::backdrop {
 .toc-nav ol ol a { font-size: calc(10px * var(--font-scale)); font-weight: 400; }
 .prose > h2 { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 .prose > h2:first-child { border-top: 0; padding-top: 0; }
+
+/* Display equations scroll independently on narrow screens. */
+.prose .katex { font-size: 1.08em; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 1rem .5rem; margin: 1.5rem 0; }
+.prose .katex-display > .katex { white-space: nowrap; }

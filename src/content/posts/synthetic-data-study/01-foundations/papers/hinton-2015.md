@@ -33,9 +33,9 @@ Distillation(증류)은 큰 모델이나 Ensemble(앙상블)의 예측 정보를
 
 ## 2 증류
 
-Softmax(소프트맥스)에 Temperature(온도) T를 적용하면 각 Logit(로짓)을 T로 나눈 뒤 확률로 정규화한다. T를 높이면 분포가 완만해져 작은 클래스 확률의 관계가 더 잘 드러난다. 학생도 같은 T로 교사 분포를 맞추고, 배포할 때는 T=1을 사용한다.
+Softmax(소프트맥스)에 Temperature(온도) T를 적용하면 각 Logit(로짓)을 T로 나눈 뒤 확률로 정규화한다. T를 높이면 분포가 완만해져 작은 클래스 확률의 관계가 더 잘 드러난다. 학생도 같은 T로 교사 분포를 맞추고, 배포할 때는 $T=1$을 사용한다.
 
-정답이 있다면 높은 T에서 Soft Target과의 Cross-Entropy(교차 엔트로피), T=1에서 Hard Target과의 Cross-Entropy를 가중 결합한다. Soft Target의 Gradient(기울기) 크기가 대략 1/T²로 줄어들므로 T²를 곱해, T를 바꾸었을 때 두 학습 신호의 상대적 크기가 급변하지 않도록 한다. [원문 §2](https://arxiv.org/pdf/1503.02531v1)
+정답이 있다면 높은 T에서 Soft Target과의 Cross-Entropy(교차 엔트로피), $T=1$에서 Hard Target과의 Cross-Entropy를 가중 결합한다. Soft Target의 Gradient(기울기) 크기가 대략 $1/T^2$로 줄어들므로 $T^2$를 곱해, T를 바꾸었을 때 두 학습 신호의 상대적 크기가 급변하지 않도록 한다. [원문 §2](https://arxiv.org/pdf/1503.02531v1)
 
 ### 2.1 Logit 맞추기는 증류의 특수한 경우
 

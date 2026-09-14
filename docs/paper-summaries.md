@@ -33,3 +33,21 @@
 ## 목차와 역할 계층
 
 목차는 H2–H6의 실제 부모·자식 관계를 중첩 목록으로 표시하며 하위 절은 기본 접힘 상태다. 제목은 본문으로 이동하고 오른쪽 화살표는 하위 절을 펼친다. 현재 읽는 절과 그 상위 묶음을 강조한다. 논문 해설의 원문 절 순서와 계층은 유지한다. 강의는 문제 정의 → 역사 → 학습 신호 → 스터디 적용 → 정리로 구성하며, 각 묶음 아래 관련 절을 둔다.
+
+## 논문 링크 경로
+
+강의와 Introduction의 논문 제목·인용 링크는 개별 논문 요약 페이지로 연결한다. PDF·arXiv·출판사 실제 링크는 개별 요약의 상단과 `sourceLinks`에 제공한다. 새 논문을 공통 읽기에 추가하면 먼저 요약을 작성하고 연결한다.
+
+## 수식 작성
+
+본문 안에는 `$D_{\mathrm{gen}}$`처럼 `$...$`를 쓰고, 독립 수식은 아래처럼 빈 줄 사이의 `$$...$$`로 쓴다. 수식에 코드용 백틱을 씌우지 않는다.
+
+```text
+$$
+D_{\mathrm{gen}} \leftarrow M_p(T,D_{\mathrm{sup}})
+$$
+```
+
+Astro의 unified Markdown processor에서 remark-math와 rehype-katex가 빌드 시 HTML/MathML을 만든다. KaTeX CSS와 폰트는 사이트에 함께 포함한다. 긴 독립 수식만 가로 스크롤하며, 수식 기호와 의미를 한국어 문장으로 설명한다. 코드·파일명·일반 밑줄을 자동으로 수식으로 추측하지 않는다. 잘못된 수식의 `katex-error` 유무와 모바일 레이아웃을 검증한다.
+
+설정 근거: [Astro Markdown processor](https://docs.astro.build/en/reference/configuration-reference/#markdownprocessor), [remark-math](https://github.com/remarkjs/remark-math).

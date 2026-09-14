@@ -9,17 +9,21 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "test:navigation": "node --test tests/navigation.test.mjs tests/toc.test.mjs",
+    "test:navigation": "node --test tests/navigation.test.mjs tests/toc.test.mjs tests/math.test.mjs",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "test:graph": "node --test tests/link-graph.test.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.1",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
     "astro": "7.3.2",
-    "parse5": "8.0.1"
+    "parse5": "8.0.1",
+    "katex": "^0.18.7",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
