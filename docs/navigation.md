@@ -1,6 +1,6 @@
 # 좌측 탐색 구조 편집
 
-`src/data/navigation.ts`가 Sidebar Navigation(좌측 탐색)의 단일 설정 파일입니다. 글의 `frontmatter`에 별도의 `parent`나 `order` 필드를 추가하지 않습니다. `src/content/posts/`의 파일을 옮기지 않고 기존 ID를 연결합니다. 예를 들어 `knowledge-distillation-foundations.md`의 ID는 `knowledge-distillation-foundations`, URL은 `/notes/knowledge-distillation-foundations/`입니다.
+`src/data/navigation.ts`가 Sidebar Navigation(좌측 탐색)의 단일 설정 파일입니다. 탐색 계층과 순서는 글의 `frontmatter`가 아닌 이 설정에서 관리합니다. 논문 해설의 `parentPost`와 `navLabel`은 본문 상단 경로 표시에 쓰는 메타데이터이며 탐색 구조를 자동으로 바꾸지 않습니다. `src/content/posts/`의 파일을 옮기지 않고 기존 ID를 연결합니다. 예를 들어 `knowledge-distillation-foundations.md`의 ID는 `knowledge-distillation-foundations`, URL은 `/notes/knowledge-distillation-foundations/`입니다.
 
 ## 폴더와 글을 연결하는 방식
 
@@ -97,7 +97,7 @@ export const navigation = {
 - 비공개·미래 게시글을 명시하면 해당 위치의 글과 하위 가지 전체를 출력하지 않습니다. 숨겨진 부모의 제목, 폴더, 하위 관계와 별칭도 HTML에 남기지 않습니다.
 - 숨겨진 부모 아래에 이미 공개된 글이 있어도 그 글 자체를 비공개로 바꾸지는 않습니다. 해당 글은 원래 주제의 자동 목록과 검색·URL에서 계속 읽을 수 있습니다. 숨겨진 관계는 노출하지 않고 공개 글의 원래 제목을 사용합니다.
 - 같은 공개 글이 다른 공개 가지에도 배치되어 있다면 그 별도 참조는 표시합니다.
-- 처음부터 빈 폴더와 공개 자식이 모두 사라진 폴더는 이름까지 생략합니다. 최상위 7개 주제는 자식이 없어도 주제 페이지로 이동할 수 있습니다.
+- 처음부터 빈 폴더와 공개 자식이 모두 사라진 폴더는 이름까지 생략합니다. 최상위 주제는 자식이 없어도 주제 페이지로 이동할 수 있습니다.
 - 존재하지 않는 글 ID, 잘못된 주제 ID, 잘못된 필드, 자신·조상 글의 반복 참조와 JavaScript 객체의 순환은 설정 위치를 포함한 빌드 오류로 알립니다.
 - **숨겨진 가지 안의 오류도 검증합니다.** 비공개 가지라고 잘못된 ID나 순환 참조를 건너뛰지 않습니다. 오류가 있으면 새 정적 사이트 빌드를 중단하며, 일부만 해석한 탐색을 공개하지 않습니다.
 

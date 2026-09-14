@@ -2365,3 +2365,15 @@ dialog::backdrop {
     transition-duration: .01ms !important;
   }
 }
+
+/* Lesson paper list: native disclosure is closed until the reader opens it. */
+.prose .paper-reading-list {
+  margin: 1.5em 0 2em; padding: 1em 1.1em;
+  border: 1px solid var(--accent-line); border-radius: 12px; background: var(--accent-bg);
+}
+.prose .paper-reading-list > summary { cursor: pointer; font-weight: 650; color: var(--text); }
+.prose .paper-reading-list[open] > summary { margin-bottom: 1em; }
+.prose .paper-reading-list li { margin: .8em 0; }
+.prose .paper-reading-list .paper-one-line { display: block; color: var(--muted); font-size: .9em; margin-top: .25em; }
+.prose h5, .prose h6 { margin: 1.4em 0 .5em; font-size: 1em; line-height: 1.6; }
+.toc-nav .toc-sub a { padding-left: calc(12px + var(--toc-depth, 1) * 8px); }

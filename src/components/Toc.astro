@@ -5,5 +5,5 @@ const { headings } = Astro.props;
 ---
 <nav aria-label="이 페이지의 목차" class="toc-nav">
   <p class="toc-title">이 페이지에서</p>
-  <ol>{headings.filter((h) => h.depth === 2 || h.depth === 3).map((heading, index) => <li class:list={{ 'toc-sub': heading.depth === 3 }}><a href={`#${heading.slug}`} class:list={{ 'is-active': index === 0 }} data-toc-link>{heading.text}</a></li>)}</ol>
+  <ol>{headings.filter((h) => h.depth >= 2 && h.depth <= 6).map((heading, index) => <li class:list={{ 'toc-sub': heading.depth >= 3 }} style={`--toc-depth: ${Math.min(heading.depth - 2, 3)}`} ><a href={`#${heading.slug}`} class:list={{ 'is-active': index === 0 }} data-toc-link>{heading.text}</a></li>)}</ol>
 </nav>

@@ -10,16 +10,18 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const topic = getTopic(post.data.topic);
 const posts = await getPosts();
+const parent = post.data.parentPost ? posts.find((entry) => entry.id === post.data.parentPost) : undefined;
+if (post.data.parentPost && !parent) throw new Error(`Missing published parent for ${post.id}: ${post.data.parentPost}`);
 const index = posts.findIndex((entry) => entry.id === post.id);
 const previous = posts[index + 1];
 const next = posts[index - 1];
 const related = posts.filter((entry) => entry.id !== post.id).sort((a, b) => Number(b.data.topic === post.data.topic) - Number(a.data.topic === post.data.topic) || b.data.tags.filter((tag) => post.data.tags.includes(tag)).length - a.data.tags.filter((tag) => post.data.tags.includes(tag)).length).slice(0, 2);
-const allHeadings = [{ depth: 2, slug: 'key-takeaway', text: '핵심 요약' }, ...headings.filter((h) => h.depth === 2 || h.depth === 3), { depth: 2, slug: 'sources', text: '원문과 참고 자료' }, { depth: 2, slug: 'related', text: '함께 읽을 노트' }];
+const allHeadings = [{ depth: 2, slug: 'key-takeaway', text: '핵심 요약' }, ...headings.filter((h) => h.depth >= 2 && h.depth <= 6), { depth: 2, slug: 'sources', text: '원문과 참고 자료' }, { depth: 2, slug: 'related', text: '함께 읽을 노트' }];
 const jsonLd = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.publishedAt.toISOString(), dateModified: (post.data.updatedAt || post.data.publishedAt).toISOString(), author: { '@type': 'Person', name: 'wooix', url: new URL('/about/', Astro.site).href }, url: new URL(noteUrl(post), Astro.site).href, inLanguage: 'ko-KR' };
 ---
 <BaseLayout title={post.data.title} description={post.data.description} activeTopic={topic.id} headings={allHeadings} article>
   <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
-  <nav class="breadcrumb" aria-label="현재 위치"><a href="/">연구 노트</a><span>/</span><a href={`/topics/${topic.id}/`}>{topic.label}</a><span>/</span><span>노트</span></nav>
+  <nav class="breadcrumb" aria-label="현재 위치"><a href="/">연구 노트</a><span>/</span><a href={`/topics/${topic.id}/`}>{topic.label}</a><span>/</span>{parent && <><a href={noteUrl(parent)}>{parent.data.navLabel || parent.data.title}</a><span>/</span></>}<span>{parent ? (post.data.navLabel || '논문 해설') : '노트'}</span></nav>
   <article data-pagefind-body>
     <header class="article-header"><div class="article-kicker"><a href={`/topics/${topic.id}/`} data-pagefind-filter="topic">{topic.label}</a><span>·</span><span>{kindLabels[post.data.kind]}</span></div><h1 data-pagefind-meta="title">{post.data.title}</h1><p class="article-description" data-pagefind-meta="description">{post.data.description}</p><div class="article-meta" data-pagefind-ignore><span class="author-avatar">w</span><strong>wooix</strong><span>·</span><time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time><span>·</span><span class="reading-time"><Icon name="clock" size={14} />{post.data.readingTime}분 읽기</span>{post.data.updatedAt && <span class="updated-date">수정 {formatDate(post.data.updatedAt)}</span>}</div><div class="tag-list" data-pagefind-ignore>{post.data.tags.map((tag) => <span>{tag}</span>)}</div></header>
     <section id="key-takeaway" class="takeaway-box"><div class="takeaway-label"><Icon name="spark" size={16} /><h2>핵심 요약</h2></div><p>{post.data.takeaway}</p></section>

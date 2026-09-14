@@ -18,6 +18,9 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     sourceLinks: z.array(z.object({ title: z.string(), url: z.url(), kind: z.string().optional() })),
     takeaway: z.string(),
+    // Presentation metadata for a paper beneath its lesson; sidebar order remains in navigation.ts.
+    parentPost: z.string().optional(),
+    navLabel: z.string().optional(),
   }),
 });
 

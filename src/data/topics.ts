@@ -1,4 +1,4 @@
-export const topicIds = ['llm-trends', 'llm-tech', 'finject', 'alignment', 'steering', 'slm-hardware', 'slm-performance'] as const;
+export const topicIds = ['llm-trends', 'llm-tech', 'finject', 'alignment', 'steering', 'slm-hardware', 'slm-performance', 'synthetic-data-study'] as const;
 export type TopicId = (typeof topicIds)[number];
 
 export const topics: { id: TopicId; label: string; english: string; description: string; question: string; scopes: string[]; status?: string }[] = [
@@ -9,6 +9,7 @@ export const topics: { id: TopicId; label: string; english: string; description:
   { id: 'steering', label: 'Steering', english: 'Model Steering', description: '모델 내부 표현과 추론 과정을 조정해, 행동과 응답 방향을 바꾸는 방법을 탐구합니다.', question: '학습을 다시 하지 않고 모델의 방향을 바꿀 수 있을까요?', scopes: ['Activation Steering(활성값 조향)', 'Representation Engineering(표현 공학)', 'Mechanistic Interpretability(기계적 해석 가능성)와 제어의 한계'] },
   { id: 'slm-hardware', label: 'SLM 하드웨어', english: 'SLM on Hardware', description: '작은 언어 모델을 실제 장치에서 구동하기 위한 메모리, 연산, 배포 지식을 쌓습니다.', question: '내 장치에서 모델을 돌리려면 무엇이 필요할까요?', scopes: ['SLM(Small Language Model, 소형 언어 모델)의 On-device Inference(기기 내 추론)', 'Quantization(양자화)와 Memory Bandwidth(메모리 대역폭)', 'CPU·GPU·NPU의 실행 특성과 성능 측정'] },
   { id: 'slm-performance', label: 'SLM 성능', english: 'SLM Performance', description: '모델의 크기가 작아도 더 잘 추론하고 학습하도록 만드는 연구를 읽습니다.', question: '작은 모델은 어떻게 더 깊이 생각할까요?', scopes: ['Knowledge Distillation(지식 증류)', 'Data Quality(데이터 품질)와 Post-training(사후 학습)', 'Reasoning(추론) 성능과 Efficiency(효율)의 균형'] },
+  { id: 'synthetic-data-study', label: '합성데이터스터디', english: 'Synthetic Data Study', description: '합성 데이터의 역사부터 생성·큐레이션·검증까지, 강의와 원문 절별 해설을 함께 읽습니다.', question: '모델에 필요한 학습 경험을 어떻게 만들고 검증할까요?', scopes: ['합성 데이터의 역사와 생성 방법', '텍스트·코드·추론·에이전트 데이터', '품질·신뢰성과 학습 효용 평가'] },
 ];
 
 export const getTopic = (id: TopicId) => topics.find((topic) => topic.id === id)!;

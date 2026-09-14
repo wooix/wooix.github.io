@@ -60,7 +60,8 @@
     { "id": "alignment", "label": "Alignment", "keywords": ["preference optimization", "RLHF", "DPO", "alignment evaluation"] },
     { "id": "steering", "label": "Steering", "keywords": ["activation steering", "representation engineering", "behavior control"] },
     { "id": "slm-hardware", "label": "SLM 하드웨어", "keywords": ["on-device inference", "quantization", "memory bandwidth", "CPU", "GPU", "NPU"] },
-    { "id": "slm-performance", "label": "SLM 성능", "keywords": ["knowledge distillation", "data quality", "post-training", "efficient reasoning"] }
+    { "id": "slm-performance", "label": "SLM 성능", "keywords": ["knowledge distillation", "data quality", "post-training", "efficient reasoning"] },
+    { "id": "synthetic-data-study", "label": "합성데이터스터디", "keywords": ["synthetic data", "data curation", "data evaluation", "instruction synthesis"] }
   ],
   "finject": {
     "title": "FInject: Expanding Finance Reasoning Problems through Injection of Unanswerability",
