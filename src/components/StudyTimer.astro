@@ -1,0 +1,16 @@
+---
+import { createCountdown, formatCountdown } from '../lib/study-timer';
+import '../styles/study-timer.css';
+interface Props { minutes: number; }
+const { minutes } = Astro.props;
+const initial = createCountdown(minutes);
+---
+<div class="study-timer" id="study-timer" data-reading-minutes={minutes} data-state="ready" role="group" aria-label="학습 타이머" hidden>
+  <span class="study-timer-dot" aria-hidden="true"></span>
+  <output class="study-timer-clock" data-study-clock role="timer" aria-live="off" aria-label="남은 학습 시간">{formatCountdown(initial.durationMs)}</output>
+  <button type="button" class="study-timer-control" data-study-pause aria-label="학습 타이머 일시정지" title="일시정지"><span data-study-pause-symbol aria-hidden="true">Ⅱ</span></button>
+  <button type="button" class="study-timer-control" data-study-restart aria-label="처음 읽기 시간으로 다시 시작" title="다시 시작"><span aria-hidden="true">↺</span></button>
+  <span class="study-timer-announcement" data-study-announcement role="status" aria-live="polite" aria-atomic="true"></span>
+</div>
+<div class="study-start-effect" data-study-start-effect aria-hidden="true" hidden></div>
+<script src="../scripts/study-timer.ts"></script>

@@ -20,7 +20,7 @@ const related = posts.filter((entry) => entry.id !== post.id).sort((a, b) => Num
 const allHeadings = [{ depth: 2, slug: 'key-takeaway', text: '핵심 요약' }, ...headings.filter((h) => h.depth >= 2 && h.depth <= 6), { depth: 2, slug: 'sources', text: '원문과 참고 자료' }, { depth: 2, slug: 'related', text: '함께 읽을 노트' }];
 const jsonLd = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.publishedAt.toISOString(), dateModified: (post.data.updatedAt || post.data.publishedAt).toISOString(), author: { '@type': 'Person', name: 'wooix', url: new URL('/about/', Astro.site).href }, url: new URL(noteUrl(post), Astro.site).href, inLanguage: 'ko-KR' };
 ---
-<BaseLayout title={post.data.title} description={post.data.description} activeTopic={topic.id} headings={allHeadings} article>
+<BaseLayout title={post.data.title} description={post.data.description} activeTopic={topic.id} headings={allHeadings} article studyMinutes={post.data.readingTime}>
   <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
   <nav class="breadcrumb" aria-label="현재 위치"><a href="/">연구 노트</a><span>/</span><a href={`/topics/${topic.id}/`}>{topic.label}</a><span>/</span>{parent && <><a href={noteUrl(parent)}>{parent.data.navLabel || parent.data.title}</a><span>/</span></>}<span>{parent ? (post.data.navLabel || '논문 해설') : '노트'}</span></nav>
   <article data-pagefind-body>

@@ -13,7 +13,8 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "test:graph": "node --test tests/link-graph.test.mjs"
+    "test:graph": "node --test tests/link-graph.test.mjs",
+    "test:timer": "node --test tests/study-timer.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.1",

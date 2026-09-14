@@ -4,8 +4,9 @@ import Icon from '../components/Icon.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Toc, { type Heading } from '../components/Toc.astro';
 import LinkGraph from '../components/LinkGraph.astro';
-interface Props { title: string; description?: string; headings?: Heading[]; activeTopic?: string; article?: boolean; noindex?: boolean; }
-const { title, description = 'LLM의 발전, Alignment(정렬), Steering(조향), SLM(소형 언어 모델)을 함께 읽고 연결하는 개인 연구 노트.', headings = [], activeTopic, article = false, noindex = false } = Astro.props;
+import StudyTimer from '../components/StudyTimer.astro';
+interface Props { title: string; description?: string; headings?: Heading[]; activeTopic?: string; article?: boolean; noindex?: boolean; studyMinutes?: number; }
+const { title, description = 'LLM의 발전, Alignment(정렬), Steering(조향), SLM(소형 언어 모델)을 함께 읽고 연결하는 개인 연구 노트.', headings = [], activeTopic, article = false, noindex = false, studyMinutes } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = title === '연구 노트' ? 'Wooix AI Notes — AI의 흐름을 읽는 연구 노트' : `${title} | Wooix AI Notes`;
 const path = Astro.url.pathname;
@@ -29,6 +30,7 @@ const path = Astro.url.pathname;
     <header class="site-header" data-pagefind-ignore>
       <div class="header-brand"><button class="icon-button mobile-menu-button" aria-label="탐색 메뉴 열기" data-open-dialog="nav-dialog"><Icon name="menu" /></button><a href="/" class="brand" aria-label="Wooix AI Notes 홈"><span class="brand-symbol"><i></i><i></i><i></i></span><span>Wooix <strong>AI Notes</strong></span></a></div>
       <nav class="top-navigation" aria-label="주 메뉴"><a href="/" class:list={{ selected: path === '/' || path.startsWith('/notes') || path.startsWith('/topics') }}>연구 노트</a><a href="/daily/" class:list={{ selected: path === '/daily/' }}>데일리</a><a href="/archive/" class:list={{ selected: path === '/archive/' }}>아카이브</a><a href="/about/" class:list={{ selected: path === '/about/' }}>소개</a></nav>
+      {article && studyMinutes !== undefined && <StudyTimer minutes={studyMinutes} />}
       <div class="header-actions"><button class="search-trigger" data-open-dialog="search-dialog" aria-label="연구 노트 검색"><Icon name="search" size={17} /><span>노트와 키워드 검색</span><kbd>⌘ K</kbd></button><span class="header-divider"></span><button class="icon-button theme-toggle" aria-label="어두운 테마로 전환" title="테마 전환"><Icon name="sun" class="theme-sun" /><Icon name="moon" class="theme-moon" /></button><a class="icon-button header-rss" href="/rss.xml" aria-label="RSS 구독"><Icon name="rss" size={17} /></a></div>
     </header>
     <aside class="desktop-sidebar" data-pagefind-ignore><Sidebar activeTopic={activeTopic} idPrefix="desktop" /></aside>
