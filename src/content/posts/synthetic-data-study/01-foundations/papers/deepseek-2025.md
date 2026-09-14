@@ -44,6 +44,13 @@ R1-Zero는 Supervised Fine-Tuning(지도 미세조정, 이하 SFT)을 선행하�
 
 수학·코딩·지식·일반 응답으로 평가 범위를 나누어 주요 결과를 예고한다. 본문은 R1의 여러 추론 평가 결과를 o1-1217과 비교하지만, 모든 능력과 사용 조건에서 동등하다고 결론내리지는 않는다. 자세한 생성 설정과 비교군은 §3에서 제시한다.
 
+<figure class="paper-figure" id="figure-1">
+<a href="https://arxiv.org/html/2501.12948v1/dsr1_performance.svg" target="_blank" rel="noopener"><img width="476" height="282" src="https://arxiv.org/html/2501.12948v1/dsr1_performance.svg" alt="DeepSeek-R1과 비교 모델의 대표 평가 성능" loading="lazy" /></a>
+<figcaption>Figure 1. DeepSeek-R1과 비교 모델의 대표 평가 성능. <a href="https://arxiv.org/html/2501.12948v1#S0.F1">원문</a></figcaption>
+</figure>
+
+범례의 모델별 색을 따라 수학·코드·지식 평가 막대를 비교한다. 평가마다 pass@1, percentile 등 지표가 다르므로 같은 높이가 동일한 능력을 의미하지 않는다. 여러 추론 과제에서 R1이 강하다는 개요이며 상세 비교 조건은 §3과 Table 4에 있다.
+
 ## 2 접근법
 
 ### 2.1 개요
@@ -82,9 +89,76 @@ $r_i$는 해당 응답의 보상이고 $G$는 같은 문제에서 생성한 응�
 
 원문은 AIME 2024에서 RL 학습이 진행되며 성능이 향상되는 모습을 보고한다. 한 응답의 평균 성공률과 여러 응답의 Majority Vote(다수결)는 다른 평가 조건이므로 혼동해서는 안 된다.
 
+<figure class="paper-figure" id="figure-2">
+<a href="https://arxiv.org/html/2501.12948v1/figures/plot_aime_with_maj.png" target="_blank" rel="noopener"><img width="357" height="230" src="https://arxiv.org/html/2501.12948v1/figures/plot_aime_with_maj.png" alt="RL 학습 단계에 따른 AIME 정확도" loading="lazy" /></a>
+<figcaption>Figure 2. RL 학습 단계에 따른 AIME 정확도. <a href="https://arxiv.org/html/2501.12948v1#S2.F2">원문</a></figcaption>
+</figure>
+
+가로축은 학습 단계, 세로축은 AIME 정확도다. R1-Zero의 추세선과 o1 기준선을 구분한다. 문제마다 16개 응답을 표집한 평균 정확도로 변동을 줄였고, 다수결 결과는 별도 선으로 제시한다. 평균 단일 응답 성능과 여러 응답을 모은 성능을 같은 조건으로 비교하면 안 된다.
+
+<div class="paper-table" id="table-2">
+<p><strong>Table 2. R1-Zero와 o1 계열의 추론 평가</strong> · <a href="https://arxiv.org/html/2501.12948v1#S2.T2">원문</a></p>
+<table>
+<thead>
+<tr>
+<th rowspan="3">Model</th>
+<th colspan="2" rowspan="2">AIME 2024</th>
+<th rowspan="2">MATH-500</th>
+<th>GPQA</th>
+<th>LiveCode</th>
+<th rowspan="2">CodeForces</th></tr>
+<tr>
+<th>Diamond</th>
+<th>Bench</th></tr>
+<tr>
+<th>pass@1</th>
+<th>cons@64</th>
+<th>pass@1</th>
+<th>pass@1</th>
+<th>pass@1</th>
+<th>rating</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI-o1-mini</td>
+<td>63.6</td>
+<td>80.0</td>
+<td>90.0</td>
+<td>60.0</td>
+<td>53.8</td>
+<td>1820</td></tr>
+<tr>
+<td>OpenAI-o1-0912</td>
+<td>74.4</td>
+<td>83.3</td>
+<td>94.8</td>
+<td>77.3</td>
+<td>63.4</td>
+<td>1843</td></tr>
+<tr>
+<td>DeepSeek-R1-Zero</td>
+<td>71.0</td>
+<td>86.7</td>
+<td>95.9</td>
+<td>73.3</td>
+<td>50.0</td>
+<td>1444</td></tr>
+</tbody>
+</table>
+</div>
+
+AIME의 pass@1과 cons@64는 단일 생성 평균과 64개 응답의 다수결이라는 다른 조건이다. 다른 열은 수학·과학·실시간 코드 평가의 pass@1 또는 Codeforces rating이다. 전체 표를 재현했다.
+
 ##### R1-Zero의 자기 변화 과정
 
 학습이 진행되면서 평균 응답 길이가 늘어나고, 이전 단계를 다시 검토하거나 다른 해결 경로를 탐색하는 행동이 나타난다고 설명한다. 저자는 이 행동을 별도 전략으로 명시해 가르치기보다 RL의 상호작용에서 유도된 것으로 해석한다.
+
+<figure class="paper-figure" id="figure-3">
+<a href="https://arxiv.org/html/2501.12948v1/figures/plot_length.png" target="_blank" rel="noopener"><img width="357" height="225" src="https://arxiv.org/html/2501.12948v1/figures/plot_length.png" alt="RL 중 증가하는 평균 응답 길이" loading="lazy" /></a>
+<figcaption>Figure 3. RL 중 증가하는 평균 응답 길이. <a href="https://arxiv.org/html/2501.12948v1#S2.F3">원문</a></figcaption>
+</figure>
+
+가로축은 학습 단계, 세로축은 훈련 자료에서의 평균 응답 길이다. 학습이 진행되며 더 긴 출력을 사용하는 경향을 보여준다. 길이 증가 자체가 모든 단계의 정답성을 입증하지는 않으며, 저자는 이를 재검토·탐색 행동과 함께 해석한다.
 
 ##### R1-Zero의 재검토 순간
 
@@ -150,15 +224,394 @@ Temperature(생성 분포의 무작위성 조절값) 0.6, top-p 0.95로 문제�
 
 저자는 R1이 V3보다 여러 추론·지식 과제에서 나은 결과를 보였다고 보고한다. 다만 중국어 SimpleQA에서는 안전 학습 후 응답 거부가 늘어 성능이 낮아졌고, 실제 소프트웨어 공학 과제의 개선은 수학·알고리즘 문제만큼 크지 않다. 이 결과는 추론 성능 증가가 모든 과제의 균일한 증가가 아님을 보여준다.
 
+<div class="paper-table" id="table-4">
+<p><strong>Table 4. R1과 대표 모델의 종합 평가</strong> · <a href="https://arxiv.org/html/2501.12948v1#S3.T4">원문</a></p>
+<table>
+<tbody>
+<tr>
+<td></td>
+<td rowspan="2">Benchmark (Metric)</td>
+<td>Claude-3.5-</td>
+<td>GPT-4o</td>
+<td>DeepSeek</td>
+<td>OpenAI</td>
+<td>OpenAI</td>
+<td>DeepSeek</td></tr>
+<tr>
+<td></td>
+<td>Sonnet-1022</td>
+<td>0513</td>
+<td>V3</td>
+<td>o1-mini</td>
+<td>o1-1217</td>
+<td>R1</td></tr>
+<tr>
+<td></td>
+<td>Architecture</td>
+<td>-</td>
+<td>-</td>
+<td>MoE</td>
+<td>-</td>
+<td>-</td>
+<td>MoE</td></tr>
+<tr>
+<td></td>
+<td># Activated Params</td>
+<td>-</td>
+<td>-</td>
+<td>37B</td>
+<td>-</td>
+<td>-</td>
+<td>37B</td></tr>
+<tr>
+<td></td>
+<td># Total Params</td>
+<td>-</td>
+<td>-</td>
+<td>671B</td>
+<td>-</td>
+<td>-</td>
+<td>671B</td></tr>
+<tr>
+<td rowspan="10">English</td>
+<td>MMLU (Pass@1)</td>
+<td>88.3</td>
+<td>87.2</td>
+<td>88.5</td>
+<td>85.2</td>
+<td>91.8</td>
+<td>90.8</td></tr>
+<tr>
+<td>MMLU-Redux (EM)</td>
+<td>88.9</td>
+<td>88.0</td>
+<td>89.1</td>
+<td>86.7</td>
+<td>-</td>
+<td>92.9</td></tr>
+<tr>
+<td>MMLU-Pro (EM)</td>
+<td>78.0</td>
+<td>72.6</td>
+<td>75.9</td>
+<td>80.3</td>
+<td>-</td>
+<td>84.0</td></tr>
+<tr>
+<td>DROP (3-shot F1)</td>
+<td>88.3</td>
+<td>83.7</td>
+<td>91.6</td>
+<td>83.9</td>
+<td>90.2</td>
+<td>92.2</td></tr>
+<tr>
+<td>IF-Eval (Prompt Strict)</td>
+<td>86.5</td>
+<td>84.3</td>
+<td>86.1</td>
+<td>84.8</td>
+<td>-</td>
+<td>83.3</td></tr>
+<tr>
+<td>GPQA Diamond (Pass@1)</td>
+<td>65.0</td>
+<td>49.9</td>
+<td>59.1</td>
+<td>60.0</td>
+<td>75.7</td>
+<td>71.5</td></tr>
+<tr>
+<td>SimpleQA (Correct)</td>
+<td>28.4</td>
+<td>38.2</td>
+<td>24.9</td>
+<td>7.0</td>
+<td>47.0</td>
+<td>30.1</td></tr>
+<tr>
+<td>FRAMES (Acc.)</td>
+<td>72.5</td>
+<td>80.5</td>
+<td>73.3</td>
+<td>76.9</td>
+<td>-</td>
+<td>82.5</td></tr>
+<tr>
+<td>AlpacaEval2.0 (LC-winrate)</td>
+<td>52.0</td>
+<td>51.1</td>
+<td>70.0</td>
+<td>57.8</td>
+<td>-</td>
+<td>87.6</td></tr>
+<tr>
+<td>ArenaHard (GPT-4-1106)</td>
+<td>85.2</td>
+<td>80.4</td>
+<td>85.5</td>
+<td>92.0</td>
+<td>-</td>
+<td>92.3</td></tr>
+<tr>
+<td rowspan="4">Code</td>
+<td>LiveCodeBench (Pass@1-COT)</td>
+<td>38.9</td>
+<td>32.9</td>
+<td>36.2</td>
+<td>53.8</td>
+<td>63.4</td>
+<td>65.9</td></tr>
+<tr>
+<td>Codeforces (Percentile)</td>
+<td>20.3</td>
+<td>23.6</td>
+<td>58.7</td>
+<td>93.4</td>
+<td>96.6</td>
+<td>96.3</td></tr>
+<tr>
+<td>Codeforces (Rating)</td>
+<td>717</td>
+<td>759</td>
+<td>1134</td>
+<td>1820</td>
+<td>2061</td>
+<td>2029</td></tr>
+<tr>
+<td>SWE Verified (Resolved)</td>
+<td>50.8</td>
+<td>38.8</td>
+<td>42.0</td>
+<td>41.6</td>
+<td>48.9</td>
+<td>49.2</td></tr>
+<tr>
+<td></td>
+<td>Aider-Polyglot (Acc.)</td>
+<td>45.3</td>
+<td>16.0</td>
+<td>49.6</td>
+<td>32.9</td>
+<td>61.7</td>
+<td>53.3</td></tr>
+<tr>
+<td rowspan="3">Math</td>
+<td>AIME 2024 (Pass@1)</td>
+<td>16.0</td>
+<td>9.3</td>
+<td>39.2</td>
+<td>63.6</td>
+<td>79.2</td>
+<td>79.8</td></tr>
+<tr>
+<td>MATH-500 (Pass@1)</td>
+<td>78.3</td>
+<td>74.6</td>
+<td>90.2</td>
+<td>90.0</td>
+<td>96.4</td>
+<td>97.3</td></tr>
+<tr>
+<td>CNMO 2024 (Pass@1)</td>
+<td>13.1</td>
+<td>10.8</td>
+<td>43.2</td>
+<td>67.6</td>
+<td>-</td>
+<td>78.8</td></tr>
+<tr>
+<td rowspan="3">Chinese</td>
+<td>CLUEWSC (EM)</td>
+<td>85.4</td>
+<td>87.9</td>
+<td>90.9</td>
+<td>89.9</td>
+<td>-</td>
+<td>92.8</td></tr>
+<tr>
+<td>C-Eval (EM)</td>
+<td>76.7</td>
+<td>76.0</td>
+<td>86.5</td>
+<td>68.9</td>
+<td>-</td>
+<td>91.8</td></tr>
+<tr>
+<td>C-SimpleQA (Correct)</td>
+<td>55.4</td>
+<td>58.7</td>
+<td>68.0</td>
+<td>40.3</td>
+<td>-</td>
+<td>63.7</td></tr>
+</tbody>
+</table>
+</div>
+
+평가별 이름과 지표가 행에 표시된다. 정확도·승률·평점의 단위가 달라 행 간 점수를 직접 합쳐서는 안 된다. o1-1217은 원문이 밝힌 공식 보고값이며, 빈 칸의 대시는 0점이 아니다. 전체 표를 재현했다.
+
 ### 3.2 증류 모델 평가
 
 작은 모델을 동일한 추론 평가 묶음에서 비교한다. 저자는 SFT만으로도 강한 결과를 얻었다고 보고하되, 이 절의 결과와 추가 RL의 잠재 효과를 분리한다. 여기서 검증된 것은 선택한 기반 모델·데이터·평가의 조합이다.
+
+<div class="paper-table" id="table-5">
+<p><strong>Table 5. 증류 모델의 수학·과학·코드 평가</strong> · <a href="https://arxiv.org/html/2501.12948v1#S3.T5">원문</a></p>
+<table>
+<tbody>
+<tr>
+<td rowspan="3">Model</td>
+<td colspan="2" rowspan="2">AIME 2024</td>
+<td rowspan="2">MATH-500</td>
+<td>GPQA</td>
+<td>LiveCode</td>
+<td rowspan="2">CodeForces</td></tr>
+<tr>
+<td>Diamond</td>
+<td>Bench</td></tr>
+<tr>
+<td>pass@1</td>
+<td>cons@64</td>
+<td>pass@1</td>
+<td>pass@1</td>
+<td>pass@1</td>
+<td>rating</td></tr>
+<tr>
+<td>GPT-4o-0513</td>
+<td>9.3</td>
+<td>13.4</td>
+<td>74.6</td>
+<td>49.9</td>
+<td>32.9</td>
+<td>759</td></tr>
+<tr>
+<td>Claude-3.5-Sonnet-1022</td>
+<td>16.0</td>
+<td>26.7</td>
+<td>78.3</td>
+<td>65.0</td>
+<td>38.9</td>
+<td>717</td></tr>
+<tr>
+<td>OpenAI-o1-mini</td>
+<td>63.6</td>
+<td>80.0</td>
+<td>90.0</td>
+<td>60.0</td>
+<td>53.8</td>
+<td>1820</td></tr>
+<tr>
+<td>QwQ-32B-Preview</td>
+<td>50.0</td>
+<td>60.0</td>
+<td>90.6</td>
+<td>54.5</td>
+<td>41.9</td>
+<td>1316</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Qwen-1.5B</td>
+<td>28.9</td>
+<td>52.7</td>
+<td>83.9</td>
+<td>33.8</td>
+<td>16.9</td>
+<td>954</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Qwen-7B</td>
+<td>55.5</td>
+<td>83.3</td>
+<td>92.8</td>
+<td>49.1</td>
+<td>37.6</td>
+<td>1189</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Qwen-14B</td>
+<td>69.7</td>
+<td>80.0</td>
+<td>93.9</td>
+<td>59.1</td>
+<td>53.1</td>
+<td>1481</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Qwen-32B</td>
+<td>72.6</td>
+<td>83.3</td>
+<td>94.3</td>
+<td>62.1</td>
+<td>57.2</td>
+<td>1691</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Llama-8B</td>
+<td>50.4</td>
+<td>80.0</td>
+<td>89.1</td>
+<td>49.0</td>
+<td>39.6</td>
+<td>1205</td></tr>
+<tr>
+<td>DeepSeek-R1-Distill-Llama-70B</td>
+<td>70.0</td>
+<td>86.7</td>
+<td>94.5</td>
+<td>65.2</td>
+<td>57.5</td>
+<td>1633</td></tr>
+</tbody>
+</table>
+</div>
+
+행의 Qwen·Llama 기반과 모델 크기를 먼저 확인하고 같은 열끼리 비교한다. 이 증류 모델은 선별한 약 80만 예제의 SFT 결과이며 추가 RL을 하지 않은 조건이다. 전체 표를 재현했다.
 
 ## 4 논의
 
 ### 4.1 Distillation과 RL의 비교
 
 Qwen-32B-Base에 직접 대규모 RL을 적용한 조건과 R1에서 증류한 조건을 비교한다. 보고된 평가에서는 증류한 모델이 더 우수하다. 저자는 작은 모델이 스스로 추론 패턴을 탐색하는 비용과, 큰 모델에서 얻은 패턴을 학습하는 효율을 대비한다. 모든 크기·예산에서 Distillation이 RL보다 우월하다는 보편 정리는 아니다.
+
+<div class="paper-table" id="table-6">
+<p><strong>Table 6. 32B 규모 모델에서 직접 RL과 Distillation 비교</strong> · <a href="https://arxiv.org/html/2501.12948v1#S4.T6">원문</a></p>
+<table>
+<thead>
+<tr>
+<th rowspan="2">Model</th>
+<th colspan="2">AIME 2024</th>
+<th>MATH-500</th>
+<th>GPQA Diamond</th>
+<th>LiveCodeBench</th></tr>
+<tr>
+<th>pass@1</th>
+<th>cons@64</th>
+<th>pass@1</th>
+<th>pass@1</th>
+<th>pass@1</th></tr>
+</thead>
+<tbody>
+<tr>
+<th>QwQ-32B-Preview</th>
+<td>50.0</td>
+<td>60.0</td>
+<td>90.6</td>
+<td>54.5</td>
+<td>41.9</td></tr>
+<tr>
+<th>DeepSeek-R1-Zero-Qwen-32B</th>
+<td>47.0</td>
+<td>60.0</td>
+<td>91.6</td>
+<td>55.0</td>
+<td>40.2</td></tr>
+<tr>
+<th>DeepSeek-R1-Distill-Qwen-32B</th>
+<td>72.6</td>
+<td>83.3</td>
+<td>94.3</td>
+<td>62.1</td>
+<td>57.2</td></tr>
+</tbody>
+</table>
+</div>
+
+Qwen 계열 32B 비교에서 증류 조건이 해당 평가들에서 높다. 같은 이름의 AIME 열도 pass@1과 cons@64가 다르다. 이 표는 원문 조건의 결과이지 모든 학습 예산·모델 크기에서 증류가 우월하다는 보편 결론은 아니다.
 
 ### 4.2 성공하지 못한 시도
 

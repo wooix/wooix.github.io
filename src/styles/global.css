@@ -2402,3 +2402,10 @@ dialog::backdrop {
 .prose .katex { font-size: 1.08em; }
 .prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 1rem .5rem; margin: 1.5rem 0; }
 .prose .katex-display > .katex { white-space: nowrap; }
+
+/* Paper evidence stays visible in the reading flow. */
+.prose .paper-figure { margin: 2rem 0; }
+.prose .paper-figure img { display: block; width: auto; max-width: 100%; height: auto; margin: 0 auto; background: #fff; }
+.prose .paper-figure figcaption { margin-top: .65rem; font-size: .9em; line-height: 1.6; }
+.prose .paper-table { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+.prose .paper-table table { margin: 0; }

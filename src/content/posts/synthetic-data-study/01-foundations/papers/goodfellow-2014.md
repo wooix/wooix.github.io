@@ -47,6 +47,11 @@ $$
 
 실제로는 D를 완전히 학습한 뒤 G를 바꾸는 대신 두 모델을 번갈아 조금씩 갱신한다. 초기 G가 너무 약하면 원래 목적에서 유용한 Gradient(기울기)가 작아질 수 있어, G가 $\log D(G(z))$를 최대화하는 대안을 사용한다. 저자는 이것이 같은 고정점을 가지면서 초기 학습 신호를 강화한다고 설명한다. [원문 §3](https://arxiv.org/pdf/1406.2661v1)
 
+<figure class="paper-figure" id="figure-1"><a href="/images/papers/goodfellow-2014/figure-1.png" target="_blank" rel="noopener"><img width="872" height="286" src="/images/papers/goodfellow-2014/figure-1.png" alt="Generator와 Discriminator를 번갈아 갱신하는 네 단계" loading="lazy" /></a><figcaption>Figure 1. Generator와 Discriminator를 번갈아 갱신하는 네 단계. <a href="https://arxiv.org/pdf/1406.2661v1">원문</a></figcaption></figure>
+
+검은 점선은 실제 분포, 초록 실선은 생성 분포, 파란 점선은 판별 확률이다. 아래 z의 균일한 입력이 위 x의 분포로 변환되는 모습을 화살표가 연결한다. (a)에서 (b)는 D를 개선하고, (c)는 G를 갱신하며, (d)는 충분한 표현 능력 아래 분포가 일치한 이상적인 상태다. 실제 신경망의 수렴을 보장하는 실험 그림은 아니다.
+
+
 ## 4 이론적 결과
 
 이 절은 알고리즘의 목표가 왜 데이터 분포 일치와 연결되는지 설명한다. 분석 대상은 무한한 표현 능력을 허용하는 분포의 공간이며, 유한 신경망을 실제로 최적화하는 상황과 구분해야 한다.
@@ -64,6 +69,26 @@ G를 고정하면 최적 D는 $\frac{p_{\mathrm{data}}(x)}{p_{\mathrm{data}}(x)+
 MNIST, Toronto Face Database, CIFAR-10에서 이미지 생성 결과를 제시한다. 정량 평가는 생성 표본에 Gaussian Parzen Window(가우시안 파르젠 윈도)를 맞추고 시험 데이터의 Log-Likelihood(로그 가능도)를 추정한다. 이는 G의 정확한 확률값을 직접 계산한 결과가 아니며, 저자는 높은 분산과 고차원에서의 약점을 인정한다.
 
 시각화에는 무작위 생성 표본, 가까운 학습 이미지, z 사이를 보간한 결과를 제시한다. 저자의 결론은 기존 방법보다 표본 품질이 우월하다는 확정적 주장이 아니라, 경쟁력 있는 표본을 만드는 새로운 학습 방식의 가능성이다. [원문 §5](https://arxiv.org/pdf/1406.2661v1)
+
+<figure class="paper-figure" id="figure-2"><a href="/images/papers/goodfellow-2014/figure-2.png" target="_blank" rel="noopener"><img width="872" height="637" src="/images/papers/goodfellow-2014/figure-2.png" alt="MNIST·얼굴·CIFAR-10의 실제 생성 표본" loading="lazy" /></a><figcaption>Figure 2. MNIST·얼굴·CIFAR-10의 실제 생성 표본. <a href="https://arxiv.org/pdf/1406.2661v1">원문</a></figcaption></figure>
+
+(a)는 숫자, (b)는 얼굴, (c)는 완전연결 모델의 CIFAR-10, (d)는 합성곱 기반 모델의 CIFAR-10이다. 각 패널 오른쪽 열은 인접 생성 표본에 가장 가까운 학습 예제다. 저자는 무작위로 뽑은 표본을 보여주며 단순 복제 여부를 살펴보지만, 그림 몇 장만으로 전체 학습 자료의 암기 가능성을 완전히 배제하지는 않는다.
+
+<figure class="paper-figure" id="figure-3"><a href="/images/papers/goodfellow-2014/figure-3.png" target="_blank" rel="noopener"><img width="781" height="66" src="/images/papers/goodfellow-2014/figure-3.png" alt="z 공간에서 선형 보간한 숫자 생성" loading="lazy" /></a><figcaption>Figure 3. z 공간에서 선형 보간한 숫자 생성. <a href="https://arxiv.org/pdf/1406.2661v1">원문</a></figcaption></figure>
+
+왼쪽에서 오른쪽으로 z 좌표를 보간할 때 생성 숫자의 형태가 변한다. 이미지 픽셀 두 장을 직접 섞은 것이 아니라 입력 공간의 변화가 생성물에 어떻게 반영되는지를 보여준다. 이 한 경로가 모든 z 방향의 의미적 연속성을 보장하는 것은 아니다.
+
+**Table 1. Parzen 기반 시험 Log-Likelihood 추정** ([원문](https://arxiv.org/pdf/1406.2661v1))
+
+| 모델 | MNIST | TFD |
+| --- | --- | --- |
+| DBN | 138 ± 2 | 1909 ± 66 |
+| Stacked CAE | 121 ± 1.6 | 2110 ± 50 |
+| Deep GSN | 214 ± 1.1 | 1890 ± 29 |
+| Adversarial nets | 225 ± 2 | 2057 ± 26 |
+
+각 열은 서로 다른 데이터셋의 추정값이며 열끼리 크기를 비교하지 않는다. MNIST 오차는 예제별 평균의 표준오차, TFD는 분할 간 표준오차다. 정확한 생성 확률이 아니라 생성 표본에 맞춘 밀도 추정이라는 한계가 있고, TFD에서는 다른 방법이 더 높은 값을 보인다.
+
 
 ## 6 장점과 단점
 

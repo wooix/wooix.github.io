@@ -31,6 +31,20 @@ Synthetic Data(합성 데이터)는 데이터 확보 비용을 낮추지만, 오
 
 Quality의 주요 축은 Validity(형식·규칙 적합성), Fidelity(목표 내용·분포와의 부합), Diversity(다양성), Utility(활용 효과)다. Trustworthiness에는 Faithfulness(근거·과정 충실성), Safety(안전성), Robustness(강건성), Fairness(공정성), Privacy(프라이버시), Provenance(출처 추적성), Benchmark Contamination(평가셋 오염)을 둔다. 비슷한 이름을 가진 Fidelity와 Faithfulness도, 목표 분포에 잘 맞는지와 주장이 실제 근거에 뒷받침되는지를 구분해 읽어야 한다. [§1](https://arxiv.org/html/2601.17717v3#S1)
 
+<figure class="paper-figure" id="figure-1">
+<a href="https://arxiv.org/html/2601.17717v3/figures/Guanchu/Figure_1_Final.png" target="_blank" rel="noopener"><img width="648" height="365" src="https://arxiv.org/html/2601.17717v3/figures/Guanchu/Figure_1_Final.png" alt="LLM Data Auditor의 생성·감사·활용 과정" loading="lazy" /></a>
+<figcaption>Figure 1. LLM Data Auditor의 생성·감사·활용 과정. <a href="https://arxiv.org/html/2601.17717v3#S1.F1">원문</a></figcaption>
+</figure>
+
+왼쪽에서 오른쪽으로 생성 방법을 정하고, Quality와 Trustworthiness를 별도 축으로 검사한 뒤 대표 연구의 평가 공백과 활용을 연결한다. 마지막 미래 방향은 반복 생성의 동적 평가와 과정 검증을 가리킨다. 새로운 생성 모델의 성능 그래프가 아니라 서베이 전체를 읽는 구조도다.
+
+<figure class="paper-figure" id="figure-2">
+<a href="https://arxiv.org/html/2601.17717v3/figures/Guanchu/Figure_2_Final.png" target="_blank" rel="noopener"><img width="648" height="324" src="https://arxiv.org/html/2601.17717v3/figures/Guanchu/Figure_2_Final.png" alt="여섯 Modality와 평가 차원의 연결" loading="lazy" /></a>
+<figcaption>Figure 2. 여섯 Modality와 평가 차원의 연결. <a href="https://arxiv.org/html/2601.17717v3#S1.F2">원문</a></figcaption>
+</figure>
+
+텍스트, 기호·추론, 표, 반정형, 시각–언어, Agent의 가지를 따라 같은 평가 질문이 어떤 지표로 구현되는지 읽는다. B.C.는 Benchmark Contamination이다. 이 지도는 모든 영역이 같은 지표를 공유한다는 뜻이 아니라 각 영역의 측정 대상을 연결한다.
+
 ### 1.1 대표 연구 감사 절차
 
 모든 논문의 전수조사가 아니라 생성 방법의 주요 계열을 포괄하도록 대표 연구를 선택한다. 각 연구에 방법 계열과 역할을 표시하고, 평가 차원을 명시적으로 측정했는지·간접적으로만 다뤘는지·보고하지 않았는지를 분류한다.
@@ -90,6 +104,185 @@ Supervised Fine-Tuning(지도 미세조정, SFT), 선호 학습, 자기 생성 �
 ### 2.4 평가 관행의 공백
 
 대표 표본에서는 Validity의 재현 가능한 직접 측정, Faithfulness, Safety, Benchmark Contamination이 고르게 보고되지 않는다. 최종 과제 점수가 좋아져도 인코딩·잘림·근거 없는 문장이 남을 수 있으므로 생성 파이프라인에 직접 검사를 붙이자는 논지다. 표 2의 표본 범위를 넘어 전체 문헌의 비율로 일반화하지 않는다. [§2.4](https://arxiv.org/html/2601.17717v3#S2.SS4)
+
+<div class="paper-table" id="table-2">
+<p><strong>Table 2. 텍스트 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S2.T2">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Faithfulness</td>
+<td>Safety</td>
+<td>Benchmark Contam.</td></tr>
+<tr>
+<td>
+
+FineWeb2 (Penedo et al., 2025)
+</td>
+<td>
+
+Source Corpus Control and Composition
+</td>
+<td>
+
+Data construction
+</td>
+<td>×</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Dolma (Soldaini et al., 2024)
+</td>
+<td>
+
+Source Corpus Control and Composition
+</td>
+<td>
+
+Data construction
+</td>
+<td>×</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>△</td></tr>
+<tr>
+<td>
+
+RedPajama (Weber et al., 2024)
+</td>
+<td>
+
+Source Corpus Control and Composition
+</td>
+<td>
+
+Data construction
+</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Self-Instruct (Wang et al., 2023b)
+</td>
+<td>
+
+Prompt-Driven Generation and Refinement
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+RARR (Gao et al., 2023a)
+</td>
+<td>
+
+Inference-Time Steering and Verification
+</td>
+<td>
+
+Evaluation
+</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+PMI-DECODE (Nandwani et al., 2023)
+</td>
+<td>
+
+Inference-Time Steering and Verification
+</td>
+<td>
+
+Evaluation
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+ORPO (Hong et al., 2024)
+</td>
+<td>
+
+Parameter-Efficient and Alignment-Based Control
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Deng et al. (Deng et al., 2024)
+</td>
+<td>
+
+Source Corpus Control and Composition
+</td>
+<td>
+
+Evaluation
+</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
 
 ### 2.5 활용
 
@@ -167,6 +360,172 @@ Trajectory(실행·추론 궤적)는 탐색과 최적화 중 얻은 정책 실�
 
 답 수준의 정확성에 비해 중간 과정의 Faithfulness, 분포 변화에 대한 Robustness, Benchmark Contamination 보고가 적다. 실행 결과가 맞다는 사실만으로 과정의 교육적 적합성이 검증되지는 않는다는 문제가 앞 지표들과 연결된다. [§3.4](https://arxiv.org/html/2601.17717v3#S3.SS4)
 
+<div class="paper-table" id="table-3">
+<p><strong>Table 3. 기호·추론 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S3.T3">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Robustness</td>
+<td>Faithfulness</td>
+<td>
+
+
+Benchmark
+
+Contam.
+</td></tr>
+<tr>
+<td>
+
+MetaMath (Yu et al., 2024a)
+</td>
+<td>
+
+Heuristic Evolution
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+OpenMathInstruct-1 (Toshniwal et al., 2024)
+</td>
+<td>
+
+Tool-Verified Generation
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>✓</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+OpenCodeInstruct (Ahmad et al., 2025)
+</td>
+<td>
+
+Tool-Verified Generation
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>△</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+UltraFeedback (Cui et al., 2024)
+</td>
+<td>
+
+Preference-Curated LLM-Judge Data
+</td>
+<td>
+
+Benchmark
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>△</td></tr>
+<tr>
+<td>
+
+ProofWriter (Tafjord et al., 2021)
+</td>
+<td>
+
+Tool-Verified Generation
+</td>
+<td>
+
+Benchmark
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+FaiRR (Sanyal et al., 2022)
+</td>
+<td>
+
+Tool-Verified Generation
+</td>
+<td>
+
+Evaluation
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>△</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+DyCodeEval (Chen et al., 2025b)
+</td>
+<td>
+
+Heuristic Evolution
+</td>
+<td>
+
+Benchmark
+</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
+
 ### 3.5 활용
 
 #### 합성 말뭉치를 사용한 사전학습과 계속 사전학습
@@ -238,6 +597,166 @@ TSTR 모델에서 집단별 긍정 판정 비율과 참·거짓 양성률 차이
 ### 4.4 평가 관행의 공백
 
 대표 표본에서는 Diversity의 직접 검사와 Fairness 평가가 상대적으로 적다. 특히 더 많은 집단을 포함하는 것만으로 Fairness가 좋아지지는 않는다. 소수 집단의 Fidelity가 낮거나 정답 조건부 분포가 틀어질 수 있어, Coverage(범위 포괄)와 집단별 결과를 함께 보자고 제안한다. [§4.4](https://arxiv.org/html/2601.17717v3#S4.SS4)
+
+<div class="paper-table" id="table-4">
+<p><strong>Table 4. 표 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S4.T4">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Utility</td>
+<td>Privacy</td>
+<td>Fairness</td></tr>
+<tr>
+<td>
+
+GReaT (Borisov et al., 2023)
+</td>
+<td>
+
+Fine-Tuning
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+REaLTabFormer (Solatorio and Dupriez, 2023)
+</td>
+<td>
+
+Fine-Tuning
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+EPIC (Kim et al., 2025)
+</td>
+<td>
+
+Prompt-Based
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+HARMONIC (Wang et al., 2024d)
+</td>
+<td>
+
+Fine-Tuning
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+UDF-MIX (Li et al., 2025b)
+</td>
+<td>
+
+Fine-Tuning
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+FairCauseSyn (Nagesh et al., 2025)
+</td>
+<td>
+
+Prompt-Based
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+AIGT (Zhang et al., 2024c)
+</td>
+<td>
+
+Hybrid Architectures
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
 
 ### 4.5 활용
 
@@ -363,6 +882,338 @@ JSON에서 추출한 답이 실제 과제를 해결하는지 확인한다. Schem
 
 Privacy 평가는 해당 위험을 주제로 한 연구에 집중되어 있다. Utility는 더 자주 보고되지만 Graph 학습·JSON 과제·Log 운영의 실험 조건이 달라 직접 비교하기 어렵다. 생성 가능성을 보여주는 점수와 실제 활용 통제를 분리해야 한다. [§5.4](https://arxiv.org/html/2601.17717v3#S5.SS4)
 
+<div class="paper-table" id="table-5">
+<p><strong>Table 5. 반정형 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S5.T5">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Utility</td>
+<td>Privacy</td></tr>
+<tr>
+<td>
+
+LLM4GraphGen (Yao et al., 2024)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Generate-on-Graph (GoG) (Xu et al., 2024b)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Ontology-grounded constrained decoding (Feng et al., 2024)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+GraphJudge (Huang et al., 2025a)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Evaluation
+</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+GAG (Ji et al., 2025)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+GraphMaster (Du et al., 2025)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+PrivGraph (Yuan et al., 2023)
+</td>
+<td>
+
+Graph Data
+</td>
+<td>
+
+Governance
+</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+JSON Schema discovery (Mior, 2024)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+JSONSchemaBench (Geng et al., 2025)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Benchmark
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Schema Reinforcement Learning (Lu et al., 2025)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+ThinkJSON (Agarwal et al., 2025a)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+RedactOR (Singh et al., 2025)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Governance
+</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+Automata-Based Steering (Luan et al., 2025)
+</td>
+<td>
+
+JSON Data
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+LogBench (Li et al., 2024d)
+</td>
+<td>
+
+Log Data
+</td>
+<td>
+
+Benchmark
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+AUCAD (Zhang et al., 2025a)
+</td>
+<td>
+
+Log Data
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>△</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+Protecting Privacy in Software Logs (Aghili et al., 2025)
+</td>
+<td>
+
+Log Data
+</td>
+<td>
+
+Governance
+</td>
+<td>△</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+Log Generation using FSM-GFlowNets (Samanta, 2025)
+</td>
+<td>
+
+Log Data
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
+
 ### 5.5 활용
 
 #### Graph 구축과 분석
@@ -467,6 +1318,147 @@ Optical Flow(광류)의 크기로 움직임을, 영상 분류 분포로 의미 �
 
 대표 표본은 Fidelity보다 Diversity·Safety·Provenance 보고가 적다. 다양성을 늘리면 정합이 깨질 수 있고, 출처 검증에는 표식·서명·압축이나 편집에 대한 검사가 필요하다는 실무 난점을 설명한다. 제안 지표가 존재한다는 사실과 생성 연구가 실제로 측정했다는 사실을 구분한다. [§6.4](https://arxiv.org/html/2601.17717v3#S6.SS4)
 
+<div class="paper-table" id="table-6">
+<p><strong>Table 6. 시각–언어 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S6.T6">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Utility</td>
+<td>Safety</td>
+<td>Provenance</td></tr>
+<tr>
+<td>
+
+Kosmos-G (Pan et al., 2024)
+</td>
+<td>
+
+Image–Text External Diffusion Control
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+GILL (Koh et al., 2023)
+</td>
+<td>
+
+Image–Text External Diffusion Control
+</td>
+<td>
+
+Generation
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+LVD (Lian et al., 2024)
+</td>
+<td>
+
+Video–Text Planner-based Diffusion
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+FlowZero (Lu et al., 2023)
+</td>
+<td>
+
+Video–Text Planner-based Diffusion
+</td>
+<td>
+
+Generation
+</td>
+<td>△</td>
+<td>✓</td>
+<td>×</td>
+<td>△</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+VideoDirectorGPT (Lin et al., 2024)
+</td>
+<td>
+
+Video–Text Planner-based Diffusion
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+SynthID-Image (Gowal et al., 2025)
+</td>
+<td>
+
+Image–Text External Diffusion Control
+</td>
+<td>
+
+Governance
+</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
+
 ### 6.5 활용
 
 #### SFT
@@ -532,6 +1524,140 @@ Agent 데이터를 최종 용도로 나눈다. 환경·과제 구성, 제어·�
 ### 7.4 평가 관행의 공백
 
 대표 연구는 실행 성공·제약 준수를 많이 보고하지만 반복 생성의 Diversity와 실제 분포 대비 Fidelity는 부족하다. Safety도 종합 점수만으로는 어떤 위반이 줄었는지 설명하기 어려워 유형별 진단이 필요하다. [§7.4](https://arxiv.org/html/2601.17717v3#S7.SS4)
+
+<div class="paper-table" id="table-7">
+<p><strong>Table 7. Agent 대표 연구의 평가 차원 보고 여부</strong> · <a href="https://arxiv.org/html/2601.17717v3#S7.T7">원문</a></p>
+<table>
+<tr>
+<td>
+
+Representative Work
+</td>
+<td>
+
+Family
+</td>
+<td>
+
+Role
+</td>
+<td>Validity</td>
+<td>Fidelity</td>
+<td>Diversity</td>
+<td>Utility</td>
+<td>Safety</td></tr>
+<tr>
+<td>
+
+TTSG (Ruan et al., 2025)
+</td>
+<td>
+
+Environment &amp; Task Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+PARTNR (Chang et al., 2024)
+</td>
+<td>
+
+Environment &amp; Task Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+<tr>
+<td>
+
+SELP (Wu et al., 2025)
+</td>
+<td>
+
+Environment &amp; Task Data
+</td>
+<td>
+
+Governance
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+Grid-Agent (Zhang et al., 2025c)
+</td>
+<td>
+
+Control &amp; Decision Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+<td>△</td></tr>
+<tr>
+<td>
+
+T<sup>3</sup> Planner (Li and Zhao, 2025)
+</td>
+<td>
+
+Environment &amp; Task Data
+</td>
+<td>
+
+Governance
+</td>
+<td>✓</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>✓</td></tr>
+<tr>
+<td>
+
+SceneCraft (Hu et al., 2024)
+</td>
+<td>
+
+Perception &amp; Telemetry Data
+</td>
+<td>
+
+Generation
+</td>
+<td>✓</td>
+<td>△</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td></tr>
+</table>
+</div>
+
+행은 대표 연구, 열은 평가 차원이다. ✓는 명시적 평가, △는 간접·부분 평가, ×는 미보고 또는 해당 없음이다. 전체 원문 표를 재현했으며, 미보고를 낮은 성능이나 위험의 입증으로 해석하지 않는다. 표본 선정 방식은 §1.1을 따른다.
 
 ### 7.5 활용
 
