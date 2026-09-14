@@ -1,10 +1,31 @@
+import { NAVIGATION_STORAGE_KEY, parseNavigationState, restoreNavigationState, openNavigationPath } from '../lib/navigation-state';
+
 const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
-document.querySelectorAll<HTMLButtonElement>('[data-nav-disclosure]').forEach((button) => {
-  button.addEventListener('click', () => {
-    const targetId = button.getAttribute('aria-controls');
-    const branch = targetId ? document.getElementById(targetId) : null;
+const navButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-nav-disclosure]')];
+let navState = {} as Record<string, boolean>;
+function readNavState() {
+  try { return parseNavigationState(localStorage.getItem(NAVIGATION_STORAGE_KEY)); } catch { return navState; }
+}
+function saveNavState() {
+  try { localStorage.setItem(NAVIGATION_STORAGE_KEY, JSON.stringify(navState)); } catch { /* Toggles still work in memory when storage is unavailable. */ }
+}
+function nodeButton(node: Element) { return node.querySelector<HTMLButtonElement>(':scope > .nav-tree-row > [data-nav-disclosure]'); }
+function pathKeys(node: Element | null, includeSelf = true) {
+  const keys: string[] = [];
+  let current = includeSelf ? node : node?.parentElement?.closest('[data-nav-node]') || null;
+  while (current) {
+    const key = nodeButton(current)?.dataset.navKey;
+    if (key) keys.push(key);
+    current = current.parentElement?.closest('[data-nav-node]') || null;
+  }
+  return keys;
+}
+function applyNavState() {
+  navButtons.forEach((button) => {
+    const branchId = button.getAttribute('aria-controls');
+    const branch = branchId ? document.getElementById(branchId) : null;
     if (!branch) return;
-    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    const expanded = navState[button.dataset.navKey!] === true;
     button.setAttribute('aria-expanded', String(expanded));
     button.setAttribute('aria-label', `${button.dataset.navLabel} 하위 항목 ${expanded ? '접기' : '펼치기'}`);
     if (!expanded && branch.contains(document.activeElement)) button.focus();
@@ -12,7 +33,30 @@ document.querySelectorAll<HTMLButtonElement>('[data-nav-disclosure]').forEach((b
     const sign = button.querySelector('[data-nav-sign]');
     if (sign) sign.textContent = expanded ? '−' : '+';
   });
-});
+}
+function restoreNavState() {
+  const activeKeys: string[] = [];
+  document.querySelectorAll<HTMLElement>('[data-nav-active-topic]').forEach((node) => activeKeys.push(...pathKeys(node)));
+  document.querySelectorAll<HTMLAnchorElement>('.topic-navigation a[aria-current="page"]').forEach((link) => {
+    const node = link.closest('[data-nav-node]');
+    activeKeys.push(...pathKeys(node, node?.getAttribute('data-nav-type') === 'topic'));
+  });
+  navState = restoreNavigationState(readNavState(), activeKeys);
+  applyNavState(); saveNavState();
+}
+navButtons.forEach((button) => button.addEventListener('click', () => {
+  navState = { ...navState, [button.dataset.navKey!]: button.getAttribute('aria-expanded') !== 'true' };
+  applyNavState(); saveNavState();
+}));
+document.querySelectorAll<HTMLAnchorElement>('[data-nav-type="topic"] > .nav-tree-row > a').forEach((link) => link.addEventListener('click', () => {
+  navState = openNavigationPath(navState, pathKeys(link.closest('[data-nav-node]')));
+  applyNavState(); saveNavState();
+  // Native navigation, including modified clicks and new tabs, remains untouched.
+}));
+restoreNavState();
+window.addEventListener('pageshow', (event) => { if (event.persisted) restoreNavState(); });
+window.addEventListener('storage', (event) => { if (event.key === NAVIGATION_STORAGE_KEY || event.key === null) restoreNavState(); });
+
 function updateThemeLabel() { themeButton?.setAttribute('aria-label', document.documentElement.dataset.theme === 'dark' ? '밝은 테마로 전환' : '어두운 테마로 전환'); }
 updateThemeLabel();
 themeButton?.addEventListener('click', () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('wooix-theme', theme); } catch {} updateThemeLabel(); });

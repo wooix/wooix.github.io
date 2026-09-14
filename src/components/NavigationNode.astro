@@ -1,16 +1,16 @@
 ---
-import type { ResolvedNavigationNode } from '../lib/navigation';
-interface Props { node: ResolvedNavigationNode; idPrefix: string; depth?: number; activeTopic?: string; }
+import type { StatefulNavigationNode } from '../lib/navigation-state';
+interface Props { node: StatefulNavigationNode; idPrefix: string; depth?: number; activeTopic?: string; }
 const { node, idPrefix, depth = 0, activeTopic } = Astro.props;
 const expandedId = `${idPrefix}-nav-${node.key}`;
 const hasChildren = node.children.length > 0;
 const current = node.href === Astro.url.pathname;
 const activeTopicNode = node.type === 'topic' && node.topicId === activeTopic;
 ---
-<li class:list={['nav-tree-node', `nav-node-${node.type}`]}>
+<li class:list={['nav-tree-node', `nav-node-${node.type}`]} data-nav-node data-nav-type={node.type} data-nav-active-topic={activeTopicNode || undefined}>
   <div class:list={['nav-tree-row', { 'is-active': activeTopicNode, 'is-current': current }]} style={`--nav-indent: ${Math.min(depth, 3) * 8}px`}>
     {node.href ? <a class="nav-tree-link" href={node.href} aria-current={current ? 'page' : undefined}><span class="nav-node-label">{node.label}</span>{node.type === 'topic' && <span class="nav-count">{String(node.postCount || 0).padStart(2, '0')}</span>}</a> : <span class="nav-tree-folder"><span class="nav-node-label">{node.label}</span></span>}
-    {hasChildren && <button type="button" class="nav-disclosure" data-nav-disclosure data-nav-label={node.label} aria-expanded="false" aria-controls={expandedId} aria-label={`${node.label} 하위 항목 펼치기`}><span data-nav-sign aria-hidden="true">+</span></button>}
+    {hasChildren && <button type="button" class="nav-disclosure" data-nav-disclosure data-nav-key={node.stateKey} data-nav-label={node.label} aria-expanded="false" aria-controls={expandedId} aria-label={`${node.label} 하위 항목 펼치기`}><span data-nav-sign aria-hidden="true">+</span></button>}
   </div>
   {hasChildren && <ul class="nav-tree-children" id={expandedId} hidden>{node.children.map((child) => <Astro.self node={child} idPrefix={idPrefix} depth={depth + 1} activeTopic={activeTopic} />)}</ul>}
 </li>

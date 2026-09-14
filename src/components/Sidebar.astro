@@ -5,12 +5,13 @@ import { getCollection } from 'astro:content';
 import { topics } from '../data/topics';
 import { navigation } from '../data/navigation';
 import { resolveNavigation } from '../lib/navigation';
+import { withNavigationStateKeys } from '../lib/navigation-state';
 import { getPosts } from '../lib/posts';
 interface Props { activeTopic?: string; idPrefix: string; }
 const { activeTopic, idPrefix } = Astro.props;
 const posts = await getPosts();
 const allPosts = await getCollection('posts');
-const navigationRoots = resolveNavigation({ topics, configuration: navigation, allPosts: allPosts.map((post) => ({ id: post.id, title: post.data.title, topic: post.data.topic })), publicPosts: posts });
+const navigationRoots = withNavigationStateKeys(resolveNavigation({ topics, configuration: navigation, allPosts: allPosts.map((post) => ({ id: post.id, title: post.data.title, topic: post.data.topic })), publicPosts: posts }));
 const path = Astro.url.pathname;
 ---
 <div class="sidebar-inner">

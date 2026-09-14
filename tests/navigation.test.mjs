@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { resolveNavigation, NavigationConfigurationError } from '../src/lib/navigation.ts';
+import { parseNavigationState, restoreNavigationState, openNavigationPath, withNavigationStateKeys } from '../src/lib/navigation-state.ts';
 
 const topics = [{ id: 'llm-tech', label: 'LLM 기술' }, { id: 'slm-performance', label: 'SLM 성능' }];
 const post = (id, topic = 'llm-tech') => ({ id, title: `Public ${id}`, topic });
@@ -102,4 +103,39 @@ test('resolution does not mutate the configuration or post registry', () => {
   const before = JSON.stringify({ config, all });
   fixture(config, all);
   assert.equal(JSON.stringify({ config, all }), before);
+});
+
+
+test('navigation state keeps explicit closed choices and rejects malformed storage values', () => {
+  assert.deepEqual(parseNavigationState('{bad'), {});
+  assert.deepEqual(parseNavigationState('[]'), {});
+  assert.deepEqual(parseNavigationState(null), {});
+  const state = parseNavigationState('{"topic:llm-tech":false,"topic:other":true,"topic:bad":"true","unexpected":true}');
+  assert.deepEqual(state, { 'topic:llm-tech': false, 'topic:other': true });
+  const restored = restoreNavigationState(state, ['topic:llm-tech', 'topic:new/folder:current']);
+  assert.deepEqual(restored, { 'topic:llm-tech': false, 'topic:other': true, 'topic:new/folder:current': true });
+  assert.deepEqual(parseNavigationState(JSON.stringify(restored)), restored);
+  assert.equal(Object.hasOwn(restored, 'topic:unvisited'), false);
+});
+
+test('explicit topic navigation opens only its path and preserves unrelated expanded and closed branches', () => {
+  const state = { 'topic:a': false, 'topic:b': true, 'topic:c': false };
+  assert.deepEqual(openNavigationPath(state, ['topic:a', 'topic:a/folder:course']), {
+    'topic:a': true, 'topic:b': true, 'topic:c': false, 'topic:a/folder:course': true,
+  });
+  assert.equal(state['topic:a'], false);
+});
+
+test('saved navigation keys survive unrelated topic and sibling insertions while separating repeated references', () => {
+  const all = ['first', 'second', 'new'].map((id) => post(id));
+  const config = { 'llm-tech': [folder('Course', [reference('first', [reference('second')])]), folder('Other', [reference('first')])] };
+  const before = withNavigationStateKeys(fixture(config, all));
+  const afterConfig = { 'llm-tech': [reference('new'), ...config['llm-tech']] };
+  const after = withNavigationStateKeys(resolveNavigation({ topics: topics.toReversed(), configuration: afterConfig, allPosts: all, publicPosts: all.toReversed() }));
+  const courseKeys = (nodes) => flatten(nodes).filter((node) => node.stateKey.includes('folder:Course')).map((node) => node.stateKey);
+  assert.deepEqual(courseKeys(after), courseKeys(before));
+  const firstKeys = flatten(before).filter((node) => node.postId === 'first').map((node) => node.stateKey);
+  assert.equal(new Set(firstKeys).size, 2);
+  const duplicate = withNavigationStateKeys(fixture({ 'llm-tech': [folder('Same', [reference('first')]), folder('Same', [reference('second')]), reference('first'), reference('first')] }, all));
+  assert.equal(new Set(flatten(duplicate).map((node) => node.stateKey)).size, flatten(duplicate).length);
 });
