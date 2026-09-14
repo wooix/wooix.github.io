@@ -1,0 +1,16 @@
+/* Only explicitly marked headings use this subtitle treatment. */
+.prose :is(h2, h3, h4, h5, h6).has-heading-subtitle {
+  margin-bottom: 8px;
+}
+.prose .heading-subtitle {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: inherit;
+  line-height: 1.7;
+}
+.prose .heading-subtitle > [aria-hidden='true'] {
+  flex: 0 0 auto;
+}

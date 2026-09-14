@@ -76,11 +76,15 @@ takeaway: 'Synthetic Data(합성 데이터)는 모델에 필요한 학습 경험
 
 > <strong>읽기 기준</strong> · 합성데이터스터디 6강 중 첫 번째 자료입니다. 본문 읽기는 약 25분, 원문 읽기와 토론은 별도입니다. 문헌 확인일과 원고 작성일은 2026년 9월 14일입니다. 아래 가상의 도서관 사례와 실험 설계는 이해를 위한 창작 예시이며, 실행하거나 측정한 결과가 아닙니다.
 
-## 1. 문제 정의: 어떤 학습 경험이 부족한가
+## 1. 문제 정의
+
+<p class="heading-subtitle" data-heading-id="1-문제-정의-어떤-학습-경험이-부족한가"><span aria-hidden="true">💡</span> 어떤 학습 경험이 부족한가?</p>
 
 먼저 학습 목표와 공통 사례를 연결하고, 실제 자료와 합성할 부분을 구분합니다.
 
-### Learning Goals(학습 목표): 읽고 나서 설명할 세 가지
+### Learning Goals(학습 목표)
+
+<p class="heading-subtitle" data-heading-id="learning-goals학습-목표-읽고-나서-설명할-세-가지"><span aria-hidden="true">💡</span> 읽고 나서 설명할 세 가지</p>
 
 1. Synthetic Data(합성 데이터), Data Augmentation(데이터 증강), Pseudo-labeling(의사 라벨링), Knowledge Distillation(지식 증류)을 구분합니다.
 2. 역사를 연도 암기 대신 <strong>해결하려던 데이터 부족의 종류</strong>로 설명합니다.
@@ -88,7 +92,9 @@ takeaway: 'Synthetic Data(합성 데이터)는 모델에 필요한 학습 경험
 
 Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우는 단계이고, SFT(Supervised Fine-Tuning, 지도 미세조정)는 입력과 바람직한 출력의 예제로 과제 수행을 학습하는 단계입니다. 이 두 개념을 알고 있으면 충분합니다. 이번 강의에서는 모델 학습을 실행하지 않아도 됩니다.
 
-### A Running Example(공통 사례): 문서는 있는데 좋은 문답이 없다
+### A Running Example(공통 사례)
+
+<p class="heading-subtitle" data-heading-id="a-running-example공통-사례-문서는-있는데-좋은-문답이-없다"><span aria-hidden="true">💡</span> 문서는 있는데 좋은 문답이 없다</p>
 
 가상의 도서관 안내 문서가 다음과 같다고 합시다.
 
@@ -108,7 +114,9 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 출제자 비유로 돌아가면 문서는 교과서, 질문은 연습문제, 목표 응답은 해설입니다. 교과서가 정확하더라도 출제자가 조건을 빼먹으면 해설은 틀릴 수 있습니다. 따라서 원천의 신뢰성과 생성 결과의 정확성은 따로 확인해야 합니다.
 
-### Definition(정의): 데이터의 어느 부분을 만드는가
+### Definition(정의)
+
+<p class="heading-subtitle" data-heading-id="definition정의-데이터의-어느-부분을-만드는가"><span aria-hidden="true">💡</span> 데이터의 어느 부분을 만드는가?</p>
 
 이 스터디에서 Synthetic Data(합성 데이터)는 규칙·시뮬레이션·생성 모델 등을 통해 인공적으로 구성한 데이터를 뜻합니다. 특히 LLM(Large Language Model, 대규모 언어 모델)이 생성하는 텍스트·코드·추론·행동 데이터를 중심으로 다룹니다.
 
@@ -129,7 +137,9 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 <strong>외부 문서를 검색해서 응답에 활용하기만 했다면, 그것만으로 학습용 합성 데이터셋을 구축한 것은 아닙니다.</strong> 검색한 문서에서 문답을 생성·저장하고 학습에 사용하면, 검색은 합성 데이터 파이프라인의 근거 공급 단계가 됩니다.
 
-## 2. 역사: 데이터 부족에 따라 달라진 생성 방법
+## 2. 역사
+
+<p class="heading-subtitle" data-heading-id="2-역사-데이터-부족에-따라-달라진-생성-방법"><span aria-hidden="true">💡</span> 데이터 부족에 따라 달라진 생성 방법</p>
 
 각 방법이 해결하려던 부족을 따라가면, 생성 대상과 검증 방식이 왜 달라졌는지 보입니다.
 
@@ -137,7 +147,9 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 합성 데이터에는 하나의 출발점이나 단일한 발전 순서가 있는 것이 아닙니다. 통계적 표본 생성, 가상 환경, 데이터 증강, 생성 모델은 서로 다른 목적에서 발전했습니다. 아래는 그 전체 역사의 축약본이 아니라, LLM 기반 학습 데이터를 이해하기 위한 연결 경로입니다.
 
-### Before LLMs(LLM 이전): 무엇을 통제해서 만들 것인가
+### Before LLMs(LLM 이전)
+
+<p class="heading-subtitle" data-heading-id="before-llmsllm-이전-무엇을-통제해서-만들-것인가"><span aria-hidden="true">💡</span> 무엇을 통제해서 만들 것인가?</p>
 
 규칙으로 덧셈 문제를 만들면 출제자가 숫자 범위를 정하고 정답을 직접 계산할 수 있습니다. 가상 환경에서 물체 위치를 정하고 관측을 만들면, 환경의 내부 상태를 정답의 근거로 사용할 수 있습니다. 이는 생성 과정에 정답을 판정할 구조를 함께 넣는 방식입니다. 다만 가상 조건에서의 성공이 실제 환경의 성공을 보장하지는 않습니다.
 
@@ -145,13 +157,17 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 이 사례에서 얻을 질문은 “원래 분포를 복사했는가?”보다 “어떤 부족을 보완했는가?”입니다. 도서관 질문의 대부분이 단순 대출 기간 문의여도, 조건부 연장 질문을 별도로 늘리는 학습 설계가 가능하다는 뜻입니다. 이 연결은 강의의 해석이며 SMOTE가 자연어 문답 생성을 검증했다는 의미는 아닙니다.
 
-### Generative Models(생성 모델): 생성 규칙도 데이터에서 배우기
+### Generative Models(생성 모델)
+
+<p class="heading-subtitle" data-heading-id="generative-models생성-모델-생성-규칙도-데이터에서-배우기"><span aria-hidden="true">💡</span> 생성 규칙도 데이터에서 배우기</p>
 
 수작업 규칙으로 복잡한 문장이나 이미지를 모두 만들기는 어렵습니다. Generative Model(생성 모델)은 관찰한 자료에서 생성에 필요한 패턴을 학습합니다. 2014년 GAN(Generative Adversarial Network, 생성적 적대 신경망)은 생성기와 판별기의 경쟁을 통해 분포를 학습하는 대표적인 이정표입니다. [Goodfellow et al., 2014](/notes/synthetic-data-study/01-foundations/papers/goodfellow-2014/)
 
 출제자가 모든 규칙을 직접 적는 대신, 기존 문제집을 보고 새 문제의 패턴을 익히는 쪽으로 비유할 수 있습니다. 그러나 그럴듯한 결과물을 만들 수 있다는 사실과, 그 결과물을 다른 모델의 학습에 쓰면 도움이 된다는 사실은 별개입니다. 생성 모델의 샘플 품질과 학습 데이터의 효용은 서로 다른 질문입니다.
 
-### Back-translation(역번역): 실제 정답 쪽을 남기고 입력을 만들기
+### Back-translation(역번역)
+
+<p class="heading-subtitle" data-heading-id="back-translation역번역-실제-정답-쪽을-남기고-입력을-만들기"><span aria-hidden="true">💡</span> 실제 정답 쪽을 남기고 입력을 만들기</p>
 
 <strong>Back-translation(역번역)</strong>은 목표 언어의 실제 문장을 출발점으로 반대 방향 번역 모델을 사용해 합성 입력을 만드는 접근입니다. Sennrich 등의 연구는 이 방식으로 단일언어 자료를 번역 학습에 활용했습니다. 논문은 2015년 선공개 후 ACL 2016에 발표되었습니다. [논문 요약](/notes/synthetic-data-study/01-foundations/papers/sennrich-2016/)
 
@@ -167,7 +183,9 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 학습 쌍의 양쪽을 모두 생성할 필요가 없다는 점이 핵심입니다. 이 구조는 “어느 쪽에 믿을 수 있는 자료가 이미 있는가?”를 먼저 묻게 합니다. 도서관 문서가 있다면 문서까지 꾸며 내기보다, 그 문서에서 질문과 답을 만드는 설계를 고려할 수 있습니다.
 
-### EDA(쉬운 데이터 증강): 작은 변형에도 가정이 있다
+### EDA(쉬운 데이터 증강)
+
+<p class="heading-subtitle" data-heading-id="eda쉬운-데이터-증강-작은-변형에도-가정이-있다"><span aria-hidden="true">💡</span> 작은 변형에도 가정이 있다</p>
 
 <strong>EDA(Easy Data Augmentation, 쉬운 데이터 증강)</strong>는 동의어 치환, 무작위 삽입·교환·삭제로 텍스트 분류 학습 자료를 늘리는 2019년 접근입니다. [Wei and Zou, 2019](/notes/synthetic-data-study/01-foundations/papers/wei-2019/)
 
@@ -175,7 +193,9 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 이 문제는 현대 LLM에도 이어집니다. 표현을 자연스럽게 바꾸었다고 의미가 보존된 것은 아닙니다. “조건·부정·수량이 유지됐는가?”를 확인하는 이유는 생성기가 더 유창해졌어도 사라지지 않습니다.
 
-### Instruction Data(지시문 데이터): 문제 유형 자체를 만들기
+### Instruction Data(지시문 데이터)
+
+<p class="heading-subtitle" data-heading-id="instruction-data지시문-데이터-문제-유형-자체를-만들기"><span aria-hidden="true">💡</span> 문제 유형 자체를 만들기</p>
 
 앞선 방식은 주어진 문제의 입력을 보충하거나 바꾸는 데 집중했습니다. Instruction Data(지시문 데이터)는 무엇을 수행해야 하는지 나타내는 지시까지 학습 예제에 포함합니다. 분류·요약·추출·작성처럼 과제의 종류도 데이터 설계 대상이 됩니다.
 
@@ -192,13 +212,19 @@ Pretraining(사전학습)은 많은 자료에서 일반적인 패턴을 배우�
 
 이 표의 연도는 위 원문의 공개·발표 정보를 따릅니다. 새 방법이 옛 방법을 모두 대체했다는 뜻은 아닙니다. 정답을 계산할 수 있는 문제에는 지금도 규칙 기반 검증이 유용합니다.
 
-## 3. 학습 신호: 생성한 결과를 어떻게 학습에 연결하는가
+## 3. 학습 신호
+
+<p class="heading-subtitle" data-heading-id="3-학습-신호-생성한-결과를-어떻게-학습에-연결하는가"><span aria-hidden="true">💡</span> 생성한 결과를 어떻게 학습에 연결하는가?</p>
 
 Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전체 파이프라인으로 넓혀 봅니다.
 
-### Self-Instruct Reading(원문 읽기): 생성과 학습을 나누어 보기
+### Self-Instruct Reading(원문 읽기)
 
-#### Method(방법): 출제·선별·학습의 연결
+<p class="heading-subtitle" data-heading-id="self-instruct-reading원문-읽기-생성과-학습을-나누어-보기"><span aria-hidden="true">💡</span> 생성과 학습을 나누어 보기</p>
+
+#### Method(방법)
+
+<p class="heading-subtitle" data-heading-id="method방법-출제선별학습의-연결"><span aria-hidden="true">💡</span> 출제·선별·학습의 연결</p>
 
 원 논문은 사람이 작성한 175개 시드 과제로 시작합니다. 기존 과제를 예시로 제시해 새 지시문을 만들고, 분류 과제인지 판별한 다음 입력·출력 예제를 생성합니다. 부적절하거나 유사한 결과를 걸러 과제 풀에 추가하고, 모은 데이터로 GPT-3를 미세조정합니다. 분류 과제와 다른 과제에 서로 다른 예제 생성 순서를 사용한다는 점에도 주목합니다. [Self-Instruct, §2](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)
 
@@ -212,11 +238,15 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 생성 반복 중 과제 풀이 커지는 것과 매 반복마다 모델 가중치가 갱신되는 것은 다릅니다. 위 그림은 데이터 수집 루프와 이후 학습을 분리해 그린 개념도입니다.
 
-#### Evidence(근거): 무엇을 확인했고 무엇이 남았는가
+#### Evidence(근거)
+
+<p class="heading-subtitle" data-heading-id="evidence근거-무엇을-확인했고-무엇이-남았는가"><span aria-hidden="true">💡</span> 무엇을 확인했고 무엇이 남았는가?</p>
 
 논문은 약 5만 2천 개 지시문과 8만 2천 개 입력·출력 예제를 보고하고, Super-NaturalInstructions 및 별도의 사용자 지향 과제로 지시 수행 능력을 평가합니다. 지시문 수와 수행 예제 수는 다른 단위입니다. 시드와 선별 규칙이 있으므로 “사람의 설계가 전혀 없다”는 해석도 맞지 않습니다. [Self-Instruct, §3–4](/notes/synthetic-data-study/01-foundations/papers/wang-2023/)
 
-#### Critical Reading(비판적 읽기): 네 질문을 원문에 표시하기
+#### Critical Reading(비판적 읽기)
+
+<p class="heading-subtitle" data-heading-id="critical-reading비판적-읽기-네-질문을-원문에-표시하기"><span aria-hidden="true">💡</span> 네 질문을 원문에 표시하기</p>
 
 1. 사람이 제공한 부분은 어디인가?
 2. 생성과 미세조정은 각각 언제 일어나는가?
@@ -225,7 +255,9 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 이 질문은 논문의 주장을 과장하지 않고 후속 연구로 연결하기 위한 읽기 도구입니다. 예를 들어 단어 유사성이 낮은 두 질문도 같은 능력을 반복할 수 있으므로, 중복 제거와 능력 범위 확보를 별도로 생각해 볼 수 있습니다.
 
-### Learning Signal(학습 신호): 이미 아는 것으로 다시 배우는 이유
+### Learning Signal(학습 신호)
+
+<p class="heading-subtitle" data-heading-id="learning-signal학습-신호-이미-아는-것으로-다시-배우는-이유"><span aria-hidden="true">💡</span> 이미 아는 것으로 다시 배우는 이유</p>
 
 “모델이 자기 지식으로 문제를 만들었다면, 새로운 지식을 얻은 것도 아닌데 왜 학습할까?”라는 질문이 자연스럽습니다. 여기서는 <strong>새로운 사실의 획득</strong>과 <strong>원하는 행동을 더 안정적으로 수행하는 학습</strong>을 구분해야 합니다.
 
@@ -244,7 +276,9 @@ Self-Instruct의 실제 과정을 먼저 읽고, 학습 신호의 역할과 전�
 
 <strong>Generation Volume(생성량)은 Independent Evidence(독립적인 근거)의 양과 같지 않습니다.</strong> 같은 교과서에서 비슷한 문제 천 개를 만들었다고 교과서 천 권을 새로 읽은 것은 아닙니다. 이 비유는 생성량을 곧 정보량으로 해석하지 않기 위한 기준입니다.
 
-### Pipeline(전체 과정): 생성 결과가 학습 데이터가 되기까지
+### Pipeline(전체 과정)
+
+<p class="heading-subtitle" data-heading-id="pipeline전체-과정-생성-결과가-학습-데이터가-되기까지"><span aria-hidden="true">💡</span> 생성 결과가 학습 데이터가 되기까지</p>
 
 2024년 서베이의 Generation(생성)–Curation(큐레이션)–Evaluation(평가) 구조를 우리 사례에 적용하면 다음과 같습니다. 학습과 평가셋의 분리는 이 강의에서 실험 설계를 위해 덧붙인 표현입니다. [서베이 A, Figure 2 및 §3](/notes/synthetic-data-study/01-foundations/papers/long-2024/)
 
@@ -264,11 +298,15 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 
 평가용 질문을 그대로 프롬프트에 넣어 학습 예제를 만들면 독립성을 잃습니다. 모델 선택과 필터 조정에 사용하는 Development Set(개발용 평가셋)과 마지막 확인에 사용하는 Held-out Test Set(분리해 둔 최종 평가셋)을 구분해 둡니다. 문서 기반 과제에서는 같은 문서의 새 질문으로 평가할지, 새로운 문서로 평가할지도 목표에 맞춰 명시합니다.
 
-## 4. 스터디 적용: 최신 흐름에서 내 과제로
+## 4. 스터디 적용
+
+<p class="heading-subtitle" data-heading-id="4-스터디-적용-최신-흐름에서-내-과제로"><span aria-hidden="true">💡</span> 최신 흐름에서 내 과제로</p>
 
 2024~2026년의 읽기 좌표를 잡은 뒤, 토론과 과제로 자신의 데이터 설계를 구체화합니다.
 
-### Looking Ahead(다음 흐름): 2024~2026을 읽을 좌표
+### Looking Ahead(다음 흐름)
+
+<p class="heading-subtitle" data-heading-id="looking-ahead다음-흐름-20242026을-읽을-좌표"><span aria-hidden="true">💡</span> 2024~2026을 읽을 좌표</p>
 
 다음 표는 세 서베이와 대표 논문을 연결한 <strong>스터디의 학습 경로</strong>입니다. 각 연도에 오직 하나의 주제만 연구되었다거나, 분야 전체가 일제히 이동했다는 주장은 아닙니다.
 
@@ -282,7 +320,9 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 
 2026년 서베이 C는 여러 데이터 유형의 품질·신뢰성 평가를 정리합니다. 1강에서는 목차만 확인하고, 텍스트·추론에 해당하는 부분을 진도에 맞춰 읽겠습니다. [서베이 C, v3](/notes/synthetic-data-study/01-foundations/papers/zhang-2026/)
 
-### Reading Guide(읽기 안내): 이번 주에 읽을 범위
+### Reading Guide(읽기 안내)
+
+<p class="heading-subtitle" data-heading-id="reading-guide읽기-안내-이번-주에-읽을-범위"><span aria-hidden="true">💡</span> 이번 주에 읽을 범위</p>
 
 서베이를 처음부터 끝까지 한 번에 읽기보다, 같은 질문에 답하는 부분을 연결합니다. 아래 시간은 스터디 운영을 위한 예상치입니다.
 
@@ -296,7 +336,9 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 
 서베이 B는 [서베이 B 요약](/notes/synthetic-data-study/01-foundations/papers/nadas-2025/)의 실제 본문 제목을 기준으로 읽습니다. 서론의 구성 안내와 본문 절 번호가 일치하지 않는 부분이 있어, <strong>§IV Background and Motivation</strong>이라는 제목을 함께 확인하세요. 서베이 C는 2026년 6월 개정판인 v3로 통일합니다.
 
-### Discussion(토론): 출제자의 결정을 설명해 보기
+### Discussion(토론)
+
+<p class="heading-subtitle" data-heading-id="discussion토론-출제자의-결정을-설명해-보기"><span aria-hidden="true">💡</span> 출제자의 결정을 설명해 보기</p>
 
 다음 질문은 정해진 한 문장을 맞히기 위한 퀴즈가 아닙니다. 자신이 선택한 목적과 가정을 함께 설명해 보세요.
 
@@ -308,7 +350,9 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 
 2시간 모임이라면 개념 연결 10분, 본문 설명 30분, 논문 발제 30분, 토론·과제 설계 35분, 정리 15분으로 진행할 수 있습니다.
 
-### Assignment(1강 과제): 데이터 부족을 한 페이지로 정의하기
+### Assignment(1강 과제)
+
+<p class="heading-subtitle" data-heading-id="assignment1강-과제-데이터-부족을-한-페이지로-정의하기"><span aria-hidden="true">💡</span> 데이터 부족을 한 페이지로 정의하기</p>
 
 이번 주에는 대규모 생성보다 <strong>무엇이 부족한지 명확하게 적는 것</strong>을 목표로 합니다. 아래는 도서관 예시로 작성한 미실행 설계안입니다.
 
@@ -337,9 +381,13 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 
 평가 자료를 확보하지 못했다면 그 사실을 그대로 적습니다. 합성 예제를 사람이 검토한 결과와, 그 예제로 학습한 모델의 성능 개선은 서로 다른 결과입니다. 이번 과제는 후자를 측정하지 않습니다.
 
-## 5. 정리: 핵심 용어와 다음 질문
+## 5. 정리
 
-### Vocabulary(핵심 용어): 무엇을 가리키는지 다시 확인하기
+<p class="heading-subtitle" data-heading-id="5-정리-핵심-용어와-다음-질문"><span aria-hidden="true">💡</span> 핵심 용어와 다음 질문</p>
+
+### Vocabulary(핵심 용어)
+
+<p class="heading-subtitle" data-heading-id="vocabulary핵심-용어-무엇을-가리키는지-다시-확인하기"><span aria-hidden="true">💡</span> 무엇을 가리키는지 다시 확인하기</p>
 
 | English | 한국어 | 이 강의에서의 의미 |
 | --- | --- | --- |
@@ -356,7 +404,9 @@ Evaluation(평가): 별도로 확보한 실제 질문에서 확인
 | Utility | 효용 | 목표 과제에 실제로 도움이 되는 정도 |
 | Held-out Test Set | 분리해 둔 최종 평가셋 | 생성·선택·조정에서 분리한 마지막 평가 자료 |
 
-### Next Lesson(다음 강의): 어떤 문제를 얼마나 만들까
+### Next Lesson(다음 강의)
+
+<p class="heading-subtitle" data-heading-id="next-lesson다음-강의-어떤-문제를-얼마나-만들까"><span aria-hidden="true">💡</span> 어떤 문제를 얼마나 만들까?</p>
 
 1강에서 기억할 기준은 네 가지입니다.
 
