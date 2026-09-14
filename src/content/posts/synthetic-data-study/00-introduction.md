@@ -1,5 +1,5 @@
 ---
-title: '합성데이터스터디 0. Introduction: 1–6강 학습 계획'
+title: '0강 · Introduction'
 description: '핵심 서베이 4편을 중심으로 역사, 생성, 큐레이션, 코드, 추론·에이전트, 평가·신뢰성을 연결하는 6강 학습 지도입니다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
@@ -8,7 +8,7 @@ kind: research-note
 readingTime: 12
 featured: false
 draft: false
-navLabel: '0. Introduction'
+navLabel: '0강 · Introduction'
 sourceLinks:
   - title: 'Long et al. (2024) — On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation: A Survey'
     url: 'https://wooix.github.io/notes/synthetic-data-study/01-foundations/papers/long-2024/'

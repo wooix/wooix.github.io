@@ -5,7 +5,7 @@ import type { NavigationConfig } from '../lib/navigation';
 // See docs/navigation.md before adding folders, lessons, or reference posts.
 export const navigation = {
   'synthetic-data-study': [
-    { type: 'post', postId: 'synthetic-data-study/00-introduction', label: '0. Introduction', children: [
+    { type: 'post', postId: 'synthetic-data-study/00-introduction', label: '0강 · Introduction', children: [
       { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/long-2024', label: 'Long et al. (2024)' },
       { type: 'post', postId: 'synthetic-data-study/00-introduction/papers/wang-2024', label: 'Wang et al. (2024)' },
       { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/nadas-2025', label: 'Nadaș et al. (2025)' },

@@ -1,5 +1,5 @@
 ---
-title: '합성데이터스터디 1강: Synthetic Data(합성 데이터)의 역사와 학습 신호'
+title: '1강 · 역사와 학습 신호'
 description: '데이터 증강·의사 라벨링·지식 증류를 구분하고, 역번역에서 Self-Instruct까지 이어지는 역사를 통해 무엇을 생성하고 어떻게 검증할지 배웁니다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
@@ -37,7 +37,7 @@ sourceLinks:
 takeaway: 'Synthetic Data(합성 데이터)는 모델에 필요한 학습 경험을 설계하는 수단입니다. 생성량보다 무엇을 새로 만들었는지, 어떤 근거로 검증했는지, 실제 과제에서 도움이 되는지를 먼저 확인합니다.'
 ---
 
-[← 0. Introduction: 전체 1–6강 계획과 핵심 서베이 4편](/notes/synthetic-data-study/00-introduction/)
+[← 0강 · Introduction: 전체 1–6강 계획과 핵심 서베이 4편](/notes/synthetic-data-study/00-introduction/)
 
 ## Required Reading(필수 읽기 자료)
 
