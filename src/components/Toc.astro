@@ -1,9 +1,11 @@
 ---
-export interface Heading { depth: number; slug: string; text: string; }
+import TocBranch from './TocBranch.astro';
+import { buildToc, type Heading } from '../lib/toc';
+export type { Heading } from '../lib/toc';
 interface Props { headings: Heading[]; }
 const { headings } = Astro.props;
 ---
 <nav aria-label="이 페이지의 목차" class="toc-nav">
   <p class="toc-title">이 페이지에서</p>
-  <ol>{headings.filter((h) => h.depth >= 2 && h.depth <= 6).map((heading, index) => <li class:list={{ 'toc-sub': heading.depth >= 3 }} style={`--toc-depth: ${Math.min(heading.depth - 2, 3)}`} ><a href={`#${heading.slug}`} class:list={{ 'is-active': index === 0 }} data-toc-link>{heading.text}</a></li>)}</ol>
+  <TocBranch nodes={buildToc(headings)} />
 </nav>

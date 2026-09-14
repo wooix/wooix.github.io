@@ -1,0 +1,13 @@
+---
+import type { TocNode } from '../lib/toc';
+interface Props { nodes: TocNode[]; }
+const { nodes } = Astro.props;
+---
+<ol>
+  {nodes.map((node) => <li>
+    {node.children.length ? <details class="toc-branch">
+      <summary><a href={`#${node.slug}`} data-toc-link>{node.text}</a><span class="toc-count" aria-label={`${node.children.length}개 하위 절`}>{node.children.length}</span><span class="toc-chevron" aria-hidden="true">›</span></summary>
+      <Astro.self nodes={node.children} />
+    </details> : <a href={`#${node.slug}`} data-toc-link>{node.text}</a>}
+  </li>)}
+</ol>

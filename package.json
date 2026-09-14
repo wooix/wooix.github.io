@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "test:navigation": "node --test tests/navigation.test.mjs",
+    "test:navigation": "node --test tests/navigation.test.mjs tests/toc.test.mjs",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"

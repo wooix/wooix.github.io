@@ -44,6 +44,9 @@ let scrollQueued = false;
 function updateToc() {
   const current = sections.reduce<HTMLElement | undefined>((last, section) => section.getBoundingClientRect().top <= 145 ? section : last, sections[0]);
   tocLinks.forEach((link) => { const active = decodeURIComponent(link.hash.slice(1)) === current?.id; link.classList.toggle('is-active', active); if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); });
+  document.querySelectorAll<HTMLDetailsElement>('.toc-branch').forEach((branch) => {
+    branch.classList.toggle('contains-current', !!branch.querySelector('a.is-active'));
+  });
   scrollQueued = false;
 }
 document.addEventListener('scroll', () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateToc); } }, { passive: true });
