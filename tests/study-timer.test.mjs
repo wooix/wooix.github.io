@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createCountdown, countdownRemaining, settleCountdown, startCountdown, pauseCountdown, restartCountdown, formatCountdown, confirmsDownwardScroll, isDocumentScrollbarPress } from '../src/lib/study-timer.ts';
+import { createCountdown, countdownRemaining, settleCountdown, startCountdown, pauseCountdown, restartCountdown, formatCountdown, shouldStartOnScroll } from '../src/lib/study-timer.ts';
 
 test('the article readingTime is used without recalculating its duration', () => {
   const state = createCountdown(25);
@@ -61,23 +61,23 @@ test('a backward wall-clock adjustment cannot extend remaining time beyond its r
   assert.equal(countdownRemaining(running, -10_000), 60_000);
 });
 
-test('actual downward movement needs an unexpired input intent; restored positions alone do not start', () => {
-  assert.equal(confirmsDownwardScroll(null, 1000, 100), false);
-  const intent = { scrollY: 300, expiresAt: 600 };
-  assert.equal(confirmsDownwardScroll(intent, 360, 500), true);
-  assert.equal(confirmsDownwardScroll(intent, 360, 601), false);
-  assert.equal(confirmsDownwardScroll(intent, 300, 500), false);
-  assert.equal(confirmsDownwardScroll(intent, 200, 500), false);
+test('the first ordinary downward scroll starts immediately without a separate input event', () => {
+  assert.equal(shouldStartOnScroll('ready', 0, 640, false), true);
+  assert.equal(shouldStartOnScroll('ready', 0, 0.5, false), true);
+  assert.equal(shouldStartOnScroll('ready', 300, 360, false), true);
+  assert.equal(shouldStartOnScroll('ready', 300, 300, false), false);
+  assert.equal(shouldStartOnScroll('ready', 300, 200, false), false);
+  assert.equal(shouldStartOnScroll('ready', -20, 0, false), false);
 });
 
-test('scrollbar presses require document-root edge hits and actual vertical overflow', () => {
-  const base = { x: 995, y: 300, viewportWidth: 1000, viewportHeight: 800, contentWidth: 985, leftGutter: 0, rootTarget: true, verticalOverflow: true };
-  assert.equal(isDocumentScrollbarPress(base), true);
-  assert.equal(isDocumentScrollbarPress({ ...base, x: 700 }), false);
-  assert.equal(isDocumentScrollbarPress({ ...base, rootTarget: false }), false);
-  assert.equal(isDocumentScrollbarPress({ ...base, verticalOverflow: false }), false);
-  assert.equal(isDocumentScrollbarPress({ ...base, y: 805 }), false);
-  assert.equal(isDocumentScrollbarPress({ ...base, contentWidth: 1000 }), true);
-  assert.equal(isDocumentScrollbarPress({ ...base, contentWidth: 1000, x: 980 }), false);
-  assert.equal(isDocumentScrollbarPress({ ...base, x: 5, leftGutter: 15 }), true);
+test('hash/history restoration is excluded, then subsequent downward reading can start', () => {
+  assert.equal(shouldStartOnScroll('ready', 0, 1000, true), false);
+  assert.equal(shouldStartOnScroll('ready', 1000, 1000, false), false);
+  assert.equal(shouldStartOnScroll('ready', 1000, 1020, false), true);
+});
+
+test('scrolling never resumes a paused timer or retriggers running and completed timers', () => {
+  for (const phase of ['paused', 'running', 'complete']) {
+    assert.equal(shouldStartOnScroll(phase, 0, 640, false), false);
+  }
 });

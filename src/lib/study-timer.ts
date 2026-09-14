@@ -36,15 +36,7 @@ export function formatCountdown(milliseconds: number): string {
   return `[${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(value % 1_000).padStart(3, '0')}]`;
 }
 
-export interface ScrollIntent { scrollY: number; expiresAt: number; }
-export function confirmsDownwardScroll(intent: ScrollIntent | null, scrollY: number, monotonicNow: number): boolean {
-  return !!intent && monotonicNow <= intent.expiresAt && scrollY > intent.scrollY + 1;
-}
-
-export function isDocumentScrollbarPress(input: { x: number; y: number; viewportWidth: number; viewportHeight: number; contentWidth: number; leftGutter: number; rootTarget: boolean; verticalOverflow: boolean }): boolean {
-  if (!input.rootTarget || !input.verticalOverflow || input.y < 0 || input.y >= input.viewportHeight || input.x < 0 || input.x > input.viewportWidth) return false;
-  const gutter = input.viewportWidth - input.contentWidth;
-  if (gutter > 0) return input.leftGutter > 0 ? input.x < input.leftGutter : input.x >= input.contentWidth;
-  // Overlay scrollbars occupy no layout gutter; only the document-root hit area at the edge is eligible.
-  return input.x >= input.viewportWidth - 12;
+/** Only page restoration is excluded; wheel, touch, scrollbar and scripted document scrolling all count. */
+export function shouldStartOnScroll(phase: CountdownPhase, previousY: number, currentY: number, restoring: boolean): boolean {
+  return phase === 'ready' && !restoring && Math.max(0, currentY) > Math.max(0, previousY);
 }

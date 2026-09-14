@@ -33,6 +33,7 @@ const path = Astro.url.pathname;
       {article && studyMinutes !== undefined && <StudyTimer minutes={studyMinutes} />}
       <div class="header-actions"><button class="search-trigger" data-open-dialog="search-dialog" aria-label="연구 노트 검색"><Icon name="search" size={17} /><span>노트와 키워드 검색</span><kbd>⌘ K</kbd></button><span class="header-divider"></span><button class="icon-button theme-toggle" aria-label="어두운 테마로 전환" title="테마 전환"><Icon name="sun" class="theme-sun" /><Icon name="moon" class="theme-moon" /></button><a class="icon-button header-rss" href="/rss.xml" aria-label="RSS 구독"><Icon name="rss" size={17} /></a></div>
     </header>
+    {article && studyMinutes !== undefined && <div class="study-start-effect" data-study-start-effect aria-hidden="true" hidden></div>}
     <aside class="desktop-sidebar" data-pagefind-ignore><Sidebar activeTopic={activeTopic} idPrefix="desktop" /></aside>
     <div class="page-shell">
       <main id="main-content" tabindex="-1" class:list={['main-column', { 'article-column': article }]}><div class="content-width"><slot /><footer class="page-footer" data-pagefind-ignore><span>© {new Date().getFullYear()} wooix</span><span>작은 기록, 깊어지는 이해.</span><a href="/about/">읽기와 기록의 원칙<Icon name="arrow" size={13} /></a></footer></div></main>
