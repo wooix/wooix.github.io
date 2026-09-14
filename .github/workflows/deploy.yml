@@ -28,6 +28,7 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run test:navigation
+      - run: npm run test:graph
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,23 @@
+---
+import { graphTopics } from '../data/graph-topics';
+interface Props { prefix: string; }
+const { prefix } = Astro.props;
+---
+<div class="graph-view" data-graph-view data-graph-prefix={prefix}>
+  <div class="graph-tabs" role="tablist" aria-label="글 연결 보기">
+    <button type="button" id={`${prefix}-global`} role="tab" aria-selected="true" aria-controls={`${prefix}-content`} data-graph-mode="global">전체 그래프</button>
+    <button type="button" id={`${prefix}-backlinks`} role="tab" aria-selected="false" aria-controls={`${prefix}-content`} tabindex="-1" data-graph-mode="backlinks">Backlinks<span>(역방향 링크)</span></button>
+  </div>
+  <div class="graph-content" id={`${prefix}-content`} role="tabpanel" aria-labelledby={`${prefix}-global`}>
+    <p class="graph-status" data-graph-status aria-live="polite">글의 연결을 준비하고 있습니다.</p>
+    <div class="graph-stage" data-graph-stage>
+      <svg class="graph-canvas" data-graph-canvas aria-label="글의 연결 그래프"></svg>
+      <p class="graph-empty" data-graph-empty hidden></p>
+    </div>
+    <div class="graph-tools" aria-label="그래프 보기 조절"><button type="button" data-graph-zoom="in" aria-label="그래프 확대">+</button><button type="button" data-graph-zoom="out" aria-label="그래프 축소">−</button><button type="button" data-graph-reset>원위치</button><output data-graph-scale aria-label="확대 비율">100%</output></div>
+    <p class="graph-node-detail" data-graph-detail>노드에 마우스를 올리거나 키보드로 선택하면 전체 제목을 볼 수 있습니다.</p>
+    <ul class="graph-legend" aria-label="연구 분야 색상">{graphTopics.map((topic) => <li style={`--topic-color: ${topic.color}; --topic-color-dark: ${topic.darkColor}`}><span class="graph-topic-dot" aria-hidden="true"></span>{topic.label}</li>)}</ul>
+    <p class="graph-direction-note">화살표: 링크를 건 글 → 연결된 글 · 빈 공간을 드래그해 이동</p>
+    <details class="graph-list" data-graph-list><summary>글 목록 <span data-graph-list-count></span></summary><ul data-graph-node-list></ul></details>
+  </div>
+</div>

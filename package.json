@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24.0.0" },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
     "test:navigation": "node --test tests/navigation.test.mjs tests/toc.test.mjs",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:graph": "node --test tests/link-graph.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
-    "astro": "7.3.2"
+    "astro": "7.3.2",
+    "parse5": "8.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
