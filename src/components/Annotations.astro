@@ -1,0 +1,22 @@
+---
+import '../styles/annotations.css';
+---
+<button class="annotation-toggle" aria-controls="annotation-panel" aria-expanded="false">✎ 메모</button>
+<section id="annotation-panel" class="annotation-panel" aria-label="내 메모와 문장 표시" data-pagefind-ignore hidden>
+  <header><strong>내 메모</strong><button id="annotation-close" aria-label="메모 닫기">닫기</button></header>
+  <p class="annotation-help">본문의 문장을 선택한 뒤 표시하거나 의견을 남기세요. 기록은 이 기기·브라우저에 자동 저장됩니다.</p>
+  <div class="annotation-colors" role="group" aria-label="표시 색상">
+    {['노랑', '초록', '파랑', '분홍', '보라'].map((name, i) => <button data-color={i} aria-label={name} aria-pressed={i === 0} title={name} style={`--swatch:var(--annotation-${i})`}></button>)}
+  </div>
+  <p id="annotation-selection">선택한 문장이 없습니다.</p>
+  <div class="annotation-actions"><button data-mark="highlight">색연필 / 형광펜</button><button data-mark="underline">밑줄</button><button id="annotation-clear-selection">선택 해제</button></div>
+  <label for="annotation-opinion">내 의견 <span>(문장 선택 없이도 작성 가능)</span></label>
+  <textarea id="annotation-opinion" rows="3" placeholder="생각이나 질문을 적어보세요."></textarea>
+  <button id="annotation-add">의견 추가</button>
+  <label for="annotation-note">이 글의 자유 메모</label>
+  <textarea id="annotation-note" rows="4" placeholder="직접 입력한 문장은 자동 저장됩니다."></textarea>
+  <p id="annotation-status" role="status" aria-live="polite"></p>
+  <div class="annotation-actions"><button id="annotation-export">이 글 백업</button><label class="annotation-import">백업 가져오기<input id="annotation-import" type="file" accept="application/json,.json" /></label></div>
+  <h3>저장한 문장과 의견</h3><div id="annotation-list"></div>
+</section>
+<script src="../scripts/annotations.ts"></script>
