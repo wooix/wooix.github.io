@@ -50,6 +50,16 @@ export const navigation = {
         { type: 'post', postId: 'synthetic-data-study/02-text-instructions/papers/xu-2024', label: 'Xu et al. (2024)' },
       ] },
     ] },
+    { type: 'post', postId: 'synthetic-data-study/04-code-verification', label: '4강 · 코드와 실행 기반 검증', children: [
+      { type: 'folder', label: '코드·검증 서베이', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/nadas-2025', label: 'Nadaș et al. (2025)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/zhang-2026', label: 'Zhang et al. (2026)' },
+        { type: 'post', postId: 'synthetic-data-study/00-introduction/papers/wang-2024', label: 'Wang et al. (2024)' },
+      ] },
+      { type: 'folder', label: '실행 검증 사례', children: [
+        { type: 'post', postId: 'synthetic-data-study/04-code-verification/papers/liu-2023', label: 'Liu et al. (2023)' },
+      ] },
+    ] },
   ],
   'slm-performance': [
     {

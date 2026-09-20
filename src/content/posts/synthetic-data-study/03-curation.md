@@ -374,3 +374,5 @@ $S$는 선택본, $D_{\mathrm{raw}}$는 원본 후보, $G$는 사전에 정한 �
 4강에서는 **코드와 실행 기반 검증**으로 넘어갑니다. 답변을 읽고 판단하는 것에서 프로그램을 실행하고 테스트하는 것으로 검증 신호가 바뀌면 무엇이 좋아지고 무엇이 남을까요? 테스트 통과 역시 검사한 범위의 증거라는 점을 다음 강의에서 구체화합니다.
 
 [← 2강 · 텍스트·지시문 생성과 데이터셋 설계](/notes/synthetic-data-study/02-text-instructions/) · [전체 1–6강 학습 계획](/notes/synthetic-data-study/00-introduction/)
+
+[다음 강의 → 4강 · 코드와 실행 기반 검증](/notes/synthetic-data-study/04-code-verification/)
