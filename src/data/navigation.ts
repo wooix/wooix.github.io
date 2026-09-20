@@ -70,6 +70,16 @@ export const navigation = {
         { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/lee-2026', label: 'Lee et al. (2026)' },
       ] },
     ] },
+    { type: 'post', postId: 'synthetic-data-study/06-evaluation-trust', label: '6강 · 평가·신뢰성과 종합 설계', children: [
+      { type: 'folder', label: '평가·비교 설계', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/long-2024', label: 'Long et al. (2024)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/nadas-2025', label: 'Nadaș et al. (2025)' },
+      ] },
+      { type: 'folder', label: '신뢰성·연구 과제', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/zhang-2026', label: 'Zhang et al. (2026)' },
+        { type: 'post', postId: 'synthetic-data-study/00-introduction/papers/wang-2024', label: 'Wang et al. (2024)' },
+      ] },
+    ] },
   ],
   'slm-performance': [
     {

@@ -265,4 +265,4 @@ B의 “성공” 문자열을 믿고 통과시키거나, D의 최종 예정일�
 
 6강에서는 1–5강의 문서를 모아 **데이터 품질·학습 효과·신뢰성·비용을 어떤 비교로 입증할지** 설계합니다. 미확인 항목을 감추지 않고, 관찰 결과와 다음 평가 계획을 구분한 종합 보고서를 만듭니다.
 
-[← 4강 · 코드와 실행 기반 검증](/notes/synthetic-data-study/04-code-verification/) · [전체 학습 계획](/notes/synthetic-data-study/00-introduction/)
+[← 4강 · 코드와 실행 기반 검증](/notes/synthetic-data-study/04-code-verification/) · [전체 학습 계획](/notes/synthetic-data-study/00-introduction/) · [6강 · 평가·신뢰성과 종합 설계 →](/notes/synthetic-data-study/06-evaluation-trust/)
