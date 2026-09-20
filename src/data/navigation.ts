@@ -38,6 +38,18 @@ export const navigation = {
         { type: 'post', postId: 'synthetic-data-study/02-text-instructions/papers/xu-2024', label: 'Xu et al. (2024)' },
       ] },
     ] },
+    { type: 'post', postId: 'synthetic-data-study/03-curation', label: '3강 · 큐레이션과 데이터 구성', children: [
+      { type: 'folder', label: '큐레이션·평가 서베이', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/long-2024', label: 'Long et al. (2024)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/zhang-2026', label: 'Zhang et al. (2026)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/nadas-2025', label: 'Nadaș et al. (2025)' },
+      ] },
+      { type: 'folder', label: '선별·데이터 구성 사례', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/wang-2023', label: 'Wang et al. (2023)' },
+        { type: 'post', postId: 'synthetic-data-study/03-curation/papers/liu-2024', label: 'Liu et al. (2024)' },
+        { type: 'post', postId: 'synthetic-data-study/02-text-instructions/papers/xu-2024', label: 'Xu et al. (2024)' },
+      ] },
+    ] },
   ],
   'slm-performance': [
     {
