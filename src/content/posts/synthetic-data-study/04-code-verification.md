@@ -278,3 +278,5 @@ def uses_or(has_reservation, extensions):
 5강에서는 정적인 코드 답안에서 **추론 과정과 에이전트의 행동·관측 기록**으로 확장합니다. 한 번의 출력뿐 아니라 여러 단계의 선택이 얽힐 때 무엇을 정답·보상·검증 근거로 삼을지 살펴봅니다.
 
 [← 3강 · 큐레이션과 데이터 구성](/notes/synthetic-data-study/03-curation/) · [전체 학습 계획](/notes/synthetic-data-study/00-introduction/)
+
+[다음 강의 → 5강 · 추론·에이전트 데이터와 최신 흐름](/notes/synthetic-data-study/05-reasoning-agents/)

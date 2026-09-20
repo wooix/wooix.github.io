@@ -60,6 +60,16 @@ export const navigation = {
         { type: 'post', postId: 'synthetic-data-study/04-code-verification/papers/liu-2023', label: 'Liu et al. (2023)' },
       ] },
     ] },
+    { type: 'post', postId: 'synthetic-data-study/05-reasoning-agents', label: '5강 · 추론·에이전트 데이터와 최신 흐름', children: [
+      { type: 'folder', label: '학습 단계·평가 서베이', children: [
+        { type: 'post', postId: 'synthetic-data-study/00-introduction/papers/wang-2024', label: 'Wang et al. (2024)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/zhang-2026', label: 'Zhang et al. (2026)' },
+      ] },
+      { type: 'folder', label: '추론·에이전트 사례', children: [
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/deepseek-2025', label: 'DeepSeek-AI (2025)' },
+        { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/lee-2026', label: 'Lee et al. (2026)' },
+      ] },
+    ] },
   ],
   'slm-performance': [
     {
