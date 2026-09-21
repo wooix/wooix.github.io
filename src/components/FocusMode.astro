@@ -1,0 +1,23 @@
+---
+import '../styles/focus-mode.css';
+interface Props { minutes: number }
+const { minutes } = Astro.props;
+---
+<dialog id="focus-dialog" class="focus-setup" aria-labelledby="focus-title" data-pagefind-ignore>
+  <form id="focus-form">
+    <h2 id="focus-title">Focus Mode(집중 모드)</h2>
+    <p>본문과 메모만 남기고, 정한 시간 동안 읽습니다.</p>
+    <label>읽을 시간 (분)<input name="minutes" type="number" min="1" max="240" step="1" value={Math.min(minutes,240)} required /></label>
+    <label>이번에 이해할 한 가지<input name="goal" maxlength="160" placeholder="예: 이 방법이 필요한 이유 이해하기" /></label>
+    <p class="focus-hint">설정한 시간으로 새로 시작합니다. 종료하면 남은 시간은 일시정지됩니다.</p>
+    <div><button type="button" data-close-dialog>취소</button><button type="submit">집중해서 읽기</button></div>
+  </form>
+</dialog>
+<section class="focus-bar" id="focus-bar" aria-label="집중 읽기" data-pagefind-ignore hidden>
+  <span id="focus-goal"></span>
+  <output id="focus-clock" role="timer" aria-live="off" hidden></output>
+  <button id="focus-show-time" aria-expanded="false" aria-controls="focus-clock">시간 보기</button>
+  <button id="focus-pause">일시정지</button><button id="focus-exit">집중 종료</button>
+  <progress id="focus-progress" max="1" value="0" aria-label="집중 시간 진행"></progress>
+  <span id="focus-status" role="status"></span>
+</section>

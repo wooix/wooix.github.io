@@ -79,7 +79,7 @@ dialogs.forEach((dialog) => {
   dialog.addEventListener('close', () => { if (!dialogs.some((other) => other.open)) document.body.style.overflow = ''; dialogTriggers.get(dialog)?.focus(); });
   dialog.querySelectorAll('a[href^="#"]').forEach((anchor) => anchor.addEventListener('click', () => dialog.close()));
 });
-document.addEventListener('keydown', (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); const dialog = document.querySelector<HTMLDialogElement>('#search-dialog'); if (dialog?.open) dialog.close(); else openDialog('search-dialog', document.activeElement instanceof HTMLElement ? document.activeElement : undefined); } });
+document.addEventListener('keydown', (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); if (document.documentElement.classList.contains('focus-mode')) return; const dialog = document.querySelector<HTMLDialogElement>('#search-dialog'); if (dialog?.open) dialog.close(); else openDialog('search-dialog', document.activeElement instanceof HTMLElement ? document.activeElement : undefined); } });
 
 const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
 const headingIds = [...new Set(tocLinks.map((link) => decodeURIComponent(link.hash.slice(1))))];

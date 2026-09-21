@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar.astro';
 import Toc, { type Heading } from '../components/Toc.astro';
 import LinkGraph from '../components/LinkGraph.astro';
 import StudyTimer from '../components/StudyTimer.astro';
+import FocusMode from '../components/FocusMode.astro';
 interface Props { title: string; description?: string; headings?: Heading[]; activeTopic?: string; article?: boolean; noindex?: boolean; studyMinutes?: number; }
 const { title, description = 'LLM의 발전, Alignment(정렬), Steering(조향), SLM(소형 언어 모델)을 함께 읽고 연결하는 개인 연구 노트.', headings = [], activeTopic, article = false, noindex = false, studyMinutes } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -43,6 +44,7 @@ const path = Astro.url.pathname;
     <dialog id="nav-dialog" class="drawer-dialog nav-dialog" aria-label="탐색 메뉴"><button class="dialog-close icon-button" data-close-dialog aria-label="메뉴 닫기"><Icon name="close" /></button><Sidebar activeTopic={activeTopic} idPrefix="mobile" /></dialog>
     <dialog id="toc-dialog" class="drawer-dialog toc-dialog" aria-label="페이지 목차"><button class="dialog-close icon-button" data-close-dialog aria-label="목차 닫기"><Icon name="close" /></button><Toc headings={headings} /></dialog>
     <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title"><div class="search-dialog-top"><h2 id="search-title">연구 노트 검색</h2><button class="icon-button" data-close-dialog aria-label="검색 닫기"><Icon name="close" /></button></div><div class="search-input-wrap"><Icon name="search" size={21} /><input id="search-input" type="search" placeholder="DPO, 정렬, 양자화…" aria-label="검색어" autocomplete="off" autofocus /></div><div class="search-results" id="search-results" aria-live="polite"><p class="search-message">궁금한 개념이나 논문 이름으로 찾아보세요.<br/><span>영어와 한국어 모두 검색할 수 있습니다.</span></p></div><div class="search-dialog-bottom"><span><kbd>Tab</kbd> 결과 이동 <kbd>Enter</kbd> 열기</span><span><kbd>Esc</kbd> 닫기 · Pagefind</span></div></dialog>
+    {article && studyMinutes !== undefined && <FocusMode minutes={studyMinutes} />}
     <LinkGraph />
     <script src="../scripts/site.ts"></script>
   </body>
