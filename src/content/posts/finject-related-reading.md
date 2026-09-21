@@ -3,6 +3,7 @@ title: 'FInject 관련 읽기: 답을 계산하기 전에 확인할 것'
 description: 'FInject의 공개 문제의식을 출발점으로 Faithful CoT(충실한 사고 연쇄)와 GSM-Symbolic을 읽으며, 근거·답변 가능성·견고성을 구분합니다.'
 publishedAt: 2026-09-13
 topic: finject
+category: reliability
 tags: ['FInject', 'Financial Reasoning', 'Unanswerability', 'Faithfulness', 'Robustness']
 kind: research-note
 readingTime: 5

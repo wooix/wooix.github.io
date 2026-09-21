@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { categoryGroups } from '../../data/categories';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<BaseLayout title="연구 분류" headings={categoryGroups.map(g=>({depth:2,slug:g.id,text:g.label}))}>
+  <header class="page-heading"><h1>연구 분야로 찾아보기</h1><p>대분류 → 세부 분야로 논문을 찾습니다. 스터디 순서는 왼쪽 읽기 모음에서 이어집니다.</p></header>
+  {categoryGroups.map(group => <section id={group.id} class="home-section"><h2>{group.label}</h2><p>{group.english}</p><div class="topic-grid">{group.children.map(c=> <a class="topic-tile" href={`/categories/${c.id}/`}><div><h3>{c.label}</h3><p>{c.english}</p><span>{posts.filter(p=>p.data.category===c.id).length}편</span></div></a>)}</div></section>)}
+</BaseLayout>

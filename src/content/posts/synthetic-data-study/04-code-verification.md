@@ -3,6 +3,7 @@ title: '4강 · 코드와 실행 기반 검증'
 description: '문제·코드·테스트·판정기의 역할을 분리하고, 명세에서 만든 테스트로 생성 코드를 검증하는 절차와 한계를 학습합니다.'
 publishedAt: 2026-09-21
 topic: synthetic-data-study
+category: code
 tags: ['합성데이터스터디', '4강', 'Code Generation', 'Execution Feedback', 'EvalPlus']
 kind: research-note
 readingTime: 30

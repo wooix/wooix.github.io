@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostRow from '../components/PostRow.astro';
 import { getPosts } from '../lib/posts';
-import { topics } from '../data/topics';
+import { categoryGroups } from '../data/categories';
 const posts = await getPosts();
 const months = [...new Set(posts.map((post) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', timeZone: 'Asia/Seoul' }).format(post.data.publishedAt)))];
 const grouped = months.map((month) => ({ month, entries: posts.filter((post) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', timeZone: 'Asia/Seoul' }).format(post.data.publishedAt) === month) }));
@@ -11,7 +11,7 @@ const headings = grouped.map(({ month }) => ({ depth: 2, slug: `month-${month}`,
 <BaseLayout title="아카이브" headings={headings}>
   <div class="breadcrumb"><a href="/">연구 노트</a><span>/</span><span>아카이브</span></div>
   <header class="page-heading"><p class="eyebrow"><span></span>THE RESEARCH ARCHIVE</p><h1>쌓여가는 생각의 기록</h1><p>처음 만난 개념에서 다음 연구의 실마리까지.<br/>모든 노트를 기록한 순서대로 모았습니다.</p></header>
-  <div class="archive-filters" aria-label="노트 필터"><button class="filter-button" data-filter-kind="all" aria-pressed="true">전체</button><button class="filter-button" data-filter-kind="milestone" aria-pressed="false">Milestone</button><button class="filter-button" data-filter-kind="research-review" aria-pressed="false">논문 리뷰</button><button class="filter-button" data-filter-kind="research-note" aria-pressed="false">연구 노트</button><select id="archive-topic" aria-label="연구 분야 선택"><option value="all">모든 연구 분야</option>{topics.map((topic) => <option value={topic.id}>{topic.label}</option>)}</select></div>
+  <div class="archive-filters" aria-label="노트 필터"><button class="filter-button" data-filter-kind="all" aria-pressed="true">전체</button><button class="filter-button" data-filter-kind="milestone" aria-pressed="false">Milestone</button><button class="filter-button" data-filter-kind="research-review" aria-pressed="false">논문 리뷰</button><button class="filter-button" data-filter-kind="research-note" aria-pressed="false">연구 노트</button><select id="archive-topic" aria-label="연구 분야 선택"><option value="all">모든 연구 분야</option>{categoryGroups.map(group => <optgroup label={group.label}>{group.children.map(c => <option value={c.id}>{c.label}</option>)}</optgroup>)}</select></div>
   <p id="archive-result-count" class="list-footnote" aria-live="polite" style="margin-bottom:24px">{posts.length}편의 노트</p>
   {grouped.map(({ month, entries }) => <section class="archive-group" id={`month-${month}`}><h2 class="archive-group-heading">{month.replace('-', '.')}<span>{entries.length}편</span></h2>{entries.map((post) => <PostRow post={post} />)}</section>)}
   <p class="archive-empty" hidden>선택한 조건에 해당하는 노트가 아직 없습니다. 다른 분야나 글 종류를 선택해 보세요.</p>

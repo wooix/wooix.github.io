@@ -1,14 +1,15 @@
 ---
 import { type Post, formatDate, noteUrl } from '../lib/posts';
-import { getTopic, kindLabels } from '../data/topics';
+import { kindLabels } from '../data/topics';
+import { getCategory } from '../data/categories';
 import Icon from './Icon.astro';
 interface Props { post: Post; index?: number; }
 const { post, index } = Astro.props;
 ---
-<article class="post-row" data-kind={post.data.kind} data-topic={post.data.topic}>
+<article class="post-row" data-kind={post.data.kind} data-topic={post.data.category}>
   {index !== undefined && <span class="row-number">{String(index + 1).padStart(2, '0')}</span>}
   <div class="post-row-body">
-    <div class="post-row-meta"><a href={`/topics/${post.data.topic}/`}>{getTopic(post.data.topic).label}</a><span>·</span><span>{kindLabels[post.data.kind]}</span></div>
+    <div class="post-row-meta"><a href={`/categories/${post.data.category}/`}>{getCategory(post.data.category).label}</a><span>·</span><span>{kindLabels[post.data.kind]}</span></div>
     <h3><a href={noteUrl(post)}>{post.data.title}</a></h3>
     <p>{post.data.description}</p>
     <div class="post-row-footer"><time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time><span>·</span><span>{post.data.readingTime}분 읽기</span></div>

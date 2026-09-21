@@ -1,0 +1,484 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-09-21",
+  "sources": [
+    {
+      "title": "ACL 2026 Submission Topics",
+      "url": "https://2026.aclweb.org/calls/main_conference_papers/"
+    },
+    {
+      "title": "ICML 2026 Topics of Interest",
+      "url": "https://icml.cc/Conferences/2026/CallForPapers"
+    },
+    {
+      "title": "arXiv Category Taxonomy",
+      "url": "https://arxiv.org/category_taxonomy"
+    }
+  ],
+  "groups": [
+    {
+      "id": "foundations",
+      "label": "모델·학습",
+      "english": "Models & Learning",
+      "color": "#5478B8",
+      "children": [
+        {
+          "id": "architecture",
+          "label": "모델 구조",
+          "english": "Architecture",
+          "scope": "Attention(어텐션), Transformer(트랜스포머), MoE(전문가 혼합), SSM(상태 공간 모델) 등 모델 계산 구조의 설계. 실행 최적화 자체는 추론 실행 분야로 분류합니다.",
+          "keywords": [
+            "Attention",
+            "Transformer",
+            "MoE",
+            "SSM",
+            "recurrent",
+            "diffusion LM"
+          ]
+        },
+        {
+          "id": "pretraining",
+          "label": "사전학습·스케일링",
+          "english": "Pretraining & Scaling",
+          "scope": "Pretraining(사전학습)의 목표·규모·계산량·데이터량 관계와 Scaling Laws(스케일링 법칙).",
+          "keywords": [
+            "scaling laws",
+            "compute optimal",
+            "pretraining",
+            "tokenizer"
+          ]
+        },
+        {
+          "id": "post-training",
+          "label": "사후학습",
+          "english": "Post-training",
+          "scope": "SFT(지도 미세조정), PEFT(매개변수 효율 미세조정), 지속 학습 등 학습된 모델의 적응. 선호 정렬과 추론 특화 기여는 해당 분야를 우선합니다.",
+          "keywords": [
+            "SFT",
+            "fine-tuning",
+            "LoRA",
+            "PEFT",
+            "continual learning"
+          ]
+        },
+        {
+          "id": "learning-theory",
+          "label": "학습 원리",
+          "english": "Learning Theory",
+          "scope": "Optimization(최적화), Generalization(일반화), 표현 학습과 확률적 학습의 원리·분석.",
+          "keywords": [
+            "optimization",
+            "generalization",
+            "representation learning",
+            "probabilistic methods"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "label": "데이터",
+      "english": "Data",
+      "color": "#3B859F",
+      "children": [
+        {
+          "id": "synthetic-data",
+          "label": "합성 데이터",
+          "english": "Synthetic Data",
+          "scope": "Synthetic Data(합성 데이터)의 생성·증강·지시문 설계와 관련 서베이. 이미 확보한 데이터의 선택·혼합은 선별·구성에 둡니다.",
+          "keywords": [
+            "synthetic data",
+            "instruction synthesis",
+            "persona",
+            "augmentation",
+            "back translation"
+          ]
+        },
+        {
+          "id": "curation",
+          "label": "선별·구성",
+          "english": "Curation & Mixtures",
+          "scope": "Data Curation(데이터 큐레이션): 품질 필터, 중복 제거, 데이터 선택·혼합 비율, 학습 순서의 설계.",
+          "keywords": [
+            "filtering",
+            "deduplication",
+            "data selection",
+            "data mixture",
+            "curriculum"
+          ]
+        },
+        {
+          "id": "datasets",
+          "label": "데이터셋·수집",
+          "english": "Datasets & Collection",
+          "scope": "Dataset(데이터셋)의 수집·주석·출처 관리와 공개 자원 구축. 평가 중심의 벤치마크는 평가 분야에 둡니다.",
+          "keywords": [
+            "annotation",
+            "corpus",
+            "data provenance",
+            "collection"
+          ]
+        },
+        {
+          "id": "generative-models",
+          "label": "생성 모델",
+          "english": "Generative Models",
+          "scope": "GAN(생성적 적대 신경망), VAE(변분 오토인코더), Diffusion(확산) 등 생성 방법 자체의 원리와 학습.",
+          "keywords": [
+            "GAN",
+            "VAE",
+            "diffusion",
+            "flow matching"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reasoning-agents",
+      "label": "추론·에이전트",
+      "english": "Reasoning & Agents",
+      "color": "#986B35",
+      "children": [
+        {
+          "id": "reasoning",
+          "label": "추론·계획",
+          "english": "Reasoning & Planning",
+          "scope": "Reasoning(추론), Planning(계획), 탐색 및 검증 보상 기반 학습으로 문제 해결 능력을 개선하는 연구. 실행 지연 개선과 구분합니다.",
+          "keywords": [
+            "CoT",
+            "reasoning RL",
+            "RLVR",
+            "search",
+            "planning",
+            "test-time compute"
+          ]
+        },
+        {
+          "id": "agents",
+          "label": "에이전트·도구",
+          "english": "Agents & Tools",
+          "scope": "Agent(에이전트)의 환경 상호작용, Tool Use(도구 사용), 메모리, 다중 에이전트 협업.",
+          "keywords": [
+            "tool use",
+            "API calling",
+            "multi-agent",
+            "memory",
+            "browser agent"
+          ]
+        },
+        {
+          "id": "code",
+          "label": "코드·검증",
+          "english": "Code & Verification",
+          "scope": "Code Generation(코드 생성), 프로그램 합성, 실행 피드백과 테스트 기반 검증·평가.",
+          "keywords": [
+            "code generation",
+            "execution feedback",
+            "program synthesis",
+            "unit tests"
+          ]
+        },
+        {
+          "id": "retrieval",
+          "label": "검색·RAG",
+          "english": "Retrieval & RAG",
+          "scope": "Retrieval(검색), RAG(검색 증강 생성), 임베딩, 지식 그래프 및 외부 근거 결합.",
+          "keywords": [
+            "retrieval",
+            "RAG",
+            "grounding",
+            "knowledge graphs",
+            "embeddings"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alignment-control",
+      "label": "정렬·제어",
+      "english": "Alignment & Control",
+      "color": "#B97632",
+      "children": [
+        {
+          "id": "alignment",
+          "label": "선호 정렬",
+          "english": "Preference Alignment",
+          "scope": "Preference Alignment(선호 정렬): 인간 피드백, 보상 모델, RLHF와 DPO 등 의도·선호에 맞추는 학습.",
+          "keywords": [
+            "RLHF",
+            "DPO",
+            "reward modeling",
+            "preference learning"
+          ]
+        },
+        {
+          "id": "steering",
+          "label": "Steering",
+          "english": "Steering",
+          "scope": "Steering(행동 조절): 활성값·표현·제어 벡터를 이용해 모델 행동을 조작하는 방법.",
+          "keywords": [
+            "activation steering",
+            "representation engineering",
+            "control vectors"
+          ]
+        },
+        {
+          "id": "interpretability",
+          "label": "해석 가능성",
+          "english": "Interpretability",
+          "scope": "Interpretability(해석 가능성): 내부 표현·회로·특징 분석과 모델 동작에 대한 설명.",
+          "keywords": [
+            "mechanistic interpretability",
+            "circuits",
+            "sparse autoencoders",
+            "probing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trust",
+      "label": "평가·신뢰성",
+      "english": "Evaluation & Trust",
+      "color": "#9264AD",
+      "children": [
+        {
+          "id": "evaluation",
+          "label": "평가·벤치마크",
+          "english": "Evaluation & Benchmarks",
+          "scope": "Evaluation(평가)의 방법론·타당성·재현성, 사람·모델 평가자와 벤치마크 설계.",
+          "keywords": [
+            "benchmark",
+            "LLM judge",
+            "human evaluation",
+            "contamination",
+            "reproducibility"
+          ]
+        },
+        {
+          "id": "reliability",
+          "label": "신뢰성·응답 유보",
+          "english": "Reliability & Abstention",
+          "scope": "Reliability(신뢰성): 환각·불확실성·보정·응답 유보·답변 불가능성과 견고성.",
+          "keywords": [
+            "hallucination",
+            "uncertainty",
+            "calibration",
+            "abstention",
+            "unanswerability",
+            "robustness"
+          ]
+        },
+        {
+          "id": "safety",
+          "label": "안전·보안",
+          "english": "Safety & Security",
+          "scope": "Safety(안전성)와 Security(보안): 악용·공격·탈옥·프롬프트 주입·개인정보·공정성 및 방어.",
+          "keywords": [
+            "jailbreak",
+            "prompt injection",
+            "privacy",
+            "adversarial attacks",
+            "fairness",
+            "bias"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "label": "효율·시스템",
+      "english": "Efficiency & Systems",
+      "color": "#728141",
+      "children": [
+        {
+          "id": "distillation",
+          "label": "지식 증류",
+          "english": "Knowledge Distillation",
+          "scope": "Knowledge Distillation(지식 증류): 교사의 분포·표현·응답을 학생 모델에 전달하는 학습.",
+          "keywords": [
+            "teacher student",
+            "distillation",
+            "small language model"
+          ]
+        },
+        {
+          "id": "compression",
+          "label": "양자화·압축",
+          "english": "Quantization & Compression",
+          "scope": "Quantization(양자화), Pruning(가지치기), 희소화와 저랭크 압축 등 모델 표현의 축소.",
+          "keywords": [
+            "quantization",
+            "pruning",
+            "sparsity",
+            "low rank compression"
+          ]
+        },
+        {
+          "id": "inference",
+          "label": "추론 실행·서빙",
+          "english": "Inference & Serving",
+          "scope": "Inference(추론 실행)와 Serving(서빙): KV Cache(키·값 캐시), 배칭, 추측 디코딩, 처리량과 지연.",
+          "keywords": [
+            "KV cache",
+            "batching",
+            "speculative decoding",
+            "serving",
+            "latency"
+          ]
+        },
+        {
+          "id": "hardware",
+          "label": "하드웨어·온디바이스",
+          "english": "Hardware & On-device",
+          "scope": "Hardware(하드웨어)와 On-device(기기 내 실행): CPU·GPU·NPU·FPGA·ASIC 매핑, 메모리 계층과 대역폭.",
+          "keywords": [
+            "CPU",
+            "GPU",
+            "NPU",
+            "FPGA",
+            "ASIC",
+            "memory bandwidth",
+            "on-device",
+            "edge"
+          ]
+        },
+        {
+          "id": "training-systems",
+          "label": "분산 학습",
+          "english": "Distributed Training",
+          "scope": "Distributed Training(분산 학습): 병렬화·통신·학습 커널 및 학습 시스템의 확장성.",
+          "keywords": [
+            "parallelism",
+            "distributed training",
+            "communication",
+            "kernels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modalities",
+      "label": "멀티모달·상호작용",
+      "english": "Modalities & Interaction",
+      "color": "#38857A",
+      "children": [
+        {
+          "id": "multimodal",
+          "label": "비전·멀티모달",
+          "english": "Vision & Multimodality",
+          "scope": "Multimodality(멀티모달): 이미지·영상·문서와 언어의 결합, 비전 모델 및 시각 추론.",
+          "keywords": [
+            "VLM",
+            "image",
+            "video",
+            "multimodal reasoning",
+            "document understanding"
+          ]
+        },
+        {
+          "id": "speech-language",
+          "label": "음성·언어",
+          "english": "Speech & Language",
+          "scope": "Speech(음성), 다국어·번역·저자원 언어의 인식·이해·생성.",
+          "keywords": [
+            "speech",
+            "audio",
+            "multilingual",
+            "translation",
+            "low-resource NLP"
+          ]
+        },
+        {
+          "id": "embodied",
+          "label": "로봇·행동",
+          "english": "Embodied AI",
+          "scope": "Embodied AI(체화 인공지능): 로봇, Vision–Language–Action(시각·언어·행동)과 환경 세계 모델.",
+          "keywords": [
+            "robotics",
+            "VLA",
+            "world model",
+            "embodied AI"
+          ]
+        },
+        {
+          "id": "human-ai",
+          "label": "인간·AI 상호작용",
+          "english": "Human–AI Interaction",
+          "scope": "Human–AI Interaction(인간–AI 상호작용): 대화, 협업, 사용성 및 인간 중심 시스템 설계.",
+          "keywords": [
+            "HCI",
+            "dialogue",
+            "usability",
+            "human collaboration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "applications",
+      "label": "응용 분야",
+      "english": "Applications",
+      "color": "#997049",
+      "children": [
+        {
+          "id": "finance",
+          "label": "금융·시계열",
+          "english": "Finance & Time Series",
+          "scope": "Finance(금융)와 Time Series(시계열): 금융 수치 추론, 도메인 데이터, 예측과 분석.",
+          "keywords": [
+            "financial reasoning",
+            "finance",
+            "time series",
+            "forecasting"
+          ]
+        },
+        {
+          "id": "science",
+          "label": "과학·의료",
+          "english": "Science & Healthcare",
+          "scope": "AI for Science(과학을 위한 AI): 물리·화학·생물·의료의 문제와 도메인 모델.",
+          "keywords": [
+            "scientific discovery",
+            "biology",
+            "chemistry",
+            "medicine",
+            "healthcare"
+          ]
+        },
+        {
+          "id": "domain-applications",
+          "label": "산업·교육",
+          "english": "Domain Applications",
+          "scope": "Domain Applications(분야별 응용): 법률·교육·산업·추천 등 사용 현장의 문제를 중심으로 한 연구.",
+          "keywords": [
+            "legal",
+            "education",
+            "industry",
+            "recommendation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "landscape",
+      "label": "연구 동향",
+      "english": "Research Landscape",
+      "color": "#C44D73",
+      "children": [
+        {
+          "id": "research-trends",
+          "label": "동향·기술 보고",
+          "english": "Trends & Technical Reports",
+          "scope": "Research Trends(연구 동향): 여러 분야의 흐름·모델 발표 비교·연구그룹 기술 보고 종합. 개별 방법 설명은 해당 기술 분야에 둡니다.",
+          "keywords": [
+            "model release",
+            "research trend",
+            "lab blog",
+            "technical report"
+          ]
+        }
+      ]
+    }
+  ]
+}

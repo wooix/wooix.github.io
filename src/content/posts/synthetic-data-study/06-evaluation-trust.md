@@ -3,6 +3,7 @@ title: '6강 · 평가·신뢰성과 종합 설계'
 description: '네 서베이의 평가 관점을 연결하고, 비교 조건·지표의 분모·평가 분포·신뢰성·비용을 명시한 합성 데이터 연구 설계서를 완성합니다.'
 publishedAt: 2026-09-21
 topic: synthetic-data-study
+category: evaluation
 tags: ['합성데이터스터디', '6강', 'Evaluation', 'Trustworthiness', 'Synthetic Data']
 kind: research-note
 readingTime: 35

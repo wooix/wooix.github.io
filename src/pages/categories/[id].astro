@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostRow from '../../components/PostRow.astro';
+import { categories } from '../../data/categories';
+import { getPosts } from '../../lib/posts';
+export function getStaticPaths() { return categories.map(category=>({params:{id:category.id},props:{category}})); }
+const {category} = Astro.props;
+const posts = (await getPosts()).filter(p=>p.data.category===category.id);
+---
+<BaseLayout title={category.label} activeTopic={`category-${category.id}`}>
+  <nav class="breadcrumb"><a href="/categories/">연구 분류</a><span>/</span><a href={`/categories/#${category.groupId}`}>{category.groupLabel}</a><span>/</span><span>{category.label}</span></nav>
+  <header class="page-heading"><p class="eyebrow">{category.english}</p><h1>{category.label}</h1><p>{category.scope}</p></header>
+  <p>{posts.length}편의 노트</p>
+  {posts.map(post=><PostRow post={post}/>)}
+  {!posts.length && <p>아직 등록된 글이 없습니다. 이 분야의 첫 글이 발행되면 왼쪽 탐색 메뉴에도 나타납니다.</p>}
+</BaseLayout>

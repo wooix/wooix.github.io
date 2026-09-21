@@ -3,6 +3,7 @@ title: '2강 · 텍스트·지시문 생성과 데이터셋 설계'
 description: '생성 목표를 주제·조건·난이도로 나누고, Self-Instruct·Evol-Instruct·Persona Hub·Magpie를 비교해 출처와 검증 기준을 갖춘 생성 계획을 만듭니다.'
 publishedAt: 2026-09-20
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '2강', 'Instruction Data', 'Dataset Design', 'Synthetic Data']
 kind: research-note
 readingTime: 30

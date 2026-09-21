@@ -3,6 +3,7 @@ title: 'DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcemen
 description: R1-Zero의 강화학습과 R1의 데이터 선별·미세조정·증류를 구분해 읽습니다.
 publishedAt: '2026-09-14'
 topic: synthetic-data-study
+category: reasoning
 tags:
 - 합성데이터스터디
 - 1강

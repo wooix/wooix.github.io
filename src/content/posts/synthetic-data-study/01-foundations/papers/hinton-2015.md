@@ -3,6 +3,7 @@ title: 'Distilling the Knowledge in a Neural Network — 절별 해설'
 description: '교사의 확률 분포가 학생에게 전달하는 정보와 증류 실험의 범위를 정리한다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: distillation
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 12

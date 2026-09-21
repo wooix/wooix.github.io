@@ -4,6 +4,7 @@ description: '핵심 서베이 4편을 중심으로 역사, 생성, 큐레이션
 publishedAt: 2026-09-14
 updatedAt: 2026-09-21
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', 'Introduction', '학습 계획']
 kind: research-note
 readingTime: 12

@@ -1,3 +1,4 @@
+// Legacy topic URLs and study collections. Research taxonomy: categories.ts and category-reference.json.
 export const topicIds = ['llm-trends', 'llm-tech', 'finject', 'alignment', 'steering', 'slm-hardware', 'slm-performance', 'synthetic-data-study'] as const;
 export type TopicId = (typeof topicIds)[number];
 

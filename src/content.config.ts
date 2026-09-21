@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { categoryIds } from './data/categories';
 import { topicIds } from './data/topics';
 
 const posts = defineCollection({
@@ -10,7 +11,8 @@ const posts = defineCollection({
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    topic: z.enum(topicIds),
+    topic: z.enum(topicIds).default('llm-tech'),
+    category: z.enum(categoryIds),
     tags: z.array(z.string()),
     kind: z.enum(['milestone', 'research-note', 'research-review']),
     readingTime: z.number().positive(),

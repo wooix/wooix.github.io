@@ -3,6 +3,7 @@ title: 'Knowledge Distillation (2015): 작은 모델은 무엇을 배울까'
 description: 'Knowledge Distillation(지식 증류)의 Soft Targets(부드러운 목표 분포)와 Temperature(온도)를 이해하고, SLM(소형 언어 모델) 연구로 연결할 질문을 정리합니다.'
 publishedAt: 2026-09-13
 topic: slm-performance
+category: distillation
 tags: ['Knowledge Distillation', 'Teacher-Student', 'Soft Targets', 'SLM']
 kind: milestone
 readingTime: 6

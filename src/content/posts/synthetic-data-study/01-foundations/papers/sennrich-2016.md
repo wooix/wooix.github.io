@@ -3,6 +3,7 @@ title: 'Improving Neural Machine Translation Models with Monolingual Data — �
 description: '실제 목표 문장은 유지하고 원문 쪽을 합성하는 역번역의 설계와 실험을 읽는다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 12

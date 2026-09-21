@@ -3,6 +3,7 @@ title: 'Synthetic Data Generation Using Large Language Models: Advances in Text 
 description: '텍스트와 코드의 합성 데이터 생성법을 절별로 비교하고 실행 검증·분포 차이·반복 학습의 한계를 정리합니다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 20

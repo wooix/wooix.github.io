@@ -3,6 +3,7 @@ title: 'SMOTE: Synthetic Minority Over-sampling Technique — 절별 해설'
 description: '소수 클래스 표본 사이의 합성이 분류 경계에 미치는 효과와 실패 조건을 읽는다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 12

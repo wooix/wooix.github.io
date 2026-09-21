@@ -3,6 +3,7 @@ title: '3강 · 큐레이션과 데이터 구성'
 description: '생성 후보의 오류·중복·판정 불확실성을 분리하고, 품질과 다양성을 함께 고려해 학습 데이터의 선택·수정·구성 비율을 설계합니다.'
 publishedAt: 2026-09-20
 topic: synthetic-data-study
+category: curation
 tags: ['합성데이터스터디', '3강', 'Data Curation', 'Data Selection', 'Synthetic Data']
 kind: research-note
 readingTime: 35

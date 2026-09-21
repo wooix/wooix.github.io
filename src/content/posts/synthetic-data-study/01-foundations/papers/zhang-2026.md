@@ -3,6 +3,7 @@ title: 'A Survey on Evaluating Quality and Trustworthiness in LLM-Generated Data
 description: '여섯 데이터 유형의 생성·품질·신뢰성 지표와 평가 공백을 원문 순서대로 정리합니다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 32

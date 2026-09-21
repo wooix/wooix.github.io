@@ -18,18 +18,40 @@
     "minItems": 5,
     "maxItems": 7,
     "primarySourcesRequired": true,
-    "sourceKinds": ["paper", "official-research-blog", "official-technical-report", "author-repository"],
+    "sourceKinds": [
+      "paper",
+      "official-research-blog",
+      "official-technical-report",
+      "author-repository"
+    ],
     "separateOriginalPublicationDateFromRevision": true,
     "deduplicateByCanonicalSource": true,
     "onInsufficientVerifiedSources": "report-shortfall-without-fabricating-items",
-    "requiredItemFields": ["id", "title", "topic", "canonicalUrl", "sourcePublishedAt", "checkedAt", "summary", "whyItMatters", "evidenceLimitations", "rankScore", "rankReason"]
+    "requiredItemFields": [
+      "id",
+      "title",
+      "topic",
+      "canonicalUrl",
+      "sourcePublishedAt",
+      "checkedAt",
+      "summary",
+      "whyItMatters",
+      "evidenceLimitations",
+      "rankScore",
+      "rankReason",
+      "category"
+    ]
   },
   "ranking": {
     "relevanceMax": 40,
     "evidenceMax": 30,
     "impactMax": 20,
     "recencyMax": 10,
-    "tieBreak": ["evidence", "sourcePublishedAt-desc", "canonicalUrl-asc"],
+    "tieBreak": [
+      "evidence",
+      "sourcePublishedAt-desc",
+      "canonicalUrl-asc"
+    ],
     "note": "이슈 우선순위는 검증된 근거·관심사 관련성·영향·시의성의 편집 판단이며 객관적인 전 세계 인기 순위가 아닙니다."
   },
   "publication": {
@@ -54,14 +76,87 @@
     "preserveOriginalPaperTitles": true
   },
   "topics": [
-    { "id": "llm-trends", "label": "LLM 동향", "keywords": ["LLM development", "model releases", "research trends"] },
-    { "id": "llm-tech", "label": "LLM 기술", "keywords": ["architecture", "training", "inference", "retrieval", "evaluation"] },
-    { "id": "finject", "label": "FInject 후속", "keywords": ["financial numerical reasoning", "unanswerability", "evidence grounding", "robustness"] },
-    { "id": "alignment", "label": "Alignment", "keywords": ["preference optimization", "RLHF", "DPO", "alignment evaluation"] },
-    { "id": "steering", "label": "Steering", "keywords": ["activation steering", "representation engineering", "behavior control"] },
-    { "id": "slm-hardware", "label": "SLM 하드웨어", "keywords": ["on-device inference", "quantization", "memory bandwidth", "CPU", "GPU", "NPU"] },
-    { "id": "slm-performance", "label": "SLM 성능", "keywords": ["knowledge distillation", "data quality", "post-training", "efficient reasoning"] },
-    { "id": "synthetic-data-study", "label": "합성데이터스터디", "keywords": ["synthetic data", "data curation", "data evaluation", "instruction synthesis"] }
+    {
+      "id": "llm-trends",
+      "label": "LLM 동향",
+      "keywords": [
+        "LLM development",
+        "model releases",
+        "research trends"
+      ]
+    },
+    {
+      "id": "llm-tech",
+      "label": "LLM 기술",
+      "keywords": [
+        "architecture",
+        "training",
+        "inference",
+        "retrieval",
+        "evaluation"
+      ]
+    },
+    {
+      "id": "finject",
+      "label": "FInject 후속",
+      "keywords": [
+        "financial numerical reasoning",
+        "unanswerability",
+        "evidence grounding",
+        "robustness"
+      ]
+    },
+    {
+      "id": "alignment",
+      "label": "Alignment",
+      "keywords": [
+        "preference optimization",
+        "RLHF",
+        "DPO",
+        "alignment evaluation"
+      ]
+    },
+    {
+      "id": "steering",
+      "label": "Steering",
+      "keywords": [
+        "activation steering",
+        "representation engineering",
+        "behavior control"
+      ]
+    },
+    {
+      "id": "slm-hardware",
+      "label": "SLM 하드웨어",
+      "keywords": [
+        "on-device inference",
+        "quantization",
+        "memory bandwidth",
+        "CPU",
+        "GPU",
+        "NPU"
+      ]
+    },
+    {
+      "id": "slm-performance",
+      "label": "SLM 성능",
+      "keywords": [
+        "knowledge distillation",
+        "data quality",
+        "post-training",
+        "efficient reasoning"
+      ]
+    },
+    {
+      "id": "synthetic-data-study",
+      "label": "합성데이터스터디",
+      "keywords": [
+        "synthetic data",
+        "data curation",
+        "data evaluation",
+        "instruction synthesis"
+      ]
+    }
   ],
   "finject": {
     "title": "FInject: Expanding Finance Reasoning Problems through Injection of Unanswerability",
@@ -70,5 +165,16 @@
     "sourceStatus": "public-manuscript-and-dataset",
     "venuePublicationVerified": false,
     "privateResearchPlansAllowed": false
+  },
+  "classification": {
+    "reference": "src/data/category-reference.json",
+    "instructions": "docs/category-reference.md",
+    "primaryField": "category",
+    "maxLevels": 2,
+    "activation": "first-published-post",
+    "collections": [
+      "synthetic-data-study",
+      "finject"
+    ]
   }
 }

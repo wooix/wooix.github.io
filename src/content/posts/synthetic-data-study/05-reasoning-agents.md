@@ -3,6 +3,7 @@ title: '5강 · 추론·에이전트 데이터와 최신 흐름'
 description: 'DeepSeek-R1과 ESAT을 통해 추론 응답·보상·행동 궤적의 역할을 구분하고, 생성·검증·학습·실제 환경 평가를 연결합니다.'
 publishedAt: 2026-09-21
 topic: synthetic-data-study
+category: reasoning
 tags: ['합성데이터스터디', '5강', 'Reasoning', 'Agent', 'Synthetic Data']
 kind: research-note
 readingTime: 30

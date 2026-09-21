@@ -3,6 +3,7 @@ title: 'Generative Adversarial Nets — 절별 해설'
 description: '생성과 판별의 경쟁으로 데이터 분포를 학습하는 원리와 이론의 가정을 읽는다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study
+category: generative-models
 tags: ['합성데이터스터디', '1강', '논문 해설']
 kind: research-review
 readingTime: 12

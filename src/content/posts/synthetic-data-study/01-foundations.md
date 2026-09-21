@@ -4,6 +4,7 @@ description: '데이터 증강·의사 라벨링·지식 증류를 구분하고,
 publishedAt: 2026-09-14
 updatedAt: 2026-09-21
 topic: synthetic-data-study
+category: synthetic-data
 tags: ['합성데이터스터디', '1강', 'Synthetic Data', 'Data Augmentation', 'Self-Instruct']
 kind: research-note
 readingTime: 25

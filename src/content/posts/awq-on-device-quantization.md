@@ -3,6 +3,7 @@ title: 'AWQ (2023): 4-bit 모델을 하드웨어에서 읽는 법'
 description: 'Activation-aware Weight Quantization(활성값 인지 가중치 양자화)을 출발점으로, 모델 압축과 실제 장치 성능 사이에서 확인할 조건을 정리합니다.'
 publishedAt: 2026-09-13
 topic: slm-hardware
+category: compression
 tags: ['AWQ', 'Quantization', 'On-device AI', 'Memory Bandwidth']
 kind: milestone
 readingTime: 6

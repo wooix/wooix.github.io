@@ -3,6 +3,7 @@ title: 'DPO (2023): 선호하는 답변으로 모델을 정렬하는 법'
 description: 'Direct Preference Optimization(직접 선호 최적화)의 핵심을 답변 쌍과 기준 모델로 이해하고, Alignment(정렬) 실험에서 확인할 조건을 정리합니다.'
 publishedAt: 2026-09-13
 topic: alignment
+category: alignment
 tags: ['DPO', 'Preference Optimization', 'RLHF', 'Post-training']
 kind: milestone
 readingTime: 6

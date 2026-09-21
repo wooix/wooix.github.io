@@ -1,4 +1,5 @@
 ---
+import { categoryNavigation } from '../data/categories';
 import Icon from './Icon.astro';
 import NavigationNode from './NavigationNode.astro';
 import { getCollection } from 'astro:content';
@@ -12,6 +13,8 @@ const { activeTopic, idPrefix } = Astro.props;
 const posts = await getPosts();
 const allPosts = await getCollection('posts');
 const navigationRoots = withNavigationStateKeys(resolveNavigation({ topics, configuration: navigation, allPosts: allPosts.map((post) => ({ id: post.id, title: post.data.title, topic: post.data.topic })), publicPosts: posts }));
+const categoryRoots = withNavigationStateKeys(categoryNavigation(posts));
+const collections = navigationRoots.filter(n => ['synthetic-data-study','finject'].includes(n.topicId || ''));
 const path = Astro.url.pathname;
 ---
 <div class="sidebar-inner">
@@ -20,8 +23,11 @@ const path = Astro.url.pathname;
     <a class:list={['nav-overview', { active: path === '/' }]} href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="grid" size={16} />전체 둘러보기</a>
     <p class="nav-section-label">RESEARCH TOPICS</p>
     <ul class="topic-navigation">
-      {navigationRoots.map((node) => <NavigationNode node={node} idPrefix={idPrefix} activeTopic={activeTopic} />)}
+      {categoryRoots.map((node) => <NavigationNode node={node} idPrefix={idPrefix} activeTopic={activeTopic} />)}
     </ul>
+    <a class="nav-library" href="/categories/">전체 분류 보기</a>
+    <p class="nav-section-label">STUDY COLLECTIONS</p>
+    <ul class="topic-navigation">{collections.map(node => <NavigationNode node={node} idPrefix={idPrefix} activeTopic={activeTopic} />)}</ul>
     <p class="nav-section-label library-label">LIBRARY</p>
     <a class:list={['nav-library', { active: path === '/daily/' }]} href="/daily/" aria-current={path === '/daily/' ? 'page' : undefined}><Icon name="clock" size={16} />데일리 안내</a>
     <a class:list={['nav-library', { active: path === '/archive/' }]} href="/archive/" aria-current={path === '/archive/' ? 'page' : undefined}><Icon name="list" size={16} />전체 아카이브<span class="nav-count">{posts.length.toString().padStart(2, '0')}</span></a>

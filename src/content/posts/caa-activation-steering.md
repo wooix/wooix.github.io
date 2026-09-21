@@ -3,6 +3,7 @@ title: 'CAA (2023): 모델 안의 방향을 더해 응답을 조절하기'
 description: 'Contrastive Activation Addition(대조 활성값 덧셈)을 통해 Steering(행동 조절)의 원리와 한계, 재현 실험에서 확인할 조건을 살펴봅니다.'
 publishedAt: 2026-09-13
 topic: steering
+category: steering
 tags: ['CAA', 'Activation Steering', 'Representation Engineering', 'Llama 2']
 kind: milestone
 readingTime: 6
