@@ -1,5 +1,5 @@
 ---
-title: 'SMOTE: Synthetic Minority Over-sampling Technique — 절별 해설'
+title: 'SMOTE: Synthetic Minority Over-sampling Technique'
 description: '소수 클래스 표본 사이의 합성이 분류 경계에 미치는 효과와 실패 조건을 읽는다.'
 publishedAt: 2026-09-14
 topic: synthetic-data-study

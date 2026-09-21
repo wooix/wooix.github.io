@@ -26,3 +26,16 @@ test('editorial contract points writers at the same reference',()=>{
  assert.equal(config.classification.primaryField,'category');
  assert.ok(config.digest.requiredItemFields.includes('category'));
 });
+
+test('study attachments appear only in collections, not research navigation',()=>{
+ const posts=[
+  {id:'lesson',data:{title:'Lesson',category:'synthetic-data',topic:'synthetic-data-study'}},
+  {id:'paper',data:{title:'Paper',category:'distillation',topic:'synthetic-data-study',parentPost:'lesson'}},
+  {id:'independent',data:{title:'Independent',category:'distillation'}},
+ ];
+ const roots=categoryNavigation(posts);
+ const leaves=roots.flatMap(root=>root.children);
+ assert.equal(leaves.find(n=>n.topicId==='category-distillation').postCount,1);
+ assert.deepEqual(leaves.flatMap(n=>n.children).map(n=>n.postId).sort(),['independent','lesson']);
+ assert.deepEqual(categoryNavigation([posts[1]]),[]);
+});

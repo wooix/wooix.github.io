@@ -1,5 +1,5 @@
 ---
-title: 'DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning — 절별 해설'
+title: 'DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning'
 description: R1-Zero의 강화학습과 R1의 데이터 선별·미세조정·증류를 구분해 읽습니다.
 publishedAt: '2026-09-14'
 topic: synthetic-data-study

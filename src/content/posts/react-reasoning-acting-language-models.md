@@ -1,5 +1,5 @@
 ---
-title: 'ReAct — 추론과 행동을 결합하는 언어 모델의 절별 해설'
+title: 'ReAct — 추론과 행동을 결합하는 언어 모델'
 description: 'ReAct의 추론·행동·관찰 구조, 검색과 의사결정 실험, 미세조정과 오류 분석을 Figure 1–5·Table 1–10·핵심 수식으로 읽습니다.'
 publishedAt: '2026-09-21'
 topic: llm-tech

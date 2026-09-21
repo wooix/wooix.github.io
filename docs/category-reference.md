@@ -20,7 +20,7 @@
 2. 아래 참조표와 JSON 범위·키워드에서 후보를 고른다. 핵심 기여에 가장 가까운 세부 분야 하나를 `category`로 기록한다.
 3. 모델 크기(SLM), 데이터 도메인(finance), 방법(DPO), 학회, 발표 연도, 연구그룹 등 부가 관점은 tags로 기록한다. 연구그룹 글도 내용 중심으로 분류하고 발표 자체의 동향 분석일 때만 research-trends를 사용한다.
 4. 스터디에 쓰이면 기존 `topic: synthetic-data-study`, `parentPost`, `navigation.ts` 읽기 순서를 유지한다. FInject 모음은 `topic: finject`를 유지한다. 일반 글의 topic은 기존 URL 호환 필드이며 생략 시 llm-tech이다. category가 연구 분야의 기준이다.
-5. 이미 원장에 있는 미사용 분야는 그대로 지정한다. 공개 글이 처음 생기면 왼쪽 메뉴가 자동으로 활성화된다. 빈 분류는 `/categories/`에서 찾을 수 있다. 예약일 전·draft 글은 메뉴 활성화와 개수에 포함하지 않는다.
+5. 이미 원장에 있는 미사용 분야는 그대로 지정한다. 공개 일반 글이나 강의가 처음 생기면 왼쪽 연구 메뉴가 자동으로 활성화된다. `parentPost`가 있는 스터디·FInject 첨부 논문은 왼쪽 Study Collections의 강의 하위에만 표시한다. 연구 category 메타데이터와 전체 분류·아카이브 검색은 유지한다. 빈 분류는 `/categories/`에서 찾을 수 있다. 예약일 전·draft 글은 메뉴 활성화와 개수에 포함하지 않는다.
 6. check, taxonomy 테스트, build와 Pagefind 미리보기를 확인한다. 다른 사람이 작성 중인 글의 분류를 추측해 채우거나 작업을 덮어쓰지 않는다.
 
 ## 경계가 겹칠 때

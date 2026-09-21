@@ -1,5 +1,5 @@
 ---
-title: 'Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention — 절별 해설'
+title: 'Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention'
 description: 'Attention의 계산 순서를 바꿔 선형 복잡도와 고정 크기 상태를 얻는 원리, 수식과 역전파, 4,462배 처리량의 비교 조건을 원문 그림·표와 함께 읽습니다.'
 publishedAt: '2026-09-21'
 topic: llm-tech

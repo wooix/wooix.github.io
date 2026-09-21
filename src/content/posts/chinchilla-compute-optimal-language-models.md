@@ -1,5 +1,5 @@
 ---
-title: 'Training Compute-Optimal Large Language Models — Chinchilla 절별 해설'
+title: 'Training Compute-Optimal Large Language Models — Chinchilla'
 description: 'Chinchilla가 모델 크기와 학습 토큰의 균형을 다시 추정한 세 방법, Kaplan과의 차이, 평가 결과와 한계를 원문 Figure·Table·수식으로 읽습니다.'
 publishedAt: '2026-09-21'
 topic: llm-tech

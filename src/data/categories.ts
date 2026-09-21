@@ -8,11 +8,13 @@ export function getCategory(id: string) {
   if (!category) throw new Error(`Unknown category: ${id}. Read docs/category-reference.md.`);
   return category;
 }
-export function categoryNavigation(posts: readonly { id: string; data: { title: string; category: string; navLabel?: string } }[]): ResolvedNavigationNode[] {
+export function categoryNavigation(posts: readonly { id: string; data: { title: string; category: string; navLabel?: string; topic?: string; parentPost?: string } }[]): ResolvedNavigationNode[] {
   posts.forEach(p => getCategory(p.data.category));
+  // Study attachments belong only beneath their lessons in the sidebar.
+  const standalone = posts.filter(p => !(p.data.parentPost && ['synthetic-data-study', 'finject'].includes(p.data.topic || '')));
   return categoryGroups.map(group => {
     const children = group.children.map(category => {
-      const entries = posts.filter(p => p.data.category === category.id);
+      const entries = standalone.filter(p => p.data.category === category.id);
       return { key: `category-${category.id}`, type: 'topic' as const, topicId: `category-${category.id}`, label: category.label, href: `/categories/${category.id}/`, postCount: entries.length,
         children: entries.map(p => ({ key: `category-${category.id}-${p.id.replace(/\//g,'-')}`, type: 'post' as const, postId:p.id, label:p.data.navLabel || p.data.title, href:`/notes/${p.id}/`, children:[] })) };
     }).filter(c => c.postCount > 0);

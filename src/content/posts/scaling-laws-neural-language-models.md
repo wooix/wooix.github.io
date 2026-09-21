@@ -1,5 +1,5 @@
 ---
-title: 'Scaling Laws for Neural Language Models — 절별 해설'
+title: 'Scaling Laws for Neural Language Models'
 description: 'Kaplan 등의 2020년 Scaling Laws를 Figure 24개, Table 6개와 수식으로 읽습니다. 모델·데이터·계산 예산의 관계와 배치 보정, 관측과 외삽의 차이를 설명합니다.'
 publishedAt: '2026-09-21'
 topic: llm-tech
