@@ -5,6 +5,7 @@ import type { NavigationConfig } from '../lib/navigation';
 // See docs/navigation.md before adding folders, lessons, or reference posts.
 export const navigation = {
   'llm-tech': [
+    { type: 'post', postId: 'chinchilla-compute-optimal-language-models', label: 'Hoffmann et al. (2022) · Chinchilla' },
     { type: 'post', postId: 'scaling-laws-neural-language-models', label: 'Kaplan et al. (2020) · Scaling Laws' },
     { type: 'post', postId: 'transformers-are-rnns-linear-attention', label: 'Katharopoulos et al. (2020) · Linear Attention' },
   ],
