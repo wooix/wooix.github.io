@@ -4,6 +4,9 @@ import type { NavigationConfig } from '../lib/navigation';
 // Array order is reading order. Unplaced public posts are added to their own topic.
 // See docs/navigation.md before adding folders, lessons, or reference posts.
 export const navigation = {
+  'llm-tech': [
+    { type: 'post', postId: 'transformers-are-rnns-linear-attention', label: 'Katharopoulos et al. (2020) · Linear Attention' },
+  ],
   'synthetic-data-study': [
     { type: 'post', postId: 'synthetic-data-study/00-introduction', label: '0강 · Introduction', children: [
       { type: 'post', postId: 'synthetic-data-study/01-foundations/papers/long-2024', label: 'Long et al. (2024)' },
